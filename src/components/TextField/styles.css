@@ -1,0 +1,26 @@
+.textfield-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+input{
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 4px;
+    margin-top: 8px;
+    border: 1px solid var(--grey-300);
+    font-size: 16px;
+}
+
+.input-error{
+    border: 1px solid var(--error-400);
+}
+
+small{
+    font-size: 12px;
+}
+
+.error{
+    color: var(--error-400);
+}
