@@ -12,17 +12,8 @@ button{
     padding: 12px 16px;
 }
 
-.lg{
-    font-size: 16px;
-}
-
-.md{
-    font-size: 14px;
-}
-
 .sm{
     padding: 8px 16px;
-    font-size: 12px;
 }
 
 .fullfilled-btn{
