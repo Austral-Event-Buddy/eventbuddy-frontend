@@ -1,0 +1,54 @@
+p {
+  margin: 0;
+  padding: 0;
+  width: fit-content;
+  line-height: normal;
+}
+
+.h1 {
+  font-size: 56px;
+}
+
+.h2 {
+  font-size: 38px;
+}
+
+.h3 {
+  font-size: 32px;
+}
+
+.h4 {
+  font-size: 28px;
+}
+
+.h5 {
+  font-size: 24px;
+}
+
+.h6 {
+  font-size: 18px;
+}
+
+.body1,
+.body1bold {
+  font-size: 16px;
+}
+
+.body2,
+.body2bold {
+  font-size: 14px;
+}
+
+.body3,
+.body3bold {
+  font-size: 12px;
+}
+
+.body1bold,
+.body2bold,
+.body3bold, 
+.h5,
+.h6{
+  font-weight: 700;
+}
+
