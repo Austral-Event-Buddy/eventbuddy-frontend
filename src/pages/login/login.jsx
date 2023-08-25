@@ -36,15 +36,12 @@ function Login() {
         };
         axios.post('http://localhost:8080/api/auth/login', form)
             .then((response) => {
-                console.log(response)
+                localStorage.setItem('token', response.data.token)
             })
             .catch((error) => {
                 console.error(error);
             });
     }
-
-
-
 
     return (
         <div className='login-container'>
