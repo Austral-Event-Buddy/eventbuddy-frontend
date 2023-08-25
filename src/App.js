@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
+import RoutesWithNotFound from './route_wrappers/RoutesWithNotFound';
+import { PRIVATE_ROUTES, PUBLIC_ROUTES } from './utils/routes';
+import AuthGuard from './guards/AuthGuard';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <RoutesWithNotFound>
+        {
+          /*Las rutas publicas van aca*/
+          /*Hay que agregar la ruta a routes.js */
+          /*Usage: <Route exact path={PUBLIC_ROUTES.(ruta)} element={<Componente a Renderizar/>} /> */
+        }
+        <Route exact path={PUBLIC_ROUTES.LOGIN} element={<div>Login</div>} />
+        <Route exact path={PUBLIC_ROUTES.REGISTER} element={<div>Register</div>} />
+        <Route element={<AuthGuard />}>
+          {/*A partir de aca van las rutas privadas */}
+          <Route exact path={PRIVATE_ROUTES.HOME} element={<div>Home</div>} />
+        </Route>
+      </RoutesWithNotFound>
+    </Router>
   );
 }
 
