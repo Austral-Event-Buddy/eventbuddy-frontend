@@ -17,7 +17,7 @@ function Login() {
                     </div>
                     <div className='login-container--left_inputs'>
                         <div className='login-container--left_inputs_title'>
-                            <Typography variant='h5' children='Welcome Back'/>
+                            <Typography variant='h5'>Welcome Back</Typography>
                         </div>
                         <TextField label='Email' placeholder='jane.doe@mail.com'/>
                         <TextField label='Password' placeholder='Password123!'/>
