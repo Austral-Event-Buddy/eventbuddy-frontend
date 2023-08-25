@@ -1,4 +1,4 @@
-    import Typography from "../Typography"
+import Typography from "../Typography"
 import "./styles.css"
 import PropTypes from "prop-types"
 
