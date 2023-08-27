@@ -2,11 +2,11 @@ import Typography from "../Typography"
 import "./styles.css"
 import PropTypes from "prop-types"
 
-export default function TextField({label, name, value, onChange, helperText, placeholder, error}){
+export default function TextField({label, name, value, onChange, helperText, placeholder, error, type="text"}){
     return (
         <div className="textfield-container">
             <Typography variant={"body2"}>{label}</Typography>
-            <input type="text" 
+            <input type={type}
                 placeholder={placeholder} 
                 name={name} 
                 value={value} 
@@ -27,5 +27,6 @@ TextField.propTypes ={
     onChange: PropTypes.func,
     helperText: PropTypes.string,
     placeholder: PropTypes.string,
-    error: PropTypes.bool
+    error: PropTypes.bool,
+    type: PropTypes.oneOf(["text", "password", "number"])
 }
