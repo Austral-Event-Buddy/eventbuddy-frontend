@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
+import Login from "./pages/login/login";
 import RoutesWithNotFound from './route_wrappers/RoutesWithNotFound';
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from './utils/routes';
 import AuthGuard from './guards/AuthGuard';
