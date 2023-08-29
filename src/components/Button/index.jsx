@@ -1,8 +1,8 @@
-    import Typography from "../Typography"
+import Typography from "../Typography"
 import "./styles.css"
 import PropTypes from "prop-types"
 
-export default function Button({ text, variant = "fullfilled", disabled, onClick, size = "lg" }) {
+export default function Button({ text, variant = "fullfilled", disabled, onClick, size = "lg",  style={}, children}) {
 
     function getTypographyVariant() {
         switch (size) {
@@ -17,12 +17,20 @@ export default function Button({ text, variant = "fullfilled", disabled, onClick
         }
     }
 
+    const buttonStyle = {
+        width: "100%",
+        justifyContent: "center",
+        ...style
+    };
+
     return (
         <button
             className={`${variant}-btn  ${size}`}
             disabled={disabled}
             onClick={onClick}
+            style={buttonStyle}
         >
+            {children}
             <Typography variant={getTypographyVariant()}>
                 {text}
             </Typography>
@@ -34,5 +42,7 @@ Button.propTypes = {
     variant: PropTypes.oneOf(["fullfilled", "outlined", "ghost"]),
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
-    size: PropTypes.oneOf(["sm", "md", "lg"])
+    size: PropTypes.oneOf(["sm", "md", "lg"]),
+    style: PropTypes.object,
+    children: PropTypes.node,
 }

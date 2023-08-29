@@ -6,7 +6,6 @@ button{
     cursor: pointer;
     border: none;
     justify-content: center;
-    width: 100%;
 }
 
 .lg, .md{
