@@ -4,9 +4,9 @@ import img from "../../images/login-register.svg";
 import logo from "../../icons/eventBuddy-logo.svg";
 import Typography from "../Typography";
 import Button from "../../components/Button";
-import EventIcon from '@mui/icons-material/Event';
-import SettingsIcon from '@mui/icons-material/Settings';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import EventIcon from '@mui/icons-material/Event';
+// import SettingsIcon from '@mui/icons-material/Settings';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function SideBar({currentPage}){
 
@@ -34,16 +34,14 @@ export default function SideBar({currentPage}){
                         <Typography className={"title"} children={"EventBuddy"}></Typography>
                     </div>
                     <div className={"buttons"}>
-                        <Button text={"Events"} variant={isCurrentPage("Events")} style={buttonStyle}>
-                            <EventIcon />
-                        </Button>
-                        <Button text={"Settings"} variant={isCurrentPage("Settings")}  style={buttonStyle}>
-                            <SettingsIcon />
-                        </Button>
+                        <Button text={"Events"} variant={isCurrentPage("Events")} style={buttonStyle} />
+                        <Button text={"Settings"} variant={isCurrentPage("Settings")}  style={buttonStyle} />
                     </div>
                 <div className={"username-button-wrapper"} >
                     <Button style={{...buttonStyle, backgroundColor:"#180A33"}}>
-                        <AccountCircleIcon />
+                        {
+                            // <AccountCircleIcon />
+                        }
                         <Typography variant={"body1"} className={"username-button-text"} >
                             Jane Doe
                         </Typography>
