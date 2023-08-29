@@ -1,7 +1,7 @@
-.textfield-container{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.textfield-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 input{
@@ -11,17 +11,16 @@ input{
     margin-top: 8px;
     border: 1px solid var(--grey-300);
     font-size: 16px;
-    box-sizing: border-box;
 }
 
-.input-error{
-    border: 1px solid var(--error-400);
+.input-error {
+  border: 1px solid var(--error-400);
 }
 
-small{
-    font-size: 12px;
+small {
+  font-size: 12px;
 }
 
-.error{
-    color: var(--error-400);
+.error {
+  color: var(--error-400);
 }

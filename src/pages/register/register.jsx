@@ -1,4 +1,4 @@
-import './login.css';
+import './register.css';
 import logo from '../../icons/eventBuddy-logo.svg';
 import img from '../../images/login-register.svg';
 import TextField from '../../components/TextField';
@@ -7,18 +7,21 @@ import Typography from '../../components/Typography';
 import { useState } from 'react';
 
 import validator from 'validator';
-import { login } from '../../api/api';
+import { register } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../utils/routes';
 
-function Login() {
+function Register() {
   const [state, setState] = useState({
     disabled: true,
     error: false,
+    username: '',
     email: '',
     emailHelper: undefined,
     password: '',
     passwordHelper: undefined,
+    repeatPassword: '',
+    repeatPasswordHelper: undefined,
   });
 
   const navigate = useNavigate();
@@ -31,10 +34,11 @@ function Login() {
 
     const validEmail = validator.isEmail(newState.email);
     const validPassword = newState.password.length >= 8;
+    const passwordsMatch = newState.password === newState.repeatPassword;
 
     setState({
       ...newState,
-      disabled: !validEmail || !validPassword,
+      disabled: !validEmail || !validPassword || !passwordsMatch,
       emailHelper:
         validEmail || newState.email === ''
           ? undefined
@@ -43,6 +47,10 @@ function Login() {
         validPassword || newState.password === ''
           ? undefined
           : 'Must contain at least 8 characters',
+      repeatPasswordHelper:
+        passwordsMatch || newState.repeatPassword === ''
+          ? undefined
+          : "Passwords don't match",
     });
   };
 
@@ -51,23 +59,24 @@ function Login() {
     const form = {
       email: state.email,
       password: state.password,
+      username: state.username,
     };
-    login(form, () => navigate(Routes.Home)).catch(() =>
+    register(form, () => navigate(Routes.Home)).catch(() =>
       handleChange({ error: true }),
     );
   };
 
   return (
-    <div className="login-container">
-      <div className="login-container--left">
-        <div className="login-container--left_form">
-          <div className="login-container--left_brand">
+    <div className="register-container">
+      <div className="register-container--left">
+        <div className="register-container--left_form">
+          <div className="register-container--left_brand">
             <img alt="logo" src={logo} />
             <h2>EventBuddy</h2>
           </div>
-          <div className="login-container--left_inputs">
-            <div className="login-container--left_inputs_title">
-              <Typography variant="h5">Welcome Back!</Typography>
+          <div className="register-container--left_inputs">
+            <div className="register-container--left_inputs_title">
+              <Typography variant="h5">Create your account</Typography>
             </div>
             <TextField
               onChange={(e) => handleChange({ email: e.target.value })}
@@ -78,6 +87,12 @@ function Login() {
               helperText={state.emailHelper}
             />
             <TextField
+              onChange={(e) => handleChange({ username: e.target.value })}
+              value={state.username}
+              label="Username"
+              placeholder="jane.doe"
+            />
+            <TextField
               onChange={(e) => handleChange({ password: e.target.value })}
               value={state.password}
               label="Password"
@@ -86,25 +101,29 @@ function Login() {
               error={state.passwordHelper}
               helperText={state.passwordHelper}
             />
-            <div className="login-container--left_buttons">
+            <TextField
+              onChange={(e) => handleChange({ repeatPassword: e.target.value })}
+              value={state.repeatPassword}
+              label="Repeat Password"
+              placeholder="Password123!"
+              type="password"
+              error={state.repeatPasswordHelper}
+              helperText={state.repeatPasswordHelper}
+            />
+            <div className="register-container--left_buttons">
               <Button
                 disabled={state.disabled}
                 onClick={handleSubmit}
                 size="lg"
-                text="Log In"
-              />
-              <Button
-                variant="ghost"
-                size="lg"
                 text="Register"
-                onClick={() => navigate(Routes.Register)}
               />
+              <Button variant="ghost" size="lg" text="I have an account" />
             </div>
           </div>
         </div>
       </div>
-      <div className="login-container--right">
-        <div className="login-container--right_img">
+      <div className="register-container--right">
+        <div className="register-container--right_img">
           <img alt="img" src={img} />
         </div>
       </div>
@@ -112,4 +131,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
