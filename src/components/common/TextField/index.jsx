@@ -11,9 +11,10 @@ export default function TextField({
   placeholder,
   error,
   type = 'text',
+  className
 }) {
   return (
-    <div className="textfield-container">
+    <div className={`textfield-container ${className}`}>
       <Typography variant={'body2'}>{label}</Typography>
       <input
         type={type}

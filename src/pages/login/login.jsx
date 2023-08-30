@@ -1,9 +1,9 @@
 import './login.css';
 import logo from '../../icons/eventBuddy-logo.svg';
 import img from '../../images/login-register.svg';
-import TextField from '../../components/TextField';
-import Button from '../../components/Button';
-import Typography from '../../components/Typography';
+import TextField from '../../components/common/TextField';
+import Button from '../../components/common/Button';
+import Typography from '../../components/common/Typography';
 import { useState } from 'react';
 
 import validator from 'validator';
