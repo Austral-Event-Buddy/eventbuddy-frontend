@@ -1,33 +1,35 @@
-/*All pages should have a container div. I don't know a better way of solving this.*/
-.container-div{
+.container-div {
     display: flex;
     flex-direction: row;
     height: 100vh;
 }
+
 .right-hand-side{
-    flex:1;
+    flex: 1;
     overflow-y: auto;
 }
 
+.title-bar {
+    display: flex;
+    padding: 60px 86px;
+    justify-content: space-between;
+}
+
 .page-title{
-    position: relative;
-    left:3%;
-    top:45px;
     height: max-content;
 }
-.search{
-    position: relative;
+
+.search {
     display: flex;
     align-items: center;
-    left:55%;
+    left: 55%;
     width: 500px;
     height: max-content;
-    gap:10px
-
+    gap: 10px
 }
-.search-button{
-    position: absolute;
-    right:0;
+
+.search-bar {
+    flex-grow: 1;
 }
 
 .events {

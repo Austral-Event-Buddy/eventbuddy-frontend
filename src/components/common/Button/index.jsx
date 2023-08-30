@@ -8,23 +8,24 @@ export default function Button({
   disabled,
   onClick,
   size = 'lg',
+  className
 }) {
   function getTypographyVariant() {
     switch (size) {
       case 'lg':
-        return 'body1';
+        return 'body1bold';
       case 'md':
-        return 'body2';
+        return 'body2bold';
       case 'sm':
-        return 'body3';
+        return 'body3bold';
       default:
-        return 'body1';
+        return 'body1bold';
     }
   }
 
   return (
     <button
-      className={`${variant}-btn  ${size}`}
+      className={`${variant}-btn ${size} ${className}`}
       disabled={disabled}
       onClick={onClick}
     >

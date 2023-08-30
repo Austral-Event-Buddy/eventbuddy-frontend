@@ -3,7 +3,7 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    border: 1px solid #BFBFBF;
+    border: 1px solid var(--grey-300);
     border-radius: 12px;
     padding: 16px;
     gap:24px;

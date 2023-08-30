@@ -1,31 +1,31 @@
 import React from 'react';
 import './styles.css';
 import sampleImage from '../../images/sample-map.png';
-import Typography from "../Typography";
-import PersonIcon from '@mui/icons-material/Person';
-import Button from "../Button";
+import Typography from "../common/Typography";
+import Button from "../common/Button";
 import PropTypes from "prop-types"
 
-function getTimeRemaining(eventDate){
+function getCountDown(eventDate){
     const currentDate = new Date();
     const timeDifference = eventDate - currentDate;
     const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    return daysRemaining === 0 ? 'Today' : `in ${daysRemaining} days`;
+    return daysRemaining === 0 ? `Today` : `in ${daysRemaining} days`;
 }
 
 export default function Event({ name, date, invitationAmount, status ="pending" }) {
-    const timeRemaining = getTimeRemaining(date);
+    const timeRemaining = getCountDown( date);
 
     return (
         <div className="events-container">
             <div className="cropped-image">
-                <img src={sampleImage} alt="Event Image" className="scaled-image" />
+                <img src={sampleImage} alt="Event" className="scaled-image" />
             </div>
             <div className={"event-data"}>
                 <Typography variant={"h6"}>{name}</Typography>
                 <Typography variant={"body3"}>{timeRemaining}</Typography>
                 <div className={"invites"}>
-                    <PersonIcon sx={{height:"15px", width: "auto", color: "#471F99"}} />
+                    {//<PersonIcon sx={{height:"15px", width: "auto", color: "#471F99"}} />
+                    }
                     <Typography variant={"body3"}>{invitationAmount} invited</Typography>
                 </div>
             </div>

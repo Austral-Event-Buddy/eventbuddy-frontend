@@ -1,54 +1,41 @@
-.container{
-    position: relative;
-    border-width: 1px;
-    width:13%;
-    border-right: 1px solid #BFBFBF;
+.container {
     height:100vh;
-}
-
-.center{
-    position: relative;
-    margin: auto;
-    width: auto;
-    /*border: 1px solid blue;    Use this line to see the perimeter of center*/
-    padding: 10px;
-    height: 97%;
-    overflow: hidden;
+    width: 240px;
+    border-right: 1px solid var(--grey-300);
     text-overflow: ellipsis;
-    gap:10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.logo{
-    display: flex;
-    padding-top: 15px;
-    padding-bottom: 30px;
+.brand {
+    margin-top: 24px;
+    margin-bottom: 32px;
 }
 
 .buttons{
-    justify-content: left;
-    height: 85%;
-}
-
-.username-button-wrapper {
+    flex-grow: 1;
+    padding: 12px;
     display: flex;
-    justify-content: left;
-    align-items: flex-end; /* Align at the bottom */
-    margin-top: auto; /* Push the button to the bottom */
-}
-.username-button{
-    position: absolute;
-    width: auto;
-    height: auto;
-    border: 1px solid blue;
-    bottom: 0;
-}
-.username-button-text{
-    padding-left: 20px;
-    overflow:hidden;
-    text-overflow: ellipsis;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.title {
-    font-size: 22px;
-    font-weight: 550;
+.account-menu {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 32px 12px 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: var(--primary-700);
+    color: var(--white)
+}
+
+.profile-picture {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    background-color: var(--grey-300);
+    margin-right: 12px;
 }
