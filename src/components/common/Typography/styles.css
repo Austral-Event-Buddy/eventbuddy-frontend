@@ -3,6 +3,7 @@ p {
   padding: 0;
   width: fit-content;
   line-height: normal;
+  text-overflow: ellipsis;
 }
 
 .h1 {
@@ -46,9 +47,8 @@ p {
 
 .body1bold,
 .body2bold,
-.body3bold, 
+.body3bold,
 .h5,
-.h6{
+.h6 {
   font-weight: 700;
 }
-
