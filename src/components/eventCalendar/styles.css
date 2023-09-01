@@ -1,0 +1,13 @@
+.rdp {
+    --rdp-accent-color: var(--success-100);
+    --rdp-background-color: var(--primary-100);
+    --rdp-caption-font-size: 18px;
+}
+
+.rdp-day, .rdp-nav_button {
+    border-radius: 4px;
+}
+
+.rdp-day_selected{
+    color: var(--black);
+}

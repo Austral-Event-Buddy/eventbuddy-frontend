@@ -3,6 +3,7 @@ import Button from "../../components/common/Button";
 import Typography from "../../components/common/Typography";
 import "./home.css"
 import Event from '../../components/Event';
+import EventCalendar from '../../components/eventCalendar';
 
 function Home() {
     return (
@@ -18,13 +19,17 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <div className={"events"}>
-                <Event name={"Jane's Birthday Party"} invitationAmount={14} date={new Date('2023-09-15')} />
-                <Event name={"Joe's Birthday Party"} invitationAmount={12} date={new Date('2023-09-03')} status={"confirmed"} />
-                <Event name={"Bob's Birthday Party"} invitationAmount={12} date={new Date('2023-09-03')} status={"confirmed"} />
-                <Event name={"Frank's Birthday Party"} invitationAmount={12} date={new Date('2023-09-03')} status={"confirmed"} />
-                <Event name={"Sophie's Birthday Party"} invitationAmount={12} date={new Date('2023-09-03')} status={"confirmed"} />
+            <div className='main-content'>
+                <div className={"events"}>
+                    <Event name={"Jane's Birthday Party"} invitationAmount={14} date={new Date('2023-09-15')} />
+                    <Event name={"Joe's Birthday Party"} invitationAmount={12} date={new Date('2023-09-03')} status={"confirmed"} />
+                    <Event name={"Bob's Birthday Party"} invitationAmount={12} date={new Date('2023-09-03')} status={"confirmed"} />
+                    <Event name={"Frank's Birthday Party"} invitationAmount={12} date={new Date('2023-09-03')} status={"confirmed"} />
+                    <Event name={"Sophie's Birthday Party"} invitationAmount={12} date={new Date('2023-09-03')} status={"confirmed"} />
+                </div>
+                <EventCalendar/>
             </div>
+
         </div>
     )
 }
