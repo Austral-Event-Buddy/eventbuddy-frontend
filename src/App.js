@@ -7,7 +7,7 @@ import AuthGuard from './guards/AuthGuard';
 import Login from './pages/login/login';
 import Register from './pages/register/register';
 import Home from "./pages/home/home";
-
+import 'mapbox-gl/dist/mapbox-gl.css';
 function App() {
   return (
     <Router>
