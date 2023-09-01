@@ -1,5 +1,4 @@
 import "./styles.css"
-import PropTypes from "prop-types"
 import Typography from "../common/Typography";
 import Button from "../common/Button";
 import Brand from "../common/Brand";

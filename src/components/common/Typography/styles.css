@@ -49,6 +49,7 @@ p {
 .body2bold,
 .body3bold,
 .h5,
-.h6 {
+.h6,
+.bold{
   font-weight: 700;
 }

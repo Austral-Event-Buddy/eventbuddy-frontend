@@ -7,6 +7,7 @@ import AuthGuard from './guards/AuthGuard';
 import Login from './pages/login/login';
 import Register from './pages/register/register';
 import Home from "./pages/home/home";
+import SideBarWrapper from './wrappers/SideBarWrapper';
 
 function App() {
   return (
@@ -23,7 +24,13 @@ function App() {
               // Private routes go here
               // Usage: <Route exact path={Routes.(path)} element={<Page />} />
           }
-          <Route exact path={Routes.Home} element={<Home />} />
+          <Route element={<SideBarWrapper/>}>
+            {
+              //Routes with SideBar goes here
+            }
+            <Route exact path={Routes.Home} element={<Home />} />
+          </Route>
+          
         </Route>
       </RoutesWithNotFound>
     </Router>
