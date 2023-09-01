@@ -5,7 +5,8 @@ import TextField from '../../components/common/TextField';
 import Button from '../../components/common/Button';
 import Typography from '../../components/common/Typography';
 import { useState } from 'react';
-
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import validator from 'validator';
 import { register } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
@@ -61,8 +62,10 @@ function Register() {
       password: state.password,
       username: state.username,
     };
-    register(form, () => navigate(Routes.Home)).catch(() =>
-      handleChange({ error: true }),
+    register(form, () => navigate(Routes.Home)).
+    catch(() =>{
+        toast.error("Username or email already exists")
+        }
     );
   };
 
@@ -117,8 +120,18 @@ function Register() {
                 size="lg"
                 text="Register"
               />
-              <Button variant="ghost" size="lg" text="I have an account" />
+              <Button onClick={() => navigate(Routes.Login)} variant="ghost" size="lg" text="I have an account" />
             </div>
+              <ToastContainer
+                  position="top-center"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  theme="light"
+              />
           </div>
         </div>
       </div>
