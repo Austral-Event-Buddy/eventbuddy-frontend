@@ -1,8 +1,9 @@
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import './styles.css'
+import PropTypes from 'prop-types';
 
-export default function EventCalendar() {
+export default function EventCalendar({days}) {
     const mockDays = [
         new Date(), 
         new Date("September 17, 2023"), 
@@ -19,4 +20,8 @@ export default function EventCalendar() {
             showOutsideDays 
         />
     )
+}
+
+EventCalendar.propTypes = {
+    days: PropTypes.arrayOf(Date)
 }
