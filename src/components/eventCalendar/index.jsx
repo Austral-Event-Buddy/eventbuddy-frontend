@@ -3,7 +3,7 @@ import 'react-day-picker/dist/style.css';
 import './styles.css'
 import PropTypes from 'prop-types';
 
-export default function EventCalendar({days}) {
+export default function EventCalendar({days, mode="multiple", onClick}) {
     const mockDays = [
         new Date(), 
         new Date("September 17, 2023"), 
@@ -12,16 +12,20 @@ export default function EventCalendar({days}) {
     ];
 
     //we could also use UseState
+    //onClick should be a function like (day)=>console.log(day.toDateString())
 
     return (
         <DayPicker
-            mode="multiple"
+            mode={mode}
             selected={mockDays}
+            onDayClick={onClick}
             showOutsideDays 
         />
     )
 }
 
 EventCalendar.propTypes = {
-    days: PropTypes.arrayOf(Date)
+    days: PropTypes.arrayOf(Date),
+    mode: PropTypes.oneOf(["multiple", "single", "range"]),
+    onClick: PropTypes.func
 }

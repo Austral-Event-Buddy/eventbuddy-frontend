@@ -23,6 +23,12 @@
     border-radius: 4px;
 }
 
+.rdp-nav_button:hover, 
+.rdp-nav_button:focus-visible{
+    background-color: var(--primary-300) !important;
+    color: var(--white);
+}
+
 
 
 .rdp-day_selected,
