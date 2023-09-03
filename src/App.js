@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Navigate, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route } from 'react-router-dom';
 
 import RoutesWithNotFound from './guards/RoutesWithNotFound';
 import { Routes } from './utils/routes';
@@ -6,25 +6,33 @@ import AuthGuard from './guards/AuthGuard';
 
 import Login from './pages/login/login';
 import Register from './pages/register/register';
-import Home from "./pages/home/home";
-import {isAuthenticated} from "./guards/isAuthenticated";
+import Home from './pages/home/home';
+import { isAuthenticated } from './guards/isAuthenticated';
 
 function App() {
   return (
     <Router>
       <RoutesWithNotFound>
         {
-            // Public routes go here
-            // Usage: <Route exact path={Routes.(path)} element={<Page />} />
+          // Public routes go here
+          // Usage: <Route exact path={Routes.(path)} element={<Page />} />
         }
-          <Route
-              exact path={Routes.Login} element={isAuthenticated() ? (<Navigate to={Routes.Home} replace />) : (<Login />)}
-          />
-          <Route exact path={Routes.Register} element={<Register />} />
+        <Route
+          exact
+          path={Routes.Login}
+          element={
+            isAuthenticated() ? (
+              <Navigate to={Routes.Home} replace />
+            ) : (
+              <Login />
+            )
+          }
+        />
+        <Route exact path={Routes.Register} element={<Register />} />
         <Route element={<AuthGuard />}>
           {
-              // Private routes go here
-              // Usage: <Route exact path={Routes.(path)} element={<Page />} />
+            // Private routes go here
+            // Usage: <Route exact path={Routes.(path)} element={<Page />} />
           }
           <Route exact path={Routes.Home} element={<Home />} />
         </Route>
