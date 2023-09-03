@@ -1,23 +1,23 @@
 .logo-sm {
-    width: 24px;
+  width: 24px;
 }
 
 .logo-md {
-    width: 36px;
+  width: 36px;
 }
 
 .logo-lg {
-    width: 48px;
+  width: 48px;
 }
 
 .logo {
-    padding: 0;
-    margin-right: 6px;
+  padding: 0;
+  margin-right: 6px;
 }
 
 .brand-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
 }

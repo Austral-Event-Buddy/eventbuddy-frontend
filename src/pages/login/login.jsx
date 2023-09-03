@@ -4,12 +4,14 @@ import img from '../../images/login-register.svg';
 import TextField from '../../components/common/TextField';
 import Button from '../../components/common/Button';
 import Typography from '../../components/common/Typography';
-import { useState } from 'react';
-
+import React, { useState } from 'react';
 import validator from 'validator';
 import { login } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../utils/routes';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Toasterror from '../../components/common/Toast/toasterror';
 
 function Login() {
   const [state, setState] = useState({
@@ -45,16 +47,15 @@ function Login() {
           : 'Must contain at least 8 characters',
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = {
       email: state.email,
       password: state.password,
     };
-    login(form, () => navigate(Routes.Home)).catch(() =>
-      handleChange({ error: true }),
-    );
+    login(form, () => navigate(Routes.Home)).catch(() => {
+      toast.error('Username or password incorrect');
+    });
   };
 
   return (
@@ -100,6 +101,7 @@ function Login() {
                 onClick={() => navigate(Routes.Register)}
               />
             </div>
+            <Toasterror />
           </div>
         </div>
       </div>

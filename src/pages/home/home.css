@@ -1,46 +1,46 @@
 .container-div {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
 }
 
-.right-hand-side{
-    flex: 1;
-    overflow-y: auto;
+.right-hand-side {
+  flex: 1;
+  overflow-y: auto;
 }
 
 .title-bar {
-    display: flex;
-    padding: 60px 86px;
-    justify-content: space-between;
+  display: flex;
+  padding: 60px 86px;
+  justify-content: space-between;
 }
 
-.page-title{
-    height: max-content;
+.page-title {
+  height: max-content;
 }
 
 .search {
-    display: flex;
-    align-items: center;
-    left: 55%;
-    width: 500px;
-    height: max-content;
-    gap: 10px
+  display: flex;
+  align-items: center;
+  left: 55%;
+  width: 500px;
+  height: max-content;
+  gap: 10px;
 }
 
 .search-bar {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .events {
-    position: absolute;
-    top: 15vh;
-    max-height: 85vh;
-    left: 26%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-    overflow: auto;
-    padding-right: 20px;
+  position: absolute;
+  top: 15vh;
+  max-height: 85vh;
+  left: 26%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  overflow: auto;
+  padding-right: 20px;
 }
