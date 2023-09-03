@@ -8,7 +8,7 @@ export default function Button({
   disabled,
   onClick,
   size = 'lg',
-  className
+  className,
 }) {
   function getTypographyVariant() {
     switch (size) {

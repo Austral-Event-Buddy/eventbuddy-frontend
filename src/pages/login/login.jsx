@@ -9,10 +9,9 @@ import validator from 'validator';
 import { login } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../utils/routes';
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Toasterror from "../../components/common/Toast/toasterror";
-
+import Toasterror from '../../components/common/Toast/toasterror';
 
 function Login() {
   const [state, setState] = useState({
@@ -48,16 +47,15 @@ function Login() {
           : 'Must contain at least 8 characters',
     });
   };
-    const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const form = {
       email: state.email,
       password: state.password,
     };
-        login(form, () => navigate(Routes.Home))
-            .catch(() => {
-                toast.error("Username or password incorrect");
-            });
+    login(form, () => navigate(Routes.Home)).catch(() => {
+      toast.error('Username or password incorrect');
+    });
   };
 
   return (
@@ -103,7 +101,7 @@ function Login() {
                 onClick={() => navigate(Routes.Register)}
               />
             </div>
-              <Toasterror/>
+            <Toasterror />
           </div>
         </div>
       </div>
