@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../utils/routes';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Toasterror from "../../components/common/Toast/toasterror";
 
 
 function Login() {
@@ -101,17 +102,8 @@ function Login() {
                 text="Register"
                 onClick={() => navigate(Routes.Register)}
               />
-                <ToastContainer
-                    position="top-center"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    theme="light"
-                />
             </div>
+              <Toasterror/>
           </div>
         </div>
       </div>
