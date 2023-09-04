@@ -11,6 +11,7 @@ import validator from 'validator';
 import { register } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../utils/routes';
+import ToastError from "../../components/common/Toast/toasterror";
 
 function Register() {
   const [state, setState] = useState({
@@ -68,7 +69,6 @@ function Register() {
         }
     );
   };
-
   return (
     <div className="register-container">
       <div className="register-container--left">
@@ -122,16 +122,7 @@ function Register() {
               />
               <Button onClick={() => navigate(Routes.Login)} variant="ghost" size="lg" text="I have an account" />
             </div>
-              <ToastContainer
-                  position="top-center"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  theme="light"
-              />
+              <ToastError/>
           </div>
         </div>
       </div>
