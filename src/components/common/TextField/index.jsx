@@ -11,7 +11,7 @@ export default function TextField({
   placeholder,
   error,
   type = 'text',
-  className
+  className,
 }) {
   return (
     <div className={`textfield-container ${className}`}>

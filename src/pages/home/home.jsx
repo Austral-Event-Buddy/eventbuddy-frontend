@@ -1,7 +1,7 @@
 import TextField from '../../components/common/TextField';
-import Button from "../../components/common/Button";
-import Typography from "../../components/common/Typography";
-import "./home.css"
+import Button from '../../components/common/Button';
+import Typography from '../../components/common/Typography';
+import './home.css';
 import Event from '../../components/Event';
 import EventCalendar from '../../components/eventCalendar';
 
