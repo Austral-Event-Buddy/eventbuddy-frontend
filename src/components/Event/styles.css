@@ -1,55 +1,55 @@
-.events-container{
-    width: 800px;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    border: 1px solid var(--grey-300);
-    border-radius: 12px;
-    padding: 16px;
-    gap:24px;
+.events-container {
+  width: 800px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid var(--grey-300);
+  border-radius: 12px;
+  padding: 16px;
+  gap: 24px;
 }
 
 .cropped-image {
-    width: 230px;
-    height: 150px;
-    border-radius: 8px;
-    overflow: hidden; /* Hide the extra part of the image */
+  width: 230px;
+  height: 150px;
+  border-radius: 8px;
+  overflow: hidden; /* Hide the extra part of the image */
 }
 
 .scaled-image {
-    object-fit: cover; /* Maintain aspect ratio and cover the container */
-    width: 100%;
-    height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+  width: 100%;
+  height: 100%;
 }
 
-.event-data{
-    position: relative;
+.event-data {
+  position: relative;
 }
-.invites{
-    position: absolute;
-    display: flex;
-    bottom: 0;
-    font-weight: bold;
-    gap:4px;
+.invites {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  font-weight: bold;
+  gap: 4px;
 }
 
-.confirmation-buttons{
-    position:absolute;
-    display: flex;
-    gap: 10px;
-    right:0;
-    bottom:0;
-    height: 32px;
-    width: 30%;
-    padding: 16px;
+.confirmation-buttons {
+  position: absolute;
+  display: flex;
+  gap: 10px;
+  right: 0;
+  bottom: 0;
+  height: 32px;
+  width: 30%;
+  padding: 16px;
 }
-.confirmed-button{
-    position:absolute;
-    display: flex;
-    gap: 10px;
-    right:0;
-    bottom:0;
-    height: 32px;
-    width: 14%;
-    padding: 16px;
+.confirmed-button {
+  position: absolute;
+  display: flex;
+  gap: 10px;
+  right: 0;
+  bottom: 0;
+  height: 32px;
+  width: 14%;
+  padding: 16px;
 }

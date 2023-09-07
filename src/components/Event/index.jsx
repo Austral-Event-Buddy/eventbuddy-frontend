@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import './styles.css';
-import sampleImage from '../../images/sample-map.png';
+import "mapbox-gl/dist/mapbox-gl.css";
 import Typography from "../common/Typography";
 import Button from "../common/Button";
 import PropTypes from "prop-types"
+import mapboxgl from "mapbox-gl";
+import Map from "./map";
 
 function getCountDown(eventDate){
     const currentDate = new Date();
@@ -12,13 +14,15 @@ function getCountDown(eventDate){
     return daysRemaining === 0 ? `Today` : `in ${daysRemaining} days`;
 }
 
-export default function Event({ name, date, invitationAmount, status ="pending" }) {
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
+export default function Event({ name, date, invitationAmount, status, location }) {
+
     const timeRemaining = getCountDown( date);
 
     return (
         <div className="events-container">
             <div className="cropped-image">
-                <img src={sampleImage} alt="Event" className="scaled-image" />
+                <Map location={location} />
             </div>
             <div className={"event-data"}>
                 <Typography variant={"h6"}>{name}</Typography>

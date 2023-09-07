@@ -5,11 +5,13 @@ import TextField from '../../components/common/TextField';
 import Button from '../../components/common/Button';
 import Typography from '../../components/common/Typography';
 import { useState } from 'react';
-
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import validator from 'validator';
 import { register } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../utils/routes';
+import ToastError from "../../components/common/Toast/toasterror";
 
 function Register() {
   const [state, setState] = useState({
@@ -61,11 +63,12 @@ function Register() {
       password: state.password,
       username: state.username,
     };
-    register(form, () => navigate(Routes.Home)).catch(() =>
-      handleChange({ error: true }),
+    register(form, () => navigate(Routes.Home)).
+    catch(() =>{
+        toast.error("Username or email already exists")
+        }
     );
   };
-
   return (
     <div className="register-container">
       <div className="register-container--left">
@@ -117,8 +120,9 @@ function Register() {
                 size="lg"
                 text="Register"
               />
-              <Button variant="ghost" size="lg" text="I have an account" />
+              <Button onClick={() => navigate(Routes.Login)} variant="ghost" size="lg" text="I have an account" />
             </div>
+              <ToastError/>
           </div>
         </div>
       </div>

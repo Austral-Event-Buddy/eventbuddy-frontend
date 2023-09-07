@@ -8,7 +8,7 @@ export default function Button({
   disabled,
   onClick,
   size = 'lg',
-  className
+  className,
 }) {
   function getTypographyVariant() {
     switch (size) {
@@ -25,7 +25,7 @@ export default function Button({
 
   return (
     <button
-      className={`${variant}-btn ${size} ${className}`}
+      className={`${variant}-btn ${size} ${className} btn`}
       disabled={disabled}
       onClick={onClick}
     >
