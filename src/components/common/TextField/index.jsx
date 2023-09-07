@@ -11,11 +11,13 @@ export default function TextField({
   placeholder,
   error,
   type = 'text',
-  className
+  className,
 }) {
   return (
     <div className={`textfield-container ${className}`}>
-      <Typography variant={'body2'}>{label}</Typography>
+      {label &&
+        <Typography variant={'body2'} className='label'>{label}</Typography>
+      }
       <input
         type={type}
         placeholder={placeholder}
@@ -25,7 +27,7 @@ export default function TextField({
         className={error ? 'input-error' : ''}
       />
       {helperText && (
-        <Typography variant={'body3'} className={error ? 'error' : ''}>
+        <Typography variant={'body3'} className={'helper-text ' + (error ? 'error' : '')}>
           {helperText}
         </Typography>
       )}
