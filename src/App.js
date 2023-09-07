@@ -6,7 +6,8 @@ import AuthGuard from './guards/AuthGuard';
 
 import Login from './pages/login/login';
 import Register from './pages/register/register';
-import Home from './pages/home/home';
+import Home from "./pages/home/home";
+import 'mapbox-gl/dist/mapbox-gl.css';
 import SideBarWrapper from './wrappers/SideBarWrapper';
 import { isAuthenticated } from './guards/isAuthenticated';
 
@@ -35,6 +36,13 @@ function App() {
             // Private routes go here
             // Usage: <Route exact path={Routes.(path)} element={<Page />} />
           }
+          <Route element={<SideBarWrapper/>}>
+            {
+              //Routes with SideBar goes here
+            }
+            <Route exact path={Routes.Home} element={<Home />} />
+          </Route>
+          
           <Route element={<SideBarWrapper/>}>
             {
               //Routes with SideBar goes here
