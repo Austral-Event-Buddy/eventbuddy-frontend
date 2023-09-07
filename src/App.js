@@ -43,6 +43,13 @@ function App() {
             <Route exact path={Routes.Home} element={<Home />} />
           </Route>
           
+          <Route element={<SideBarWrapper/>}>
+            {
+              //Routes with SideBar goes here
+            }
+            <Route exact path={Routes.Home} element={<Home />} />
+          </Route>
+          
         </Route>
       </RoutesWithNotFound>
     </Router>

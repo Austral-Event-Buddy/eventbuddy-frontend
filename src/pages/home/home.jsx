@@ -1,14 +1,13 @@
 import TextField from '../../components/common/TextField';
-import Button from "../../components/common/Button";
-import Typography from "../../components/common/Typography";
-import SideBar from "../../components/SideBar";
-import "./home.css"
+import Button from '../../components/common/Button';
+import Typography from '../../components/common/Typography';
+import './home.css';
 import Event from '../../components/Event';
-import {useEffect, useState} from "react";
-import {home} from "../../api/api";
+import EventCalendar from '../../components/eventCalendar';
+import { useEffect, useState } from "react";
+import { home } from "../../api/api";
 
-function Home(){
-
+export default function Home() {
     const eventsData = [
         {
             name: "Jane's Birthday Party",
@@ -59,23 +58,20 @@ function Home(){
             });
     }, []);
 
-    console.log(events)
-
-    return(
-        <div className={"container-div"}>
-            <SideBar />
-            <div className={"right-hand-side"}>
-                <div className={"title-bar"}>
-                    <div className={"page-title"}>
-                        <Typography variant="h5">My Events</Typography>
-                    </div>
-                    <div className={"search"}>
-                        <TextField className="search-bar" placeholder={"Search by name, description or invited people."} />
-                        <div className="search-button">
-                            <Button text="Search"/>
-                        </div>
+    return (
+        <div className={"right-hand-side"}>
+            <div className={"title-bar"}>
+                <div className={"page-title"}>
+                    <Typography variant="h4" className='bold'>My Events</Typography>
+                </div>
+                <div className={"search"}>
+                    <TextField className="search-bar" placeholder={"Search by name, description or invited people."} />
+                    <div className="search-button">
+                        <Button text="Search" />
                     </div>
                 </div>
+            </div>
+            <div className='main-content'>
                 <div className={"events"}>
                     {eventsData.map((event, index) => (
                         <Event
@@ -88,9 +84,10 @@ function Home(){
                         />
                     ))}
                 </div>
+                <EventCalendar />
             </div>
+
+
         </div>
     )
 }
-
-export default Home;
