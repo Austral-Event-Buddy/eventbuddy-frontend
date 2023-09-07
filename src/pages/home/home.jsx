@@ -36,7 +36,7 @@ function Home(){
             invitationAmount: 12,
             date: new Date('2023-09-03'),
             status: "confirmed",
-            coordinates: [58.8566, 2.3522], // París, Francia.
+            coordinates: [48.8566, 2.3522], // París, Francia.
         },
         {
             name: "Sophie's Birthday Party",

@@ -5,6 +5,7 @@ import Typography from "../common/Typography";
 import Button from "../common/Button";
 import PropTypes from "prop-types"
 import mapboxgl from "mapbox-gl";
+import Map from "./map";
 
 function getCountDown(eventDate){
     const currentDate = new Date();
@@ -16,27 +17,13 @@ function getCountDown(eventDate){
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 export default function Event({ name, date, invitationAmount, status, location }) {
 
-    const mapContainer = useRef(null);
-    const map = useRef(null);
-
     const timeRemaining = getCountDown( date);
-
-    useEffect(() => {
-        if (map.current) return;
-        map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v12',
-            center: [location[1], location[0]],
-            zoom: 16
-        });
-        new mapboxgl.Marker({ color: 'red' })
-            .setLngLat([location[1], location[0]])
-            .addTo(map.current);
-    });
 
     return (
         <div className="events-container">
-            <div ref={mapContainer} className="cropped-image" />
+            <div className="cropped-image">
+                <Map location={location} />
+            </div>
             <div className={"event-data"}>
                 <Typography variant={"h6"}>{name}</Typography>
                 <Typography variant={"body3"}>{timeRemaining}</Typography>
