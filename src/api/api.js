@@ -19,3 +19,8 @@ export const register = async (body, callback) => {
   setToken(res.data.access_token);
   callback();
 };
+
+export const home = async () => {
+    const res = await api.get('event');
+    return res.data
+};
