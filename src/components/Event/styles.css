@@ -25,12 +25,19 @@
 .event-data {
   position: relative;
 }
+.invite-picture{
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    gap: 4px;
+}
 .invites {
   position: absolute;
   display: flex;
   bottom: 0;
   font-weight: bold;
   gap: 4px;
+    margin-left: 100px;
 }
 
 .confirmation-buttons {
