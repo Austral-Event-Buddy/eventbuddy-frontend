@@ -1,4 +1,44 @@
 .event-main{
     width: 100%;
-    padding: 48px;
+}
+
+.event-info-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.event-header{
+    background-image: linear-gradient(180deg, rgba(255,255,255,0) 20%, rgba(255,255,255,1) 100%), url('../../images/event-bg-image.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center 60%;
+    height: 20%;
+    display: grid;
+    align-content: end;
+    padding: 25px;
+}
+
+.event-title{
+    display: flex;
+    align-items: end;
+    gap: 25px;
+}
+
+.event-title > .body2 {
+    margin-bottom: 5px;
+}
+
+.event-body{
+    display: flex;
+    flex-direction: row;
+}
+
+.event-body-left{
+    padding: 16px;
+    width: 100%;
+}
+
+.event-body-left > .cropped-image{
+    height: 320px;
 }
