@@ -13,17 +13,13 @@
   width: 230px;
   height: 150px;
   border-radius: 8px;
-  overflow: hidden; /* Hide the extra part of the image */
+  overflow: hidden;
 }
 
-.scaled-image {
-  object-fit: cover; /* Maintain aspect ratio and cover the container */
-  width: 100%;
-  height: 100%;
-}
 
 .event-data {
   position: relative;
+    padding-right: 60px;
 }
 .invite-picture{
     position: absolute;

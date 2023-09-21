@@ -37,14 +37,14 @@ export default function Event({ name, date, invitationAmount, status, location }
             <div className={"event-data"}>
                 <Typography variant={"h6"}>{name}</Typography>
                 <Typography variant={"body3"}>{timeRemaining}</Typography>
-                <div style ={{display: 'flex'}}>
-                    <div className="invite-picture">
-                        <AccountCircleIcon sx={{border: '2px solid white', borderRadius: '32px', height: '32px', width: '32px',color: '#471F99' }} />
+                <div style ={{display: 'flex', marginLeft: '15px'}}>
+                    <div className="invite-picture" >
+                        <AccountCircleIcon sx={iconStyle} />
                         <AccountCircleIcon sx={iconStyle} />
                         <AccountCircleIcon sx={iconStyle} />
                         <AccountCircleIcon sx={iconStyle} />
                     </div>
-                    <div className="invites">
+                    <div className="invites" style ={{marginBottom: '6px'}}>
                         <Typography variant="body2">{invitationAmount} invited</Typography>
                     </div>
                 </div>
