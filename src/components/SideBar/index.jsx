@@ -31,7 +31,7 @@ export default function SideBar() {
             text={route.label}
             size="lg"
             variant={
-              Routes[currentRoute] === route.path ? 'fullfilled' : 'ghost'
+              Routes[currentRoute] === route.path ? 'fullfilled' : 'outlined'
             }
             onClick={() => navigate(route.path)}
           />
