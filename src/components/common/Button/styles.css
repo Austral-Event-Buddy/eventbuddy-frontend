@@ -39,6 +39,13 @@
   color: var(--primary-500);
 }
 
+.error {
+    background-color: var(--white);
+    color: var(--error-400);
+    border-color: var(--error-400);
+}
+
+
 .outlined-btn:hover,
 .ghost-btn:hover {
   background-color: var(--primary-300);

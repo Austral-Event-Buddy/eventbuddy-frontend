@@ -15,6 +15,7 @@ function getCountDown(eventDate){
 }
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
+
 export default function Event({ name, date, invitationAmount, status, location }) {
 
     const timeRemaining = getCountDown( date);
@@ -33,32 +34,25 @@ export default function Event({ name, date, invitationAmount, status, location }
                     <Typography variant={"body3"}>{invitationAmount} invited</Typography>
                 </div>
             </div>
-            {status === "confirmed" && (
+            {status === "ATTENDING" ? (
                 <div className={"confirmed-button"}>
-                    <Button text={"Confirmed"} size={"sm"} style={{backgroundColor: "#BFBFBF", color:"#606060"}} />
+                    <Button text={"Confirmed"} size={"sm"} disabled={true} />
                 </div>
-            )}
-            {status === "pending" && (
+            ) : (
                 <div className={"confirmation-buttons"}>
-                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"}  style={{borderColor: "#E5493A", color: "#E5493A"}}/>
-                    <Button text={"Attending"} size={"sm"} />
-                </div>
-            )}
-            {status === "not attending" && (
-                <div className={"confirmed-button"}>
-                    <Button text={"Not Attending"} size={"sm"} style={{backgroundColor: "#BFBFBF", color:"#606060"}} />
+                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"}  className="error"/>
+                    <Button text={"Pending"} size={"sm"}/>
                 </div>
             )}
         </div>
     );
 }
 
-
 Event.propTypes = {
     name: PropTypes.string,
     //Date is written as: yyyy/mm/dd
     date: PropTypes.instanceOf(Date),
     invitationAmount: PropTypes.number,
-    status: PropTypes.oneOf(["pending", "confirmed", "not attending"])
+    status: PropTypes.oneOf(['ATTENDING', 'PENDING', 'NOT_ATTENDING']),
 }
 

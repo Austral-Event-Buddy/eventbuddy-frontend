@@ -22,7 +22,7 @@ function Map({ location }) {
             .addTo(map.current);
     }, [location]);
 
-    return <div ref={mapContainer} className="cropped-image" />;
+    return <div ref={mapContainer} style={{ width: '100%', height: '400px' }} className="cropped-image" />;
 }
 
 export default Map;
