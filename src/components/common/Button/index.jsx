@@ -1,6 +1,8 @@
 import Typography from '../Typography';
 import './styles.css';
 import PropTypes from 'prop-types';
+import Icon from '@mui/material/Icon';
+
 
 export default function Button({
   text,
@@ -9,6 +11,7 @@ export default function Button({
   onClick,
   size = 'lg',
   className,
+    startIcon,
 }) {
   function getTypographyVariant() {
     switch (size) {
@@ -28,7 +31,11 @@ export default function Button({
       className={`${variant}-btn ${size} ${className} btn`}
       disabled={disabled}
       onClick={onClick}
+
     >
+        {startIcon && (
+            <Icon>{startIcon}</Icon>
+        )}
       <Typography variant={getTypographyVariant()}>{text}</Typography>
     </button>
   );
