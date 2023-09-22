@@ -20,7 +20,7 @@ export const register = async (body, callback) => {
   callback();
 };
 
-export const home = async () => {
+export const getEvents = async () => {
     const res = await api.get('event');
     return res.data
 };
