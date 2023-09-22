@@ -6,6 +6,7 @@ import Button from "../common/Button";
 import PropTypes from "prop-types"
 import mapboxgl from "mapbox-gl";
 import Map from "./map";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function getCountDown(eventDate){
     const currentDate = new Date();
@@ -19,6 +20,15 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 export default function Event({ name, date, invitationAmount, status, location }) {
 
     const timeRemaining = getCountDown( date);
+    const iconStyle ={
+        border: '2px solid white',
+        borderRadius: '32px',
+        marginLeft: '-18px',
+        height: '32px',
+        width: '32px',
+        color: '#471F99',
+        background: 'white'
+    }
 
     return (
         <div className="events-container">
@@ -28,11 +38,18 @@ export default function Event({ name, date, invitationAmount, status, location }
             <div className={"event-data"}>
                 <Typography variant={"h6"}>{name}</Typography>
                 <Typography variant={"body3"}>{timeRemaining}</Typography>
-                <div className={"invites"}>
-                    {//<PersonIcon sx={{height:"15px", width: "auto", color: "#471F99"}} />
-                    }
-                    <Typography variant={"body3"}>{invitationAmount} invited</Typography>
+                <div style ={{display: 'flex', marginLeft: '15px'}}>
+                    <div className="invite-picture" >
+                        <AccountCircleIcon sx={iconStyle} />
+                        <AccountCircleIcon sx={iconStyle} />
+                        <AccountCircleIcon sx={iconStyle} />
+                        <AccountCircleIcon sx={iconStyle} />
+                    </div>
+                    <div className="invites" style ={{marginBottom: '6px'}}>
+                        <Typography variant="body2">{invitationAmount} invited</Typography>
+                    </div>
                 </div>
+
             </div>
             {status === "ATTENDING" ? (
                 <div className={"confirmed-button"}>
