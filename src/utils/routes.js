@@ -3,4 +3,5 @@ export const Routes = {
   Register: '/register',
   Home: '/',
   Settings: '/settings',
+    Profile: '/profile',
 };
