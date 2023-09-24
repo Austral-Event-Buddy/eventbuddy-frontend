@@ -24,3 +24,11 @@ export const getEvents = async () => {
     const res = await api.get('event');
     return res.data
 };
+export const inviteGuest = async (body) => {
+    const res = await api.post('event/invite/send', body);
+    return res.data
+}
+export const getAllUsers = async () => {
+    const res = await api.get('user');
+    return res.data;
+};
