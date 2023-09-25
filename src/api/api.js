@@ -29,6 +29,6 @@ export const inviteGuest = async (body) => {
     return res.data
 }
 export const getAllUsers = async () => {
-    const res = await api.get('user');
+    const res = await api.get('/user');
     return res.data;
 };
