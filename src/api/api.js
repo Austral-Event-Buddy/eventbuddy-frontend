@@ -21,6 +21,6 @@ export const register = async (body, callback) => {
 };
 
 export const getEvents = async () => {
-  const res = await api.get('event/getEvents');
-  return res.data
+    const res = await api.get('event');
+    return res.data
 };
