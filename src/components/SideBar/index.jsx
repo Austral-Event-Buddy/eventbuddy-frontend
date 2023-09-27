@@ -33,6 +33,7 @@ export default function SideBar() {
 
   return (
     <div className={'container'}>
+      <header className='sidebar-header'>
       <Brand className={'brand'} />
       <div className={'buttons'}>
         {routes.map((route) => (
@@ -42,14 +43,16 @@ export default function SideBar() {
             startIcon={route.icon}
             size="lg"
             variant={
-              Routes[currentRoute] === route.path ? 'fullfilled' : 'ghost'
+              Routes[currentRoute] === route.path ? 'fullfilled' : 'outlined'
             }
             onClick={() => navigate(route.path)}
           />
         ))}
       </div>
+      </header>
+      
       <div className={'account-menu'}>
-        <div className={'profile-picture'} />
+        <div className={'profile-picture'}></div>
         <Typography variant={'body1bold'}>Jane Doe</Typography>
       </div>
     </div>
