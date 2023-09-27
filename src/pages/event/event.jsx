@@ -3,9 +3,11 @@ import './event.css';
 import Typography from "../../components/common/Typography";
 import EventCalendar from "../../components/eventCalendar";
 import Map from "../../components/Event/map";
+import AvatarCard from "../../components/AvatarCard";
+import Button from "../../components/common/Button";
 
-export default function EventPage(){
-    const {id} = useParams();
+export default function EventPage() {
+    const { id } = useParams();
 
     const mockEvent = {
         name: "Jane’s Birthday Party",
@@ -15,9 +17,9 @@ export default function EventPage(){
         confirmationDeadline: new Date("2023-12-01T00:00:00Z"),
         confirmationStatus: "ATTENDING",
         guests: 10
-      };
+    };
 
-    const mockGuests = [{name:"Joe"}, {name:"Jane"}, {name:"John"}, {name:"Jill"}, {name:"Jack"}, {name:"Jenny"}]
+    const mockGuests = [{ name: "Joe" }, { name: "Jane" }, { name: "John" }, { name: "Jill" }, { name: "Jack" }, { name: "Jenny" }]
 
     return <div className='event-main'>
         <header className="event-header">
@@ -27,13 +29,17 @@ export default function EventPage(){
             </div>
         </header>
         <div className="event-body">
-            <div className="event-body-left">
+            <section className="event-body-left">
                 <Typography variant="h5">Location</Typography>
-                <Map location={mockEvent.coordinates} interactive={true}/>
-            </div>
-            <div className="event-body-right">
-
-            </div>
+                <Map location={mockEvent.coordinates} interactive={true} />
+            </section>
+            <section className="event-body-right">
+                <div className="right-header">
+                    <Typography variant={'h5'} className="bold">Guests</Typography>
+                    {mockGuests?.map(guest => <AvatarCard name={guest.name} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />)}
+                </div>
+                <Button text={'Invite'}/>
+            </section>
         </div>
-        </div>
+    </div>
 }
