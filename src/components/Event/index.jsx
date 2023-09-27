@@ -37,33 +37,31 @@ export default function Event({ name, date, invitationAmount, status, location }
             <div className={"event-data"}>
                 <Typography variant={"h6"}>{name}</Typography>
                 <Typography variant={"body3"}>{timeRemaining}</Typography>
-                <div style ={{display: 'flex', marginLeft: '15px'}}>
+                <div className='invites-info'>
                     <div className="invite-picture" >
                         <AccountCircleIcon sx={iconStyle} />
                         <AccountCircleIcon sx={iconStyle} />
                         <AccountCircleIcon sx={iconStyle} />
                         <AccountCircleIcon sx={iconStyle} />
                     </div>
-                    <div className="invites" style ={{marginBottom: '6px'}}>
-                        <Typography variant="body2">{invitationAmount} invited</Typography>
-                    </div>
+                    <Typography variant="body2bold" >{invitationAmount} invited</Typography>
                 </div>
 
             </div>
             {status === "confirmed" && (
                 <div className={"confirmed-button"}>
-                    <Button text={"Confirmed"} size={"sm"} style={{backgroundColor: "#BFBFBF", color:"#606060"}} />
+                    <Button text={"Confirmed"} size={"sm"} disabled />
                 </div>
             )}
             {status === "pending" && (
                 <div className={"confirmation-buttons"}>
-                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"}  style={{borderColor: "#E5493A", color: "#E5493A"}}/>
+                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"}/>
                     <Button text={"Attending"} size={"sm"} />
                 </div>
             )}
             {status === "not attending" && (
                 <div className={"confirmed-button"}>
-                    <Button text={"Not Attending"} size={"sm"} style={{backgroundColor: "#BFBFBF", color:"#606060"}} />
+                    <Button text={"Not Attending"} size={"sm"} />
                 </div>
             )}
         </div>
