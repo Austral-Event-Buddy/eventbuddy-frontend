@@ -16,36 +16,41 @@ export default function Home() {
             name: "Jane's Birthday Party",
             invitationAmount: 14,
             date: new Date('2023-09-15'),
-            status: "pending",
+            status: "PENDING",
             coordinates: [40.7128, -74.0060], // Nueva York, EE. UU.
+            eventId: 1
         },
         {
             name: "Joe's Birthday Party",
             invitationAmount: 12,
             date: new Date('2023-09-03'),
-            status: "confirmed",
+            status: "ATTENDING",
             coordinates: [34.0522, -118.2437], // Los Ángeles, California, EE. UU.
+            eventId: 2
         },
         {
             name: "Bob's Birthday Party",
             invitationAmount: 12,
             date: new Date('2023-09-03'),
-            status: "confirmed",
+            status: "PENDING",
             coordinates: [51.5074, -0.1278], // Londres, Reino Unido.
+            eventId: 3
         },
         {
             name: "Frank's Birthday Party",
             invitationAmount: 12,
             date: new Date('2023-09-03'),
-            status: "confirmed",
+            status: "ATTENDING",
             coordinates: [48.8566, 2.3522], // París, Francia.
+            eventId: 4
         },
         {
             name: "Sophie's Birthday Party",
             invitationAmount: 12,
             date: new Date('2023-09-03'),
-            status: "confirmed",
+            status: "NOT_ATTENDING",
             coordinates: [-33.8688, 151.2093], // Sídney, Australia.
+            eventId: 5
         }
     ];
 
