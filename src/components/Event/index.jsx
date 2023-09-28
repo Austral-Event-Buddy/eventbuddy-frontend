@@ -69,6 +69,7 @@ export default function Event({ name, date, invitationAmount, status, location, 
                 </div>
 
             </div>
+
             {eventStatus === "ATTENDING" ? (
                 <div className={"confirmed-button"}>
                     <Button text={"Confirmed"} size={"sm"} disabled={true} />
@@ -82,7 +83,6 @@ export default function Event({ name, date, invitationAmount, status, location, 
                 </div>
             ) : (
                 <div className={"confirmed-button"}>
-
                     <Button text={"Not attending"} size={"sm"} disabled={true} />
                 </div>
             )}
