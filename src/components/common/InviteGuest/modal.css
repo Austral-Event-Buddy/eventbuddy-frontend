@@ -22,21 +22,36 @@ label {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-    height: auto;
 }
-
-.buttons {
+.label-text{
+    color: var(--black, #0C1012);
+    font-family: Nunito Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.custom-input {
     display: flex;
-    align-items: flex-start;
-    gap: 24px;
+    padding: 12px 16px;
+    align-items: center;
+    gap: 10px;
     align-self: stretch;
+}
+.buttons-container {
+    display: flex;
+    gap: 24px;
+    margin-top: 8px;
+    width: 100%;
 }
 
 .button {
+    flex: 1;
+    padding: 8px 16px;
     display: flex;
-    padding: 12px 16px;
     justify-content: center;
     align-items: center;
     gap: 4px;
-    flex: 1 0 0;
+    border-radius: 12px;
+    max-height: 60px;
 }

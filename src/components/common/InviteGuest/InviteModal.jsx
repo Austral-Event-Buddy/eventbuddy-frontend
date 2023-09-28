@@ -61,17 +61,17 @@ function ModalComponent({ open, onClose }) {
                         Invite
                     </Typography>
                     <label>
-                        Name:
-                        <input type="text" name="name" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                        <span className="label-text">Name:</span>
+                        <input className="custom-input" placeholder="Jane Doe" type="text" name="name" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                        {/*<div className="suggested-list">
+    <ul>
+        {suggestedList.map((user) => (
+            <li key={user.id}>{user.name}</li>
+        ))}
+    </ul>
+</div>*/}
                     </label>
-                    <div className="suggested-list">
-                        <ul>
-                            {suggestedList.map((user) => (
-                                <li key={user.id}>{user.name}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="buttons">
+                    <div className="buttons-container">
                         <Button className="button" text="Invite as a guest" onClick={sendInvitation} />
                         <Button className="button" text="Invite as a host" onClick={onClose} variant={"outlined"}  style={{borderColor: "#E5493A", color: "#E5493A"}}/>
                     </div>
