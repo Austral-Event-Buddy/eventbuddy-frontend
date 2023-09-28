@@ -1,11 +1,12 @@
 .events-container {
+  --padding-var: 16px;
   width: 800px;
   position: relative;
   display: flex;
   flex-direction: row;
   border: 1px solid var(--grey-300);
   border-radius: 12px;
-  padding: 16px;
+  padding: var(--padding-var);
   gap: 24px;
 }
 
@@ -13,23 +14,16 @@
   width: 230px;
   height: 150px;
   border-radius: 8px;
-  overflow: hidden; /* Hide the extra part of the image */
+  overflow: hidden;
 }
 
-.scaled-image {
-  object-fit: cover; /* Maintain aspect ratio and cover the container */
-  width: 100%;
-  height: 100%;
-}
 
 .event-data {
   position: relative;
 }
-.invites {
-  position: absolute;
+
+.invite-picture {
   display: flex;
-  bottom: 0;
-  font-weight: bold;
   gap: 4px;
 }
 
@@ -41,8 +35,9 @@
   bottom: 0;
   height: 32px;
   width: 30%;
-  padding: 16px;
+  margin: var(--padding-var);
 }
+
 .confirmed-button {
   position: absolute;
   display: flex;
@@ -51,5 +46,14 @@
   bottom: 0;
   height: 32px;
   width: 14%;
-  padding: 16px;
+  margin: var(--padding-var);
+}
+
+.invites-info{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  gap: 4px;
+  bottom: 0;
+  left: 18px;
 }

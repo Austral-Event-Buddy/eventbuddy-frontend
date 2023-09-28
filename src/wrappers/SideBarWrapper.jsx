@@ -3,7 +3,8 @@ import SideBar from "../components/SideBar";
 
 const styles={
     display:"flex",
-    flexDirection:"row"
+    flexDirection:"row",
+    height:"100vh",
 }
 
 export default function SideBarWrapper(){

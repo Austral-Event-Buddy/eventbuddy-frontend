@@ -5,9 +5,12 @@ import './home.css';
 import Event from '../../components/Event';
 import EventCalendar from '../../components/eventCalendar';
 import { useEffect, useState } from "react";
-import { home } from "../../api/api";
+import { getEvents } from '../../api/api';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+    const navigate = useNavigate()
+
     const eventsData = [
         {
             name: "Jane's Birthday Party",
@@ -54,7 +57,7 @@ export default function Home() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        home()
+        getEvents()
             .then((data) => {
                 setEvents(data);
             })
@@ -62,6 +65,13 @@ export default function Home() {
                 console.error('Error obtaining data from backend:', error);
             });
     }, []);
+
+    function handleDayClick(day){
+        const event = events.find(event=>event.date.toLocaleDateString() === day.toLocaleDateString()) //find event with same date
+        if(event){
+            navigate(`/event/${event.id}`) //navigate to event page
+        }
+    }
 
     return (
         <div className={"right-hand-side"}>
@@ -89,7 +99,7 @@ export default function Home() {
                         />
                     ))}
                 </div>
-                <EventCalendar />
+                <EventCalendar mode='multiple' events={events?.map(event=>event.date)} onClick={handleDayClick}  />
             </div>
 
 
