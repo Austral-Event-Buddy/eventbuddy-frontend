@@ -24,3 +24,7 @@ export const home = async () => {
     const res = await api.get('event');
     return res.data
 };
+
+export const updateEventStatus = async (body) => {
+  const res = await api.put('event/invite/answer', body);
+}
