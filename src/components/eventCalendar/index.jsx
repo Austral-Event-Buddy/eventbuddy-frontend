@@ -4,15 +4,10 @@ import './styles.css'
 import PropTypes from 'prop-types';
 
 export default function EventCalendar({ events, mode = "multiple", onClick }) {
-    
-    //we could also use UseState
-    //onClick should be a function like (day)=>console.log(day.toDateString())
-    
-
     return (
         <DayPicker
             mode={mode}
-            selected={events}
+            selected={events.map(event => new Date(event.date))}
             onDayClick={onClick}
             showOutsideDays
         />

@@ -5,67 +5,34 @@ import './home.css';
 import Event from '../../components/Event';
 import EventCalendar from '../../components/eventCalendar';
 import { useEffect, useState } from "react";
-import { getEvents } from '../../api/api';
+import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
     const navigate = useNavigate()
 
-    const eventsData = [
-        {
-            name: "Jane's Birthday Party",
-            invitationAmount: 14,
-            date: new Date('2023-09-15'),
-            status: "pending",
-            coordinates: [40.7128, -74.0060], // Nueva York, EE. UU.
-        },
-        {
-            name: "Joe's Birthday Party",
-            invitationAmount: 12,
-            date: new Date('2023-09-03'),
-            status: "confirmed",
-            coordinates: [34.0522, -118.2437], // Los Ángeles, California, EE. UU.
-        },
-        {
-            name: "Bob's Birthday Party",
-            invitationAmount: 12,
-            date: new Date('2023-09-03'),
-            status: "confirmed",
-            coordinates: [51.5074, -0.1278], // Londres, Reino Unido.
-        },
-        {
-            name: "Frank's Birthday Party",
-            invitationAmount: 12,
-            date: new Date('2023-09-03'),
-            status: "confirmed",
-            coordinates: [48.8566, 2.3522], // París, Francia.
-        },
-        {
-            name: "Sophie's Birthday Party",
-            invitationAmount: 12,
-            date: new Date('2023-09-03'),
-            status: "confirmed",
-            coordinates: [-33.8688, 151.2093], // Sídney, Australia.
-        }
-    ];
-
     const [events, setEvents] = useState([]);
+    const [query, setQuery] = useState("")
+
+    const getAll = () => {
+        getEvents()
+        .then(data => setEvents(data))
+        .catch(err => console.error(err))
+    }
 
     useEffect(() => {
-        getEvents()
-            .then((data) => {
-                setEvents(data);
-            })
-            .catch((error) => {
-                console.error('Error obtaining data from backend:', error);
-            });
+       getAll()
     }, []);
 
+    const search = () => {
+        searchEvents(query)
+            .then(data => setEvents(data))
+            .catch(err => console.error(err))
+    }
+
     function handleDayClick(day){
-        const event = events.find(event=>event.date.toLocaleDateString() === day.toLocaleDateString()) //find event with same date
-        if(event){
-            navigate(`/event/${event.id}`) //navigate to event page
-        }
+        const event = events.find(event=> new Date(event.date).toLocaleDateString() === day.toLocaleDateString()) //find event with same date
+        if (event) navigate(`/event/${event.id}`) //navigate to event page
     }
 
     return (
@@ -75,29 +42,35 @@ export default function Home() {
                     <Typography variant="h4" className='bold'>My Events</Typography>
                 </div>
                 <div className={"search"}>
-                    <TextField className="search-bar" placeholder={"Search by name, description or invited people."} />
+                    <TextField 
+                        className="search-bar" 
+                        value={query} 
+                        placeholder={"Search by name or description"} 
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
                     <div className="search-button">
-                        <Button text="Search" />
+                        <Button text="Search" onClick={search}/>
                     </div>
                 </div>
             </div>
             <div className='main-content'>
                 <div className={"events"}>
-                    {eventsData.map((event, index) => (
+                    {events.map((event, index) => (
                         <Event
+                            id={event.id}
                             key={index}
                             name={event.name}
-                            invitationAmount={event.invitationAmount}
+                            guests={event.guests}
                             date={event.date}
-                            status={event.status}
+                            status={event.confirmationStatus}
                             location={event.coordinates}
+                            onClick={() => navigate(`/event/${event.id}`)}
+                            refresh={getAll}
                         />
                     ))}
                 </div>
-                <EventCalendar mode='multiple' events={events?.map(event=>event.date)} onClick={handleDayClick}  />
+                <EventCalendar mode='multiple' events={events} onClick={handleDayClick}  />
             </div>
-
-
         </div>
     )
 }

@@ -24,3 +24,18 @@ export const getEvents = async () => {
     const res = await api.get('event');
     return res.data
 };
+
+export const getEventById = async (id) => {
+  const res = await api.get(`event/${id}`);
+  return res.data
+};
+
+export const searchEvents = async (search) => {
+  const res = await api.get(`event/search`, { params: { search } });
+  return res.data
+}
+
+export const answerInvite = async (body) => {
+  const res = await api.put(`event/invite/answer`, body);
+  return res.data
+}
