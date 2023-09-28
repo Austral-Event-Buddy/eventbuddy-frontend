@@ -40,9 +40,9 @@
 }
 
 .error {
-    background-color: var(--white);
-    color: var(--error-400);
-    border-color: var(--error-400);
+  background-color: var(--white);
+  color: var(--error-400);
+  border-color: var(--error-400);
 }
 
 
