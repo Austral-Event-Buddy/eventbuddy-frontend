@@ -32,7 +32,6 @@ function ModalComponent({ open, onClose }) {
         const invitationData = {
             name: inputValue,
         };
-
         inviteGuest(invitationData)
             .then((response) => {
                 console.log('Invitation sent:', response);
@@ -63,13 +62,13 @@ function ModalComponent({ open, onClose }) {
                     <label>
                         <span className="label-text">Name:</span>
                         <input className="custom-input" placeholder="Jane Doe" type="text" name="name" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-                        {/*<div className="suggested-list">
-    <ul>
-        {suggestedList.map((user) => (
-            <li key={user.id}>{user.name}</li>
-        ))}
-    </ul>
-</div>*/}
+                        <div className="suggested-list">
+                            <ul>
+                                {suggestedList.map((user) => (
+                                    <li key={user.id}>{user.name}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </label>
                     <div className="buttons-container">
                         <Button className="button" text="Invite as a guest" onClick={sendInvitation} />

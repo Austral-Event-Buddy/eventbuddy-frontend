@@ -24,11 +24,15 @@ export const getEvents = async () => {
     const res = await api.get('event');
     return res.data
 };
+export const updateEventStatus = async (body) => {
+    const res = await api.put('event/invite/answer', body);
+    return res.data
+}
 export const inviteGuest = async (body) => {
-    const res = await api.post('event/invite/send', body);
+    const res = await api.post('event/invites/send', body);
     return res.data
 }
 export const getAllUsers = async () => {
-    const res = await api.get('/user');
+    const res = await api.get('user/by_username');
     return res.data;
 };

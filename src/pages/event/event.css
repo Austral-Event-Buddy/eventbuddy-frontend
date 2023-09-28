@@ -1,0 +1,62 @@
+.event-main{
+    width: 100%;
+}
+
+.event-info-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.event-header{
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, #FFF 102.71%), url('../../images/event-bg-image.png');
+    background-repeat: no-repeat;
+    backdrop-filter: blur(20px); 
+    background-size: 100%;
+    background-position: center 60%;
+    height: 25%;
+    display: grid;
+    align-content: end;
+    padding: 20px;
+}
+
+.event-title{
+    display: flex;
+    align-items: flex-end;
+    gap: 25px;
+}
+
+.event-title > .body2 {
+    margin-bottom: 5px;
+}
+
+.event-body{
+    display: flex;
+    flex-direction: row;
+    height: 75%;
+}
+
+.event-body-left{
+    padding: 12px;
+    width: 100%;
+    flex: 3;
+}
+
+.event-body-left > .cropped-image{
+    height: 50%;
+    margin-top: 12px;
+}
+
+.event-body-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    padding: 12px;
+}
+
+.right-header{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}

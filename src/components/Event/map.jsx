@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-function Map({ location }) {
+function Map({ location , interactive = false}) {
 
     const mapContainer = useRef(null);
     const map = useRef(null);
@@ -15,14 +15,13 @@ function Map({ location }) {
             style: 'mapbox://styles/mapbox/streets-v12',
             center: [location[1], location[0]],
             zoom: 16,
-            interactive: false
+            interactive: interactive
         });
         new mapboxgl.Marker({ color: 'red' })
             .setLngLat([location[1], location[0]])
             .addTo(map.current);
     }, [location]);
-
-    return <div ref={mapContainer} className="cropped-image" />;
+    return <div ref={mapContainer} className="cropped-image" style={{width:'100%'}}/>;
 }
 
 export default Map;
