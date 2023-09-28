@@ -3,5 +3,6 @@ export const Routes = {
   Register: '/register',
   Home: '/',
   Settings: '/settings',
-    Profile: '/profile',
+  Event: '/event',
+  Profile: '/profile',
 };
