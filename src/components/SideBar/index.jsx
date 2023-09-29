@@ -8,6 +8,8 @@ import { Routes } from '../../utils/routes';
 import SettingsIcon from '@mui/icons-material/Settings';
 import EventIcon from '@mui/icons-material/Event';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+
+
 export default function SideBar() {
   const currentRoute = useRoute();
   const navigate = useNavigate();

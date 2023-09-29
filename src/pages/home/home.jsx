@@ -7,6 +7,7 @@ import EventCalendar from '../../components/eventCalendar';
 import { useEffect, useState } from "react";
 import { getEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
+import EventModal from "../../components/CreateEventModal";
 
 export default function Home() {
     const navigate = useNavigate()
@@ -50,6 +51,8 @@ export default function Home() {
     ];
 
     const [events, setEvents] = useState([]);
+    const [modal, setModal] = useState(false);
+
 
     useEffect(() => {
         getEvents()
@@ -67,6 +70,8 @@ export default function Home() {
             navigate(`/event/${event.id}`) //navigate to event page
         }
     }
+
+    function handleModal(value) { setModal(value) }
 
     return (
         <div className={"right-hand-side"}>
@@ -96,8 +101,12 @@ export default function Home() {
                 </div>
                 <EventCalendar mode='multiple' events={events?.map(event=>event.date)} onClick={handleDayClick}  />
             </div>
-
-
+            <div className="footer">
+                <div className="button-container">
+                    <Button onClick={() => handleModal(true)} className="rounded" size="lg" text="+" />
+                </div>
+            </div>
+            <EventModal show={modal} handleClose={() => handleModal(false)} />
         </div>
     )
 }
