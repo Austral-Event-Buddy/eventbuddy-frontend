@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../Button/index';
+import Button from '../common/Button';
 import ModalComponent from './InviteModal';
 
 export default function InviteGuestButton() {

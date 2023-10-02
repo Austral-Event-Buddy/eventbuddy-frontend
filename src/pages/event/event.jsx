@@ -5,7 +5,7 @@ import EventCalendar from "../../components/eventCalendar";
 import Map from "../../components/Event/map";
 import AvatarCard from "../../components/AvatarCard";
 import Button from "../../components/common/Button";
-import InviteGuestButton from "../../components/common/InviteGuest/inviteGuestBotton";
+import InviteGuestButton from "../../components/InviteGuest/inviteGuestBotton";
 
 function InviteGuestBotton() {
     return null;
@@ -43,7 +43,7 @@ export default function EventPage() {
                     <Typography variant={'h5'} className="bold">Guests</Typography>
                     {mockGuests?.map(guest => <AvatarCard name={guest.name} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />)}
                 </div>
-                    <InviteGuestButton/>
+                    <InviteGuestButton eventID ={id}/>
             </section>
         </div>
     </div>

@@ -55,3 +55,7 @@ label {
     border-radius: 12px;
     max-height: 60px;
 }
+.auto-complete{
+    display: inline-block;
+    width: 100%;
+}

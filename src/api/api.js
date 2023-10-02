@@ -29,10 +29,11 @@ export const updateEventStatus = async (body) => {
     return res.data
 }
 export const inviteGuest = async (body) => {
-    const res = await api.post('event/invites/send', body);
+    const res = await api.post('event/invites/send', body,);
     return res.data
 }
 export const getAllUsers = async () => {
     const res = await api.get('user/by_username');
+    console.log(res.data)
     return res.data;
 };

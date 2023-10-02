@@ -1,24 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from "../Typography";
-import Button from "../Button";
+import Typography from "../common/Typography";
+import Button from "../common/Button";
 import './modal.css';
-import {getAllUsers, inviteGuest} from "../../../api/api";
+import {getAllUsers, inviteGuest} from "../../api/api";
+import AutoComplete from "../common/AutoComplete";
 
-function ModalComponent({ open, onClose }) {
+
+
+function ModalComponent({ open, onClose, eventID}) {
     const [inputValue, setInputValue] = useState('');
     const [suggestedList, setSuggestedList] = useState([]);
     const [userList, setUserList] = useState([]);
+    //const option = ["numa", "marco", "mau"]
+    const [selectedName, setSelectedName] = useState('');
+
 
     useEffect(() => {
         getAllUsers()
-            .then ((data) => {
-            setUserList(data);
-        })
+            .then((data) => {
+                setUserList(data);
+            })
             .catch((error) => {
-            console.error("Error obtaining data from backend:", error);
-        });
+                console.error("Error obtaining data from backend:", error);
+            });
     }, []);
 
     useEffect(() => {
@@ -28,19 +34,14 @@ function ModalComponent({ open, onClose }) {
         setSuggestedList(filteredUsers);
     }, [inputValue, userList]);
 
-    const sendInvitation = () => {
-        const invitationData = {
-            name: inputValue,
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = {
+            event: eventID,
+            name: selectedName,
         };
-        inviteGuest(invitationData)
-            .then((response) => {
-                console.log('Invitation sent:', response);
-                handleOnClose();
-            })
-            .catch((error) => {
-                console.error('Error sending invitation:', error);
-                handleOnClose()
-            });
+        inviteGuest(form);
+        handleOnClose()
     };
 
     const handleOnClose = () => {
@@ -60,18 +61,13 @@ function ModalComponent({ open, onClose }) {
                         Invite
                     </Typography>
                     <label>
-                        <span className="label-text">Name:</span>
-                        <input className="custom-input" placeholder="Jane Doe" type="text" name="name" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-                        <div className="suggested-list">
-                            <ul>
-                                {suggestedList.map((user) => (
-                                    <li key={user.id}>{user.name}</li>
-                                ))}
-                            </ul>
+                        Name
+                        <div className="auto-complete">
+                        <AutoComplete options = {suggestedList} placeholder ={"Jane Doe"} value={selectedName} onChange={(event, newValue) => {setSelectedName(newValue);}}/>
                         </div>
                     </label>
                     <div className="buttons-container">
-                        <Button className="button" text="Invite as a guest" onClick={sendInvitation} />
+                        <Button className="button" text="Invite as a guest" onClick={handleSubmit} />
                         <Button className="button" text="Invite as a host" onClick={onClose} variant={"outlined"}  style={{borderColor: "#E5493A", color: "#E5493A"}}/>
                     </div>
                 </Box>
