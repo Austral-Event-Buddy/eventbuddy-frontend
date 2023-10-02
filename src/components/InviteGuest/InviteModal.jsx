@@ -10,7 +10,6 @@ import AutoComplete from "../common/AutoComplete";
 
 
 function ModalComponent({ open, onClose, eventID}) {
-    const [inputValue, setInputValue] = useState('');
     const [suggestedList, setSuggestedList] = useState([]);
     const [userList, setUserList] = useState([]);
     //const option = ["numa", "marco", "mau"]
@@ -29,10 +28,10 @@ function ModalComponent({ open, onClose, eventID}) {
 
     useEffect(() => {
         const filteredUsers = userList.filter((user) =>
-            user.name.toLowerCase().includes(inputValue.toLowerCase())
+            user.name.toLowerCase().includes(selectedName.toLowerCase())
         );
         setSuggestedList(filteredUsers);
-    }, [inputValue, userList]);
+    }, [selectedName, userList]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -45,7 +44,7 @@ function ModalComponent({ open, onClose, eventID}) {
     };
 
     const handleOnClose = () => {
-        setInputValue('');
+        setSelectedName('');
         onClose();
     }
     return (
@@ -63,7 +62,7 @@ function ModalComponent({ open, onClose, eventID}) {
                     <label>
                         Name
                         <div className="auto-complete">
-                        <AutoComplete options = {suggestedList} placeholder ={"Jane Doe"} value={selectedName} onChange={(event, newValue) => {setSelectedName(newValue);}}/>
+                            <AutoComplete options = {suggestedList} placeholder ={"Jane Doe"} value={selectedName} onChange={(event, newValue) => {setSelectedName(newValue);}}/>
                         </div>
                     </label>
                     <div className="buttons-container">
