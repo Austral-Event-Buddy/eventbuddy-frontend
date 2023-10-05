@@ -7,6 +7,7 @@ import EventCalendar from '../../components/eventCalendar';
 import { useEffect, useState } from "react";
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
+import InviteGuestButton from "../../components/common/InviteGuest/inviteGuestBotton";
 
 export default function Home() {
     const navigate = useNavigate()
@@ -71,6 +72,7 @@ export default function Home() {
                 </div>
                 <EventCalendar mode='multiple' events={events} onClick={handleDayClick}  />
             </div>
+            <InviteGuestButton/>
         </div>
     )
 }
