@@ -8,6 +8,7 @@ import Typography from "../../components/common/Typography";
 import Map from "../../components/Event/map";
 import AvatarCard from "../../components/AvatarCard";
 import Button from "../../components/common/Button";
+import ModalComponent from '../../components/InviteGuest';
 
 import './event.css';
 import { getCountDown } from "../../utils/date";
@@ -16,12 +17,21 @@ export default function EventPage() {
     const { id } = useParams();
 
     const [event, setEvent] = useState(undefined);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         getEventById(id).then(e => {   
             setEvent(e);
         })
-    } , [])
+    } , [isModalOpen])
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
     return event ? <div className='event-main'>
         <header className="event-header">
@@ -40,8 +50,9 @@ export default function EventPage() {
                     <Typography variant={'h5'} className="bold">Guests</Typography>
                     {event.guests.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />)}
                 </div>
-                <Button text={'Invite'}/>
+                { event.id == 1 && <Button text={'Invite'} onClick={handleOpenModal}/>}
             </section>
         </div>
+        <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id}/>;
     </div> : <div>Loading...</div>
     }

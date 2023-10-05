@@ -51,10 +51,15 @@ export default function Event({ id, name, date, guests, status, location, onClic
                     <Button text={"Confirmed"} size={"sm"} disabled />
                 </div>
             )}
+            {status === "HOST" && (
+                <div className={"confirmed-button"}>
+                    <Button text={"Host"} size={"sm"} disabled />
+                </div>
+            )}
             {status === "PENDING" && (
                 <div className={"confirmation-buttons"}>
-                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"} onClick={() => answer("NOT_ATTENDING")}/>
                     <Button text={"Attending"} size={"sm"} onClick={() => answer("ATTENDING")}/>
+                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"} onClick={() => answer("NOT_ATTENDING")}/>
                 </div>
             )}
             {status === "NOT_ATTENDING" && (

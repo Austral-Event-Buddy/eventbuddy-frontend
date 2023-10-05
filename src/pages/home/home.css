@@ -35,3 +35,9 @@
     padding: 10px;
     gap: 32px;
 }
+
+.modal-open {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+}

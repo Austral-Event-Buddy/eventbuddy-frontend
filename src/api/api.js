@@ -41,11 +41,11 @@ export const answerInvite = async (body) => {
 }
 
 export const inviteGuest = async (body) => {
-    const res = await api.post('event/invite/send', body);
-    return res.data
+  const res = await api.post('event/invite/send', body);
+  return res.data
 }
 
-export const getAllUsers = async () => {
-    const res = await api.get('/user');
-    return res.data;
+export const searchUsers = async (username) => {
+  const res = await api.get(`/user/by_username/${username}`);
+  return res.data;
 };
