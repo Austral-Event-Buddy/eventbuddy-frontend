@@ -22,7 +22,7 @@
 }
 
 .events {
-    max-height: 70vh;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,4 +40,10 @@
     padding-bottom: 8px;
     display: flex;
     justify-content: end;
+}
+
+.modal-open {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
 }
