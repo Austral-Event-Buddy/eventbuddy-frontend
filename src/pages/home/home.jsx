@@ -78,7 +78,10 @@ export default function Home() {
             </div>
             <div className="footer">
                 <div className="button-container">
-                    <Button onClick={() => handleModal(true)} className="rounded" size="lg" text="+" />
+                    <Button onClick={(e) => {
+                        e.stopPropagation();
+                        handleModal(true)
+                    }} className="rounded" size="lg" text="+" />
                 </div>
             </div>
             <EventModal show={modal} handleClose={() => handleModal(false)} />

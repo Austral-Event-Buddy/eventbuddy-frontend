@@ -49,3 +49,9 @@ export const searchUsers = async (username) => {
   const res = await api.get(`/user/by_username/${username}`);
   return res.data;
 };
+
+
+export const createEvent = async (body) => {
+  const res = await api.post('event', body);
+  return res.data
+}
