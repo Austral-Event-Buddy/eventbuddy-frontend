@@ -1,0 +1,19 @@
+.avatar-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.avatar-img{
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+}
+
+.avatar-container:hover {
+    cursor: pointer;
+    background-color: var(--grey-100);
+}

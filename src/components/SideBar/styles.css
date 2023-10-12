@@ -1,31 +1,29 @@
 .container {
-  height: 100vh;
-  width: 240px;
   border-right: 1px solid var(--grey-300);
   text-overflow: ellipsis;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 12px;
 }
 
-.brand {
-  margin-top: 24px;
-  margin-bottom: 32px;
+.sidebar-header{
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 8px 0;
 }
 
 .buttons {
-  flex-grow: 1;
-  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .account-menu {
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin: 32px 12px 12px;
   padding: 12px;
   border-radius: 12px;
   background-color: var(--primary-700);
