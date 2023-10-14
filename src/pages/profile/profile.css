@@ -1,0 +1,89 @@
+.titulo{
+    color: var(--black, #0C1012);
+    font-family: Inter, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 50px;
+    margin-top: 28px;
+    display: block;
+}
+.image{
+    margin-left: 450px;
+    margin-top: 50px;
+    display: block;
+}
+
+.form{
+    margin-left: 370px;
+    display: flex;
+    width: 336px;
+    padding: 13px 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+}
+.name-form{
+    width: 350px;
+    gap: 8px;
+}
+.label1{
+    color: var(--black, #0C1012);
+    font-family: Nunito Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 8px;
+}
+.username-form {
+    width: 350px;
+    gap: 8px;
+    margin-top: 26px;
+}
+.label2{
+    color: var(--black, #0C1012);
+    font-family: Nunito Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 8px;
+}
+.email-form {
+    width: 350px;
+    gap: 8px;
+    margin-top: 26px;
+}
+.label3{
+    color: var(--black, #0C1012);
+    font-family: Nunito Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 8px;
+}
+.password-form {
+    width: 350px;
+    gap: 8px;
+    margin-top: 26px;
+}
+.label4{
+    color: var(--black, #0C1012);
+    font-family: Nunito Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 8px;
+}
+.button1{
+    margin-top: 8px;
+    display: block;
+}
+.button2{
+    margin-top: 8px;
+    display: block;
+}
