@@ -11,7 +11,7 @@
 }
 .image{
     margin-left: 450px;
-    margin-top: 50px;
+    margin-top: 20px;
     display: block;
 }
 
@@ -86,4 +86,12 @@
 .button2{
     margin-top: 8px;
     display: block;
+}
+.red-button{
+    color: red;
+    border-color: red;
+}
+.red-button:hover {
+    background-color: darkblue;
+    border-color: darkblue;
 }

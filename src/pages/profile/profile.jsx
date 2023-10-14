@@ -47,10 +47,10 @@ export default function Profile() {
                         <input placeholder='Password123!' value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
                         <div className='button1'>
-                            <Button text='Save'/>
+                            <Button size= {'md'} text='Save'/>
                         </div>
                         <div className='button2'>
-                            <Button variant={"outlined"} text = 'Close account'/>
+                            <Button size= {'md'} variant={"outlined"} text = 'Close account' className='red-button'/>
                         </div>
                 </form>
             </div>
