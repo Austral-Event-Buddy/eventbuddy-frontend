@@ -25,6 +25,27 @@ export const getEvents = async () => {
     return res.data
 };
 
-export const updateEventStatus = async (body) => {
-  const res = await api.put('event/invite/answer', body);
+export const getEventById = async (id) => {
+  const res = await api.get(`event/${id}`);
+  return res.data
+};
+
+export const searchEvents = async (search) => {
+  const res = await api.get(`event/search`, { params: { search } });
+  return res.data
 }
+
+export const answerInvite = async (body) => {
+  const res = await api.put(`event/invite/answer`, body);
+  return res.data
+}
+
+export const inviteGuest = async (body) => {
+  const res = await api.post('event/invite/send', body);
+  return res.data
+}
+
+export const searchUsers = async (username) => {
+  const res = await api.get(`/user/by_username/${username}`);
+  return res.data;
+};
