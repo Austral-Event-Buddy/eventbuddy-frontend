@@ -61,3 +61,13 @@
   color: var(--grey-700);
   cursor: default;
 }
+
+.outlined-error-btn {
+  background-color: transparent;
+  border: 1px solid var(--error-400);
+  color: var(--error-400);
+}
+
+.outlined-error-btn:hover {
+  background-color: var(--error-100)
+}

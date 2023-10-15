@@ -12,12 +12,15 @@ import ModalComponent from '../../components/InviteGuest';
 
 import './event.css';
 import { getCountDown } from "../../utils/date";
+import Element from "../../components/Element";
 
 export default function EventPage() {
     const { id } = useParams();
 
-    const [event, setEvent] = useState(undefined);
+    const [event, setEvent] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const coordinates = [42.6977, 23.3219]
+    const [elements, setElements] = useState([])
 
     useEffect(() => {
         getEventById(id).then(e => {   
@@ -32,6 +35,10 @@ export default function EventPage() {
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
+    
+    const handleCreateElementModal = () => {
+      
+    }
 
     return event ? <div className='event-main'>
         <header className="event-header">
@@ -43,12 +50,23 @@ export default function EventPage() {
         <div className="event-body">
             <section className="event-body-left">
                 <Typography variant="h5">Location</Typography>
-                <Map location={event.coordinates} interactive={true} />
+                <Map location={coordinates} interactive={true} />
+                <div className="elements-container">
+                    {elements &&
+                        <div>
+                            <div className="title-container">
+                                <Typography variant="body1bold">Elements</Typography>
+                                <p onClick={handleCreateElementModal} className="plusContainer">+</p>
+                            </div>
+                            <Element />
+                        </div>
+                    }
+                </div>
             </section>
             <section className="event-body-right">
                 <div className="right-header">
                     <Typography variant={'h5'} className="bold">Guests</Typography>
-                    {event.guests.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />)}
+                    {/*{event.guests.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />)}*/}
                 </div>
                 { event.id == 1 && <Button text={'Invite'} onClick={handleOpenModal}/>}
             </section>
