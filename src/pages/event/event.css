@@ -48,11 +48,16 @@
     margin-top: 12px;
 }
 
-.event-comments {
+.event-comments-header {
     margin: 16px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.event-comments-header > button {
+    width: 40px;
+    padding: 8px;
 }
 
 .event-body-left > .comment-container{

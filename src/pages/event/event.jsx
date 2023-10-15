@@ -94,9 +94,9 @@ export default function EventPage() {
             <section className="event-body-left">
                 <Typography variant="h5">Location</Typography>
                 <Map location={event.coordinates} interactive={true} />
-                <div className="event-comments">
+                <div className="event-comments-header">
                     <Typography variant="h5">Comments</Typography>
-                    <Button text={'+'}/>
+                    <Button text={'+'} variant="ghost"/>
                 </div>
                 {event.comments.map(comment => <CommentThread comment={comment} key={comment.id}/>)}
             </section>
