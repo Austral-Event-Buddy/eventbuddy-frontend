@@ -15,7 +15,7 @@ export default function EventCalendar({ events, mode = "multiple", onClick }) {
 }
 
 EventCalendar.propTypes = {
-    events: PropTypes.oneOfType([Date], Date),
+    events: PropTypes.arrayOf(Date),
     mode: PropTypes.oneOf(["multiple", "single", "range"]),
     onClick: PropTypes.func
 }

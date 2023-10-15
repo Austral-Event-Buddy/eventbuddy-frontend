@@ -21,8 +21,8 @@ export const register = async (body, callback) => {
 };
 
 export const getEvents = async () => {
-    const res = await api.get('event');
-    return res.data
+    const res = await api.get('event');  
+    return res.data.map(event=>({...event, confirmationDeadline: new Date(event.confirmationDeadline), date: new Date(event.date)}))
 };
 
 export const getEventById = async (id) => {

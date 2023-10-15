@@ -40,11 +40,23 @@
     padding: 12px;
     width: 100%;
     flex: 3;
+    overflow: auto;
 }
 
 .event-body-left > .cropped-image{
     height: 50%;
     margin-top: 12px;
+}
+
+.event-comments {
+    margin: 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event-body-left > .comment-container{
+    margin-left: 16px;
 }
 
 .event-body-right{
