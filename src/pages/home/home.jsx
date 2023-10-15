@@ -5,29 +5,34 @@ import './home.css';
 import Event from '../../components/Event';
 import EventCalendar from '../../components/eventCalendar';
 import { useEffect, useState } from "react";
-import { getEvents } from "../../api/api";
+import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const [events, setEvents] = useState([]);
+    const [query, setQuery] = useState("")
+
+    const getAll = () => {
+        getEvents()
+        .then(data => setEvents(data))
+        .catch(err => console.error(err))
+    }
 
     useEffect(() => {
-        getEvents()
-            .then((data) => {
-                setEvents(data);
-            })
-            .catch((error) => {
-                console.error('Error obtaining data from backend:', error);
-            });
+       getAll()
     }, []);
 
+    const search = () => {
+        searchEvents(query)
+            .then(data => setEvents(data))
+            .catch(err => console.error(err))
+    }
+
     function handleDayClick(day){
-        const event = events.find(event=>event.date.toLocaleDateString() === day.toLocaleDateString()) //find event with same date
-        if(event){
-            navigate(`/event/${event.id}`) //navigate to event page
-        }
+        const event = events.find(event=> new Date(event.date).toLocaleDateString() === day.toLocaleDateString()) //find event with same date
+        if (event) navigate(`/event/${event.id}`) //navigate to event page
     }
 
     return (
@@ -37,9 +42,14 @@ export default function Home() {
                     <Typography variant="h4" className='bold'>My Events</Typography>
                 </div>
                 <div className={"search"}>
-                    <TextField className="search-bar" placeholder={"Search by name, description or invited people."} />
+                    <TextField 
+                        className="search-bar" 
+                        value={query} 
+                        placeholder={"Search by name or description"} 
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
                     <div className="search-button">
-                        <Button text="Search" />
+                        <Button text="Search" onClick={search}/>
                     </div>
                 </div>
             </div>
@@ -47,16 +57,19 @@ export default function Home() {
                 <div className={"events"}>
                     {events.map((event, index) => (
                         <Event
+                            id={event.id}
                             key={index}
                             name={event.name}
-                            invitationAmount={event.guests}
+                            guests={event.guests}
                             date={event.date}
                             status={event.confirmationStatus}
                             location={event.coordinates}
+                            onClick={() => navigate(`/event/${event.id}`)}
+                            refresh={getAll}
                         />
                     ))}
                 </div>
-                <EventCalendar mode='multiple' events={events?.map(event=>event.date)} onClick={handleDayClick}  />
+                <EventCalendar mode='multiple' events={events} onClick={handleDayClick}  />
             </div>
         </div>
     )

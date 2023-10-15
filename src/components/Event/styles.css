@@ -8,6 +8,7 @@
   border-radius: 12px;
   padding: var(--padding-var);
   gap: 24px;
+  cursor: pointer;
 }
 
 .cropped-image {
@@ -17,9 +18,9 @@
   overflow: hidden;
 }
 
-
 .event-data {
   position: relative;
+  width: 340px
 }
 
 .invite-picture {

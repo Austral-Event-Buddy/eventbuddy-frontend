@@ -1,45 +1,58 @@
+import React, { useState, useEffect } from "react";
+
 import { useParams } from "react-router-dom"
-import './event.css';
+
+import { getEventById, getEvents } from "../../api/api";
+
 import Typography from "../../components/common/Typography";
-import EventCalendar from "../../components/eventCalendar";
 import Map from "../../components/Event/map";
 import AvatarCard from "../../components/AvatarCard";
 import Button from "../../components/common/Button";
+import ModalComponent from '../../components/InviteGuest';
+
+import './event.css';
+import { getCountDown } from "../../utils/date";
 
 export default function EventPage() {
     const { id } = useParams();
 
-    const mockEvent = {
-        name: "Jane’s Birthday Party",
-        description: "This is a mock event.",
-        coordinates: [40.7128, -74.0060],
-        date: new Date("09 October 2023"),
-        confirmationDeadline: new Date("2023-12-01T00:00:00Z"),
-        confirmationStatus: "ATTENDING",
-        guests: 10
+    const [event, setEvent] = useState(undefined);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        getEventById(id).then(e => {   
+            setEvent(e);
+        })
+    } , [isModalOpen])
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
     };
 
-    const mockGuests = [{ name: "Joe" }, { name: "Jane" }, { name: "John" }, { name: "Jill" }, { name: "Jack" }, { name: "Jenny" }]
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
-    return <div className='event-main'>
+    return event ? <div className='event-main'>
         <header className="event-header">
             <div className="event-title">
-                <Typography variant="h4" className="bold">{mockEvent.name}</Typography>
-                <Typography variant="body2">In 2 days</Typography>
+                <Typography variant="h4" className="bold">{event.name}</Typography>
+                <Typography variant="body2">{getCountDown(event.date)}</Typography>
             </div>
         </header>
         <div className="event-body">
             <section className="event-body-left">
                 <Typography variant="h5">Location</Typography>
-                <Map location={mockEvent.coordinates} interactive={true} />
+                <Map location={event.coordinates} interactive={true} />
             </section>
             <section className="event-body-right">
                 <div className="right-header">
                     <Typography variant={'h5'} className="bold">Guests</Typography>
-                    {mockGuests?.map(guest => <AvatarCard name={guest.name} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />)}
+                    {event.guests.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />)}
                 </div>
-                <Button text={'Invite'}/>
+                { event.id == 1 && <Button text={'Invite'} onClick={handleOpenModal}/>}
             </section>
         </div>
-    </div>
-}
+        <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id}/>;
+    </div> : <div>Loading...</div>
+    }
