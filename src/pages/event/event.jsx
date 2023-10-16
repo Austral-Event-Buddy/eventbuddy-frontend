@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
 
-import { getEventById, getEvents } from "../../api/api";
+import { getEventById } from "../../api/api";
 
 import Typography from "../../components/common/Typography";
 import Map from "../../components/Event/map";
@@ -20,10 +20,10 @@ export default function EventPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        getEventById(id).then(e => {   
+        getEventById(id).then(e => {
             setEvent(e);
         })
-    } , [isModalOpen])
+    }, [isModalOpen, id])
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -48,11 +48,12 @@ export default function EventPage() {
             <section className="event-body-right">
                 <div className="right-header">
                     <Typography variant={'h5'} className="bold">Guests</Typography>
-                    {event.guests.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />)}
+                    {event.guests.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
                 </div>
-                { event.id == 1 && <Button text={'Invite'} onClick={handleOpenModal}/>}
+                <Button text={'Invite'} onClick={handleOpenModal} />
+                {/* TODO: Check if current user is host */}
             </section>
         </div>
-        <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id}/>;
+        {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
     </div> : <div>Loading...</div>
-    }
+}

@@ -3,7 +3,7 @@ import Button from '../../components/common/Button';
 import Typography from '../../components/common/Typography';
 import './home.css';
 import Event from '../../components/Event';
-import EventCalendar from '../../components/eventCalendar';
+import EventCalendar from '../../components/EventCalendar';
 import { useEffect, useState } from "react";
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
@@ -16,12 +16,12 @@ export default function Home() {
 
     const getAll = () => {
         getEvents()
-        .then(data => setEvents(data))
-        .catch(err => console.error(err))
+            .then(data => setEvents(data))
+            .catch(err => console.error(err))
     }
 
     useEffect(() => {
-       getAll()
+        getAll()
     }, []);
 
     const search = () => {
@@ -30,8 +30,8 @@ export default function Home() {
             .catch(err => console.error(err))
     }
 
-    function handleDayClick(day){
-        const event = events.find(event=> new Date(event.date).toLocaleDateString() === day.toLocaleDateString()) //find event with same date
+    const handleDayClick = (day) => {
+        const event = events.find(event => new Date(event.date).toLocaleDateString() === day.toLocaleDateString()) //find event with same date
         if (event) navigate(`/event/${event.id}`) //navigate to event page
     }
 
@@ -42,14 +42,14 @@ export default function Home() {
                     <Typography variant="h4" className='bold'>My Events</Typography>
                 </div>
                 <div className={"search"}>
-                    <TextField 
-                        className="search-bar" 
-                        value={query} 
-                        placeholder={"Search by name or description"} 
+                    <TextField
+                        className="search-bar"
+                        value={query}
+                        placeholder={"Search by name or description"}
                         onChange={(e) => setQuery(e.target.value)}
                     />
                     <div className="search-button">
-                        <Button text="Search" onClick={search}/>
+                        <Button text="Search" onClick={search} />
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@ export default function Home() {
                             key={index}
                             name={event.name}
                             guests={event.guests}
-                            date={event.date}
+                            date={new Date(event.date)}
                             status={event.confirmationStatus}
                             location={event.coordinates}
                             onClick={() => navigate(`/event/${event.id}`)}
@@ -69,7 +69,7 @@ export default function Home() {
                         />
                     ))}
                 </div>
-                <EventCalendar mode='multiple' events={events} onClick={handleDayClick}  />
+                <EventCalendar mode='multiple' events={events} onClick={handleDayClick} />
             </div>
         </div>
     )
