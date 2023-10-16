@@ -86,7 +86,7 @@ function Register() {
               value={state.email}
               label="Email"
               placeholder="jane.doe@mail.com"
-              error={state.emailHelper}
+              error={state.emailHelper ? true : false}
               helperText={state.emailHelper}
             />
             <TextField
@@ -101,7 +101,7 @@ function Register() {
               label="Password"
               placeholder="Password123!"
               type="password"
-              error={state.passwordHelper}
+              error={state.passwordHelper ? true : false}
               helperText={state.passwordHelper}
             />
             <TextField
@@ -110,7 +110,7 @@ function Register() {
               label="Repeat Password"
               placeholder="Password123!"
               type="password"
-              error={state.repeatPasswordHelper}
+              error={state.repeatPasswordHelper ? true : false}
               helperText={state.repeatPasswordHelper}
             />
             <div className="register-container--left_buttons">

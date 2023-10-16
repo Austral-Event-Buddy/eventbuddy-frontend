@@ -75,7 +75,7 @@ function Login() {
               value={state.email}
               label="Email"
               placeholder="jane.doe@mail.com"
-              error={state.emailHelper}
+              error={state.emailHelper ? true : false}
               helperText={state.emailHelper}
             />
             <TextField
@@ -84,7 +84,7 @@ function Login() {
               label="Password"
               placeholder="Password123!"
               type="password"
-              error={state.passwordHelper}
+              error={state.passwordHelper ? true : false}
               helperText={state.passwordHelper}
             />
             <div className="login-container--left_buttons">
