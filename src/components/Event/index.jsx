@@ -77,6 +77,6 @@ Event.propTypes = {
     //Date is written as: yyyy/mm/dd
     date: PropTypes.instanceOf(Date),
     invitationAmount: PropTypes.number,
-    status: PropTypes.oneOf(["pending", "confirmed", "not attending"])
+    status: PropTypes.oneOf(['ATTENDING', 'PENDING', 'NOT_ATTENDING']),
 }
 
