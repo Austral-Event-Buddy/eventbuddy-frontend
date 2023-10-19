@@ -11,21 +11,20 @@ import {updateEventStatus} from "../../api/api";
 import {Routes} from "../../utils/routes";
 import {toast} from "react-toastify";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
-
-function getCountDown(eventDate){
-    const currentDate = new Date();
-    const timeDifference = eventDate - currentDate;
-    const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    return daysRemaining === 0 ? `Today` : `in ${daysRemaining} days`;
-}
+import { getCountDown } from '../../utils/date';
+import { answerInvite } from '../../api/api';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
+export default function Event({ id, name, date, guests, status, location, onClick, refresh }) {
 
-export default function Event({ name, date, invitationAmount, status, location, eventId }) {
-    const [eventStatus, setEventStatus] = useState(status);
-    const timeRemaining = getCountDown( date);
-    const iconStyle ={
+    const answer = (s) => {
+        answerInvite({
+            eventId: id,
+            answer: s
+        }).then(() => refresh())
+    }
+
+    const iconStyle = {
         border: '2px solid white',
         borderRadius: '32px',
         marginLeft: '-18px',
@@ -52,38 +51,39 @@ export default function Event({ name, date, invitationAmount, status, location, 
 
     return (
         <div className="events-container">
-            <div className="cropped-image">
+            <div className="cropped-image" onClick={onClick}>
                 <Map location={location} />
             </div>
-            <div className={"event-data"}>
+            <div className={"event-data"} onClick={onClick}>
                 <Typography variant={"h6"}>{name}</Typography>
-                <Typography variant={"body3"}>{timeRemaining}</Typography>
+                <Typography variant={"body3"}>{getCountDown(date)}</Typography>
                 <div className='invites-info'>
                     <div className="invite-picture" >
-                        <AccountCircleIcon sx={iconStyle} />
-                        <AccountCircleIcon sx={iconStyle} />
-                        <AccountCircleIcon sx={iconStyle} />
-                        <AccountCircleIcon sx={iconStyle} />
+                        { [...Array(Math.min(guests.length, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}
                     </div>
-                    <Typography variant="body2bold" >{invitationAmount} invited</Typography>
+                    <Typography variant="body2bold" >{guests.length} attending</Typography>
                 </div>
 
             </div>
-
-            {eventStatus === "ATTENDING" ? (
+            {status === "ATTENDING" && (
                 <div className={"confirmed-button"}>
-                    <Button text={"Confirmed"} size={"sm"} disabled={true} />
+                    <Button text={"Confirmed"} size={"sm"} disabled />
                 </div>
-            ) : eventStatus === "PENDING" ?(
+            )}
+            {status === "HOST" && (
+                <div className={"confirmed-button"}>
+                    <Button text={"Host"} size={"sm"} disabled />
+                </div>
+            )}
+            {status === "PENDING" && (
                 <div className={"confirmation-buttons"}>
-
-                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"} onClick={() => updateStatus("NOT_ATTENDING")} className="error"/>
-                    <Button text={"Pending"} size={"sm"} onClick={() => updateStatus("ATTENDING")}/>
-
+                    <Button text={"Attending"} size={"sm"} onClick={() => answer("ATTENDING")}/>
+                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"} onClick={() => answer("NOT_ATTENDING")}/>
                 </div>
-            ) : (
+            )}
+            {status === "NOT_ATTENDING" && (
                 <div className={"confirmed-button"}>
-                    <Button text={"Not attending"} size={"sm"} disabled={true} />
+                    <Button text={"Not Attending"} size={"sm"} disabled/>
                 </div>
             )}
         </div>
