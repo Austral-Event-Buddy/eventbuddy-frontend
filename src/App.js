@@ -14,6 +14,11 @@ import Home from "./pages/home/home";
 import EventPage from './pages/event/event';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import SideBarWrapper from './wrappers/SideBarWrapper';
+import { isAuthenticated } from './guards/isAuthenticated';
+import EventPage from './pages/event/event';
+import Profile from "./pages/profile/profile";
+
 
 function App() {
   return (
@@ -49,6 +54,15 @@ function App() {
             }
             <Route exact path={Routes.Home} element={<Home />} />
             <Route exact path={Routes.Event + '/:id'} element={<EventPage />} />
+              <Route exact path={Routes.Profile} element={<Profile/>} />
+          </Route>
+          
+          <Route element={<SideBarWrapper/>}>
+            {
+              //Routes with SideBar goes here
+            }
+            <Route exact path={Routes.Home} element={<Home />} />
+
           </Route>
           
         </Route>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './styles.css';
 import "mapbox-gl/dist/mapbox-gl.css";
 import Typography from "../common/Typography";
@@ -6,6 +6,10 @@ import Button from "../common/Button";
 import PropTypes from "prop-types"
 import mapboxgl from "mapbox-gl";
 import Map from "./map";
+
+import {updateEventStatus} from "../../api/api";
+import {Routes} from "../../utils/routes";
+import {toast} from "react-toastify";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getCountDown } from '../../utils/date';
 import { answerInvite } from '../../api/api';
@@ -28,6 +32,21 @@ export default function Event({ id, name, date, guests, status, location, onClic
         width: '32px',
         color: '#471F99',
         background: 'white'
+    }
+
+
+    function updateStatus (newStatus)
+    {
+        setEventStatus(newStatus);
+        const form ={
+            eventId: eventId,
+            answer: newStatus
+        }
+        updateEventStatus(form)
+            .catch(() =>{
+                toast.error("Couldn't change status")
+            }
+        );
     }
 
     return (
@@ -71,7 +90,6 @@ export default function Event({ id, name, date, guests, status, location, onClic
     );
 }
 
-
 Event.propTypes = {
     name: PropTypes.string,
     //Date is written as: yyyy/mm/dd
@@ -79,4 +97,3 @@ Event.propTypes = {
     invitationAmount: PropTypes.number,
     status: PropTypes.oneOf(['ATTENDING', 'PENDING', 'NOT_ATTENDING']),
 }
-

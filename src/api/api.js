@@ -24,6 +24,11 @@ export const getEvents = async () => {
     const res = await api.get('event');
     return res.data
 };
+export const updateEventStatus = async (body) => {
+    const res = await api.put('event/invite/answer', body);
+    return res.data
+}
+
 
 export const getEventById = async (id) => {
   const res = await api.get(`event/${id}`);
@@ -55,3 +60,4 @@ export const createEvent = async (body) => {
   const res = await api.post('event', body);
   return res.data
 }
+
