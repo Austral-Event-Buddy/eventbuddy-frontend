@@ -14,9 +14,7 @@ import Home from "./pages/home/home";
 import EventPage from './pages/event/event';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-// import SideBarWrapper from './wrappers/SideBarWrapper';
-// import { isAuthenticated } from './guards/isAuthenticated';
-// import EventPage from './pages/event/event';
+
 import Profile from "./pages/profile/profile";
 
 

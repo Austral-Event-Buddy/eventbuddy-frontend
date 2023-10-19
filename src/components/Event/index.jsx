@@ -34,21 +34,6 @@ export default function Event({ id, name, date, guests, status, location, onClic
         background: 'white'
     }
 
-
-    // function updateStatus (newStatus)
-    // {
-    //     setEventStatus(newStatus);
-    //     const form ={
-    //         eventId: eventId,
-    //         answer: newStatus
-    //     }
-    //     updateEventStatus(form)
-    //         .catch(() =>{
-    //             toast.error("Couldn't change status")
-    //         }
-    //     );
-    // }
-
     return (
         <div className="events-container">
             <div className="cropped-image" onClick={onClick}>
