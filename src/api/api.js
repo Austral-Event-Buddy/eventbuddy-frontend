@@ -49,3 +49,8 @@ export const searchUsers = async (username) => {
   const res = await api.get(`/user/by_username/${username}`);
   return res.data;
 };
+
+export const getComments = async (eventId) => {
+  const res = await api.get(`/comment/${eventId}`);
+  return res.data;
+};

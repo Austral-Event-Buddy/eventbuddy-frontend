@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
 
-import { getEventById, getEvents } from "../../api/api";
+import { getComments, getEventById } from "../../api/api";
 
 import Typography from "../../components/common/Typography";
 import Map from "../../components/Event/map";
@@ -22,57 +22,10 @@ export default function EventPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setEvent({
-      "id": 1,
-      "name": "cumpleañito",
-      "description": "Cumpleañito en la plaza",
-      "coordinates": [
-        40.758896,
-        -73.985130
-      ],
-      "date": "2024-01-12T00:00:00.000Z",
-      "confirmationDeadline": "2023-12-23T00:00:00.000Z",
-      "confirmationStatus": "HOST",
-      "guests": [{ "name": "Juan", confirmationStatus: "ATTENDING", id: 1 }],
-      "comments": [
-        {
-          id: 1,
-          text: 'Este es un comentario principal',
-          author: "Juan",
-          replies: [
-            {
-              id: 2,
-              text: 'Respuesta al comentario principal',
-              author: "Pedro",
-              replies: [
-                {
-                  id: 3,
-                  text: 'Respuesta a la respuesta',
-                  author: "Juan",
-                  replies: []
-                }
-              ]
-            },
-            {
-              id: 4,
-              text: 'Otra respuesta al comentario principal',
-              author: "Luca",
-              replies: []
-            }
-          ]
-        },
-        {
-          id: 5,
-          text: 'Otro comentario principal sin respuestas',
-          author: "Pepe",
-          replies: []
-        }
-      ]
+    getEventById(id).then(event => {
+      getComments(id).then(comments => setEvent({ ...event, comments }))
     })
-    //getEventById(id).then(e => {   
-    //    setEvent(e);
-    //})
-  }, [isModalOpen])
+  }, [isModalOpen, id])
 
 
 
@@ -99,7 +52,7 @@ export default function EventPage() {
           <Typography variant="h5">Comments</Typography>
           <Button text={'+'} variant="ghost" />
         </div>
-        {event.comments.length 
+        {event.comments.length
           ? event.comments.map(comment => <CommentThread comment={comment} key={comment.id} />)
           : <NoContent message={"There's no comments"} />
         }
@@ -109,7 +62,7 @@ export default function EventPage() {
           <Typography variant={'h5'} className="bold">Guests</Typography>
           {event.guests.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
         </div>
-        {event.id == 1 && <Button text={'Invite'} onClick={handleOpenModal} />}
+        <Button text={'Invite'} onClick={handleOpenModal} />
       </section>
     </div>
     <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />;
