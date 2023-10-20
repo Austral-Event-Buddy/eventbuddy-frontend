@@ -1,44 +1,47 @@
 .rdp {
-    --rdp-accent-color: var(--success-100);
-    --rdp-background-color: var(--success-100);
-    --rdp-caption-font-size: 18px;
-    margin: 0;
-    width: fit-content;
+  --rdp-accent-color: var(--success-100);
+  --rdp-background-color: var(--success-100);
+  --rdp-caption-font-size: 18px;
+  margin: 0;
+  width: fit-content;
 }
 
-.rdp-months{
-    background-color: #f6f6f6;
-    border-radius: 12px;
-    padding: 12px;
+.rdp-months {
+  background-color: #f6f6f6;
+  border-radius: 12px;
+  padding: 12px;
 }
 
-.rdp-day{
-    border: 1px solid var(--grey-100);
+.rdp-day {
+  border: 1px solid var(--grey-100);
 }
 
-.rdp-day:not(.rdp-day_selected){
-    background-color: var(--white);
+.rdp-day:not(.rdp-day_selected) {
+  background-color: var(--white);
 }
 
-.rdp-day, .rdp-nav_button {
-    border-radius: 4px;
+.rdp-day,
+.rdp-nav_button {
+  border-radius: 4px;
 }
 
-.rdp-nav_button:hover, 
-.rdp-nav_button:focus-visible{
-    background-color: var(--primary-300) !important;
-    color: var(--white);
+.rdp-nav_button:hover,
+.rdp-nav_button:focus-visible {
+  background-color: var(--primary-300) !important;
+  color: var(--white);
 }
 
-
+.rdp-caption_label {
+  z-index: 0;
+}
 
 .rdp-day_selected,
 .rdp-day_selected:focus-visible,
-.rdp-day_selected:hover{
-    color: var(--black);
+.rdp-day_selected:hover {
+  color: var(--black);
 }
 
-.rdp-table{
-    border-spacing: 2px;
-    border-collapse: unset;
+.rdp-table {
+  border-spacing: 2px;
+  border-collapse: unset;
 }

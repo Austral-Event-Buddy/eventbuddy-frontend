@@ -19,12 +19,12 @@ export default function Home() {
 
     const getAll = () => {
         getEvents()
-        .then(data => setEvents(data))
-        .catch(err => console.error(err))
+            .then(data => setEvents(data))
+            .catch(err => console.error(err))
     }
 
     useEffect(() => {
-       getAll()
+        getAll()
     }, []);
 
     const search = () => {
@@ -33,8 +33,8 @@ export default function Home() {
             .catch(err => console.error(err))
     }
 
-    function handleDayClick(day){
-        const event = events.find(event=> event.date.toLocaleDateString() === day.toLocaleDateString()) //find event with same date
+    function handleDayClick(day) {
+        const event = events.find(event => event.date.toLocaleDateString() === day.toLocaleDateString()) //find event with same date
         if (event) navigate(`/event/${event.id}`) //navigate to event page
     }
 
@@ -54,7 +54,7 @@ export default function Home() {
                         onChange={(e) => setQuery(e.target.value)}
                     />
                     <div className="search-button">
-                        <Button text="Search" onClick={search}/>
+                        <Button text="Search" onClick={search} />
                     </div>
                 </div>
             </div>
@@ -74,16 +74,13 @@ export default function Home() {
                         />
                     ))}
                 </div>
-                <EventCalendar mode='multiple' events={events} onClick={handleDayClick}  />
+                <EventCalendar mode='multiple' events={events} onClick={handleDayClick} />
             </div>
-
-            <div className="footer">
-                <div className="button-container">
-                    <Button onClick={(e) => {
-                        e.stopPropagation();
-                        handleModal(true)
-                    }} className="rounded" size="lg" text="+" />
-                </div>
+            <div className="button-container">
+                <Button onClick={(e) => {
+                    e.stopPropagation();
+                    handleModal(true)
+                }} className="rounded" size="lg" text="+" />
             </div>
             <EventModal show={modal} handleClose={() => handleModal(false)} />
         </div>
