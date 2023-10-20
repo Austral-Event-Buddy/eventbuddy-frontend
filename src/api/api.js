@@ -24,6 +24,11 @@ export const getEvents = async () => {
     const res = await api.get('event');  
     return res.data.map(event=>({...event, confirmationDeadline: new Date(event.confirmationDeadline), date: new Date(event.date)}))
 };
+export const updateEventStatus = async (body) => {
+    const res = await api.put('event/invite/answer', body);
+    return res.data
+}
+
 
 export const getEventById = async (id) => {
   const res = await api.get(`event/${id}`);
@@ -49,6 +54,13 @@ export const searchUsers = async (username) => {
   const res = await api.get(`/user/by_username/${username}`);
   return res.data;
 };
+
+
+export const createEvent = async (body) => {
+  const res = await api.post('event', body);
+  return res.data
+}
+
 
 export const getComments = async (eventId) => {
   const res = await api.get(`/comment/${eventId}`);

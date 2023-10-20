@@ -47,7 +47,7 @@ export default function Event({ id, name, date, guests, status, location, onClic
             </div>
             {status === "ATTENDING" && (
                 <div className={"confirmed-button"}>
-                    <Button text={"Confirmed"} size={"sm"} disabled={true} />
+                    <Button text={"Confirmed"} size={"sm"} disabled />
                 </div>
             )}
             {status === "HOST" && (

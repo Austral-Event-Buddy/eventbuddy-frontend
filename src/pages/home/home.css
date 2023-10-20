@@ -36,6 +36,12 @@
     gap: 32px;
 }
 
+.footer {
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: end;
+}
+
 .modal-open {
     position: absolute;
     bottom: 24px;

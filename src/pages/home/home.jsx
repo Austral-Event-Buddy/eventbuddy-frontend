@@ -7,12 +7,15 @@ import EventCalendar from '../../components/EventCalendar';
 import { useEffect, useState } from "react";
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
+import EventModal from "../../components/CreateEventModal";
 
 export default function Home() {
     const navigate = useNavigate()
 
     const [events, setEvents] = useState([]);
     const [query, setQuery] = useState("")
+    const [modal, setModal] = useState(false);
+
 
     const getAll = () => {
         getEvents()
@@ -35,6 +38,8 @@ export default function Home() {
         if (event) navigate(`/event/${event.id}`) //navigate to event page
     }
 
+    function handleModal(value) { setModal(value) }
+
     return (
         <div className={"right-hand-side"}>
             <div className={"title-bar"}>
@@ -42,10 +47,10 @@ export default function Home() {
                     <Typography variant="h4" className='bold'>My Events</Typography>
                 </div>
                 <div className={"search"}>
-                    <TextField 
-                        className="search-bar" 
-                        value={query} 
-                        placeholder={"Search by name or description"} 
+                    <TextField
+                        className="search-bar"
+                        value={query}
+                        placeholder={"Search by name or description"}
                         onChange={(e) => setQuery(e.target.value)}
                     />
                     <div className="search-button">
@@ -71,6 +76,16 @@ export default function Home() {
                 </div>
                 <EventCalendar mode='multiple' events={events} onClick={handleDayClick}  />
             </div>
+
+            <div className="footer">
+                <div className="button-container">
+                    <Button onClick={(e) => {
+                        e.stopPropagation();
+                        handleModal(true)
+                    }} className="rounded" size="lg" text="+" />
+                </div>
+            </div>
+            <EventModal show={modal} handleClose={() => handleModal(false)} />
         </div>
     )
 }
