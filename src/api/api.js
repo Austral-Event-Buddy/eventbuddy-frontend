@@ -60,4 +60,16 @@ export const createEvent = async (body) => {
   const res = await api.post('event', body);
   return res.data
 }
+export const updateProfileData = async (body) => {
+    const res = await api.put(`user/update`, body);
+    return res.data
+}
 
+export const getMe = async () => {
+    const res = await api.get(`user/me`);
+    return res.data
+}
+export const deleteProfile = async () => {
+    const res = await api.delete(`user/delete`);
+    return res.data
+}
