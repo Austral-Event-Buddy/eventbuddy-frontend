@@ -24,7 +24,7 @@ export default function EventPage() {
 
   useEffect(() => {
     getEventById(id).then(event => {
-      getComments(id).then(comments => setEvent({ ...event, comments }))
+      getComments(id).then(comments => setEvent({ ...event, comments })).catch(err =>  setEvent(event));
     })
   }, [isModalOpen, id])
 
@@ -53,15 +53,15 @@ export default function EventPage() {
           <Typography variant="h5">Comments</Typography>
           <Button text={'+'} variant="ghost" />
         </div>
-        {event.comments.length
-          ? event.comments.map(comment => <CommentThread comment={comment} key={comment.id} />)
+        {event.comments?.length
+          ? event.comments?.map(comment => <CommentThread comment={comment} key={comment.id} />)
           : <NoContent message={"There's no comments"} />
         }
       </section>
       <section className="event-body-right">
         <div className="right-header">
           <Typography variant={'h5'} className="bold">Guests</Typography>
-          {event.guests.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
+          {event.guests?.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
         </div>
         <Button text={'Invite'} onClick={handleOpenModal} />
       </section>
