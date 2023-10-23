@@ -64,7 +64,7 @@ export default function Profile() {
                         <input
                             placeholder='Jane Doe'
                             value={profileData.name}
-                            // onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
+                            // onChange={(e) => setProfileData({ ...profileData, name: e.target.value })} NO EXISTE EL VALOR DE NAME.
                         />
                     </div>
                     <div className="username-form">
