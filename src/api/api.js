@@ -21,48 +21,36 @@ export const register = async (body, callback) => {
 };
 
 export const getEvents = async () => {
-    const res = await api.get('event');  
-    return res.data.map(event=>({...event, confirmationDeadline: new Date(event.confirmationDeadline), date: new Date(event.date)}))
+  const res = await api.get('event');
+  return res.data;
 };
-export const updateEventStatus = async (body) => {
-    const res = await api.put('event/invite/answer', body);
-    return res.data
-}
-
 
 export const getEventById = async (id) => {
   const res = await api.get(`event/${id}`);
-  return res.data
+  return res.data;
 };
 
 export const searchEvents = async (search) => {
   const res = await api.get(`event/search`, { params: { search } });
-  return res.data
-}
+  return res.data;
+};
 
 export const answerInvite = async (body) => {
   const res = await api.put(`event/invite/answer`, body);
-  return res.data
-}
+  return res.data;
+};
 
 export const inviteGuest = async (body) => {
   const res = await api.post('event/invite/send', body);
-  return res.data
-}
+  return res.data;
+};
 
 export const searchUsers = async (username) => {
   const res = await api.get(`/user/by_username/${username}`);
   return res.data;
 };
 
-
 export const createEvent = async (body) => {
   const res = await api.post('event', body);
-  return res.data
-}
-
-
-export const getComments = async (eventId) => {
-  const res = await api.get(`/comment/${eventId}`);
   return res.data;
 };

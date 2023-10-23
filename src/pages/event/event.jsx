@@ -64,9 +64,10 @@ export default function EventPage() {
           {event.guests?.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
         </div>
         <Button text={'Invite'} onClick={handleOpenModal} />
+        {/* TODO: Check if current user is host */}
       </section>
     </div>
-    <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />;
+    {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
   </div> :
     <div>Loading...</div>
 }

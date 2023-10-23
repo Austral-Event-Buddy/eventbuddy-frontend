@@ -8,6 +8,7 @@ import Map from "./map";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getCountDown } from '../../utils/date';
 import { answerInvite } from '../../api/api';
+import { Status } from '../../utils/status';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 export default function Event({ id, name, date, guests, status, location, onClick, refresh }) {
@@ -45,23 +46,23 @@ export default function Event({ id, name, date, guests, status, location, onClic
                 </div>
 
             </div>
-            {status === "ATTENDING" && (
+            {status === Status.ATTENDING && (
                 <div className={"confirmed-button"}>
-                    <Button text={"Confirmed"} size={"sm"} disabled />
+                    <Button text={"Confirmed"} size={"sm"} disabled={true} />
                 </div>
             )}
-            {status === "HOST" && (
+            {status === Status.HOST && (
                 <div className={"confirmed-button"}>
                     <Button text={"Host"} size={"sm"} disabled />
                 </div>
             )}
-            {status === "PENDING" && (
+            {status === Status.PENDING && (
                 <div className={"confirmation-buttons"}>
-                    <Button text={"Attending"} size={"sm"} onClick={() => answer("ATTENDING")}/>
-                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"} onClick={() => answer("NOT_ATTENDING")}/>
+                    <Button text={"Attending"} size={"sm"} onClick={() => answer(Status.ATTENDING)}/>
+                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"} className='error' onClick={() => answer(Status.NOT_ATTENDING)}/>
                 </div>
             )}
-            {status === "NOT_ATTENDING" && (
+            {status === Status.NOT_ATTENDING && (
                 <div className={"confirmed-button"}>
                     <Button text={"Not Attending"} size={"sm"} disabled/>
                 </div>

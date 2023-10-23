@@ -40,11 +40,14 @@
 }
 
 .error {
-  background-color: var(--white);
+  background-color: transparent;
   color: var(--error-400);
   border-color: var(--error-400);
 }
 
+.outlined-btn.error:hover, .ghost-btn.error:hover {
+  background-color: var(--error-100);
+} 
 
 .outlined-btn:hover,
 .ghost-btn:hover {

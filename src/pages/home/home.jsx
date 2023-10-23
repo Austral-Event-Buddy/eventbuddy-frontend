@@ -33,8 +33,8 @@ export default function Home() {
             .catch(err => console.error(err))
     }
 
-    function handleDayClick(day) {
-        const event = events.find(event => event.date.toLocaleDateString() === day.toLocaleDateString()) //find event with same date
+    const handleDayClick = (day) => {
+        const event = events.find(event => new Date(event.date).toLocaleDateString() === day.toLocaleDateString()) //find event with same date
         if (event) navigate(`/event/${event.id}`) //navigate to event page
     }
 
