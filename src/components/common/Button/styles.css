@@ -71,3 +71,7 @@
   color: var(--grey-700);
   cursor: default;
 }
+
+.rounded {
+    border-radius: 50%;
+}

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
@@ -43,6 +44,7 @@ export default function EventPage() {
         <div className="event-body">
             <section className="event-body-left">
                 <Typography variant="h5">Location</Typography>
+
                 <Map location={event.coordinates} interactive={true} />
             </section>
             <section className="event-body-right">
