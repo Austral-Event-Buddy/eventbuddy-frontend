@@ -54,3 +54,8 @@ export const createEvent = async (body) => {
   const res = await api.post('event', body);
   return res.data;
 };
+
+export const getComments = async (eventId) => {
+  const res = await api.get(`comment/${eventId}`);
+  return res.data;
+}

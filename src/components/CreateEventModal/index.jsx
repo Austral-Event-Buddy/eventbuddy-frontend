@@ -19,7 +19,7 @@ const modalContainerStyle = {
     backgroundColor: "#ffffff",
     boxShadow: "0px 0px 30px 0px rgba(0, 0, 0, 0.25)",
     padding: "36px",
-    zIndex: 10000,
+    zIndex: 999,
 };
 
 const closeIconStyle = {
@@ -50,7 +50,7 @@ const EventModal = ({ show, handleClose }) => {
     const closeModal = () => {
         setEvent({
             name: "",
-            coordinates: "",
+            coordinates: [],
             description: "",
             date: "",
             confirmationDeadline: ""
@@ -80,18 +80,18 @@ const EventModal = ({ show, handleClose }) => {
                 <CloseIcon fontSize="large" style={closeIconStyle} onClick={closeModal} />
                 <Typography id="modal-title" variant="h5" children="Create an Event" />
                 <form id="modal-form" className="create-event-form" onSubmit={handleSubmit}>
-                    <TextField label="Name" name="name" value={event.name} onChange={(e) => handleChange({ name: e.target.value })} />
+                    <TextField label="Name" name="name" value={event.name} onChange={(e) => handleChange({ name: e.target.value })} required />
                     <AddressAutofill accessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                         onRetrieve={handleRetrieve}>
                         <TextField label="Location" name="coordinates" value={search}
-                            onChange={(e) => setSearch(e.target.value)} />
+                            onChange={(e) => setSearch(e.target.value)} required />
                     </AddressAutofill>
                     <TextField label={"Description"} name="description" value={event.description}
-                        onChange={(e) => handleChange({ description: e.target.value })} />
+                        onChange={(e) => handleChange({ description: e.target.value })} required />
                     <TextField label="Date" name="date" type="date" value={event.date}
-                        onChange={(e) => handleChange({ date: e.target.value })} />
+                        onChange={(e) => handleChange({ date: e.target.value })} required />
                     <TextField label="Confirmation Deadline" name="confirmationDeadline" type="date" value={event.confirmationDeadline}
-                        onChange={(e) => handleChange({ confirmationDeadline: e.target.value })} />
+                        onChange={(e) => handleChange({ confirmationDeadline: e.target.value })} required />
                     <Button variant="fullfilled" size="md" text="Create Event" />
                 </form>
             </Box>
