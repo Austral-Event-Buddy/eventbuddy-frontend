@@ -14,40 +14,39 @@ const iconStyle = {
     background: 'white'
 }
 
-const Element = () => {
+const Element = ({ element, host }) => {
 
-    const [host, setHost] = useState(false)
     const [alreadyAssigned, setAlreadyAssigned] = useState(false)
-    const [satisfied, setSatisfied] = useState(false)
+    const isSatisfied = element.maxUsers === element.quanity;
 
     return (
         <div className="element-container">
-            <Typography variant="h6">Element</Typography>
+            <Typography variant="h6">{element.name}</Typography>
             <div className="right-container">
                 <div className="invitations-pics" >
                     { [...Array(Math.min(10, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}
                 </div>
-                {host && satisfied &&
+                {host && isSatisfied &&
                         <Button size="sm" variant="outlined" text="Edit"/>
                     }
-                {host && !satisfied && alreadyAssigned &&
+                {host && !isSatisfied && alreadyAssigned &&
                     <div className="buttons-container">
                         <Button size="sm" variant="outlined-error" text="Unassign"/>
                         <Button size="sm" variant="outlined" text="Edit"/>
                     </div>
                 }
-                {host && !satisfied && !alreadyAssigned &&
+                {host && !isSatisfied && !alreadyAssigned &&
                     <div className="buttons-container">
                         <Button size="sm" text="Assign"/>
                         <Button size="sm" variant="outlined" text="Edit"/>
                     </div>
                 }
-                {!host && !satisfied && alreadyAssigned &&
+                {!host && !isSatisfied && alreadyAssigned &&
                     <div className="buttons-container">
                         <Button size="sm" variant="outlined-error" text="Unassign"/>
                     </div>
                 }
-                {!host && !satisfied && !alreadyAssigned &&
+                {!host && !isSatisfied && !alreadyAssigned &&
                     <div className="buttons-container">
                         <Button size="sm" text="Assign"/>
                     </div>
@@ -59,3 +58,4 @@ const Element = () => {
 }
 
 export default Element;
+

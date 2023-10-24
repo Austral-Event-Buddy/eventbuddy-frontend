@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
 
-import { getEventById, getEvents } from "../../api/api";
+import {getElementsByEvent, getElementsByEventId, getEventById, getEvents} from "../../api/api";
 
 import Typography from "../../components/common/Typography";
 import Map from "../../components/Event/map";
@@ -19,12 +19,18 @@ export default function EventPage() {
 
     const [event, setEvent] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
+
     const coordinates = [42.6977, 23.3219]
     const [elements, setElements] = useState([])
 
     useEffect(() => {
         getEventById(id).then(e => {   
             setEvent(e);
+        })
+        getElementsByEvent(id).then(e => {
+            setElements(e)
         })
     } , [isModalOpen])
 
@@ -37,7 +43,7 @@ export default function EventPage() {
     };
     
     const handleCreateElementModal = () => {
-      
+      setIsCreateElementModalOpen(true)
     }
 
     return event ? <div className='event-main'>
@@ -58,7 +64,9 @@ export default function EventPage() {
                                 <Typography variant="body1bold">Elements</Typography>
                                 <p onClick={handleCreateElementModal} className="plusContainer">+</p>
                             </div>
-                            <Element />
+                            {elements && elements.map((element) => (
+                                <Element key={element.id} element={element} host={event.isHost}/>
+                            ))}
                         </div>
                     }
                 </div>

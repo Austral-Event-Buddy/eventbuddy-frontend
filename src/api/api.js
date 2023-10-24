@@ -49,3 +49,8 @@ export const searchUsers = async (username) => {
   const res = await api.get(`/user/by_username/${username}`);
   return res.data;
 };
+
+export const getElementsByEvent = async (eventId) => {
+    const res = await api.get(`event/elements/${eventId}`);
+    return res.data
+}
