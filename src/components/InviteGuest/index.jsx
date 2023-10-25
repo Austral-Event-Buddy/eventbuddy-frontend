@@ -1,23 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from "../common/Typography";
 import Button from "../common/Button";
 import './modal.css';
-import { inviteGuest, searchUsers} from "../../api/api";
+import { inviteGuest, searchUsers } from "../../api/api";
 import TextField from '../common/TextField';
 import AvatarCard from '../AvatarCard';
+import { Status } from '../../utils/status';
 
 function ModalComponent({ open, onClose, guests, eventId }) {
-    const [inputValue, setInputValue] = useState('');
     const [userList, setUserList] = useState([]);
     const [user, setUser] = useState(undefined);
 
-    useEffect(() => {
-        if (inputValue !== '') searchUsers(inputValue)
-            .then(data => setUserList(data.filter(user => !guests.find(guest => guest.id === user.id))))
+
+    const handleChange = (event) => {
+        const { value } = event.target;
+        if (value === '') setUserList([])
+        else searchUsers(value)
+            .then(data => {
+                setUserList(data.filter(user => guests.find(guest => guest.id !== user.id)))
+            })
             .catch(error => console.error(error));
-    }, [inputValue]);
+    }
 
     const sendInvitation = () => {
         const invitationData = {
@@ -27,26 +32,18 @@ function ModalComponent({ open, onClose, guests, eventId }) {
 
         inviteGuest(invitationData)
             .then((response) => {
-                handleOnClose();
+                onClose()
             })
             .catch((error) => {
-                handleOnClose()
+                console.error(error);
             });
     };
 
     const select = (user) => {
-        console.log(user)
-        setInputValue(user.username);
+        setUserList([])
         setUser(user);
     }
 
-    const handleOnClose = () => {
-        setInputValue('');
-        setUserList([]);
-        onClose();
-        setUser(undefined)
-    }
-    
     return (
         <Modal
             open={open}
@@ -59,21 +56,24 @@ function ModalComponent({ open, onClose, guests, eventId }) {
                     <Typography id="simple-modal-title" variant="h5" component="h2">
                         Invite
                     </Typography>
-                    <TextField label="Username" value={inputValue} placeholder="jane_doe" onChange={(e) => setInputValue(e.target.value)} />
-                    {
-                        !!userList.length && !user &&  
+                    <div className='search-container'>
+                        <TextField label="Username" placeholder="jane_doe" onChange={handleChange} />
+                        {
+                            !!userList.length &&
                             <div className="user-list">
                                 {
-                                    userList.map((user, index) => (
-                                        <div key={index} className="user">
-                                            <AvatarCard name={user.name || user.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} onClick={() => select(user)}/>
-                                        </div>
+                                    userList.map((user) => (
+                                        <AvatarCard name={user.name || user.username} key={user.id} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} onClick={() => select(user)} />
                                     ))
                                 }
                             </div>
+                        }
+                    </div>
+                    {
+                        user && <AvatarCard name={user.name || user.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />
                     }
                     <div className="buttons">
-                        <Button className="button" text="Invite as a guest" onClick={() => sendInvitation("PENDING")} />
+                        <Button className="button" text="Invite as a guest" onClick={() => sendInvitation(Status.PENDING)} />
                     </div>
                 </Box>
             </div>

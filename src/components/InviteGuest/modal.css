@@ -16,6 +16,11 @@
     box-sizing: border-box;
 }
 
+.search-container{
+    width: 100%;
+    position: relative;
+}
+
 .buttons {
     display: flex;
     align-items: flex-start;
@@ -33,16 +38,17 @@
 }
 
 .user-list {
-    margin-inline: 12px;
-    width: 300px;
-    margin-top: 124px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    width: 100%;
+    padding: 8px 0;
     display: flex;
     flex-direction: column;
     padding-inline: 12px;
     box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.15);
-    border-radius: 0 0 8px 8px;
+    border-radius: 8px;
     position: absolute;
     background-color: white;
+}
+
+.custom-box > .avatar-container {
+    width: 100%;
 }
