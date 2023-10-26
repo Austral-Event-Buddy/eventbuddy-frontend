@@ -39,7 +39,7 @@ const CreateElementModal = ({ show, handleClose, eventId }) => {
         quantity: 0,
         maxUsers: 0,
         eventId: eventId,
-        date: "2024-10-21T05:58:30.996Z"
+        date: "2023-10-25T05:58:30.996Z"
     });
 
     const handleChange = async (form) => {

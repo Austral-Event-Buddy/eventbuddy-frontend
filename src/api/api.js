@@ -60,7 +60,6 @@ export const getElementsByEvent = async (eventId) => {
 }
 
 export const createEvent = async (body) => {
-  console.log(getToken());
   const res = await apiToken.post('event', body);
   return res.data;
 };
