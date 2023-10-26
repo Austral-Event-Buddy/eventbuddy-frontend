@@ -4,6 +4,9 @@
 
 .button-container {
     margin-top: 24px;
+    display: flex;
+    width:86%;
+    left: 7%;
 }
 
 

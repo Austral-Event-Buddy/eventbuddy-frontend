@@ -16,6 +16,8 @@ import { getCountDown } from "../../utils/date";
 import CommentThread from "../../components/CommentThread";
 import NoContent from "../../components/NoContent";
 import Element from "../../components/Element";
+import CreateElementModal from "../../components/CreateElementModal";
+import EditElementModal from "../../components/EditElementModal";
 
 export default function EventPage() {
   const { id } = useParams();
@@ -23,6 +25,7 @@ export default function EventPage() {
   const [event, setEvent] = useState(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
+  const [isEditElementModalOpen, setIsEditElementModalOpen] = useState(false)
   const [elements, setElements] = useState([])
 
     useEffect(async () => {
@@ -44,7 +47,11 @@ export default function EventPage() {
   };
 
   const handleCreateElementModal = () => {
-    setIsCreateElementModalOpen(true)
+    setIsCreateElementModalOpen(!isCreateElementModalOpen)
+  }
+
+  const handleEditElementModal = () => {
+    setIsEditElementModalOpen(!isEditElementModalOpen)
   }
 
   return event ? <div className='event-main'>
@@ -89,6 +96,11 @@ export default function EventPage() {
         {/* TODO: Check if current user is host */}
       </section>
     </div>
+    {/*<CreateElementModal show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} />*/}
+    {/*<EditElementModal show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />*/}
     {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
-  </div> : <div> Loading... </div>
+  </div> : <div>
+    Loading...
+
+  </div>
 }
