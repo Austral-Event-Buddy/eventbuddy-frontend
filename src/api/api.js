@@ -84,3 +84,20 @@ export const deleteProfile = async () => {
     const res = await apiToken.delete(`user/delete`);
     return res.data
 }
+
+export const createElement = async (body) => {
+
+
+}
+
+
+export const updateElement = async (body) => {
+
+
+}
+
+
+export const deleteElement = async (body) => {
+
+
+}
