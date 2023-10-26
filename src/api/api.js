@@ -86,7 +86,8 @@ export const deleteProfile = async () => {
 }
 
 export const createElement = async (body) => {
-
+  const res = await apiToken.post(`element`, body);
+  return res.data
 
 }
 

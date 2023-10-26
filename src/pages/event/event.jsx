@@ -48,6 +48,7 @@ export default function EventPage() {
 
   const handleCreateElementModal = () => {
     setIsCreateElementModalOpen(!isCreateElementModalOpen)
+
   }
 
   const handleEditElementModal = () => {
@@ -96,8 +97,8 @@ export default function EventPage() {
         {/* TODO: Check if current user is host */}
       </section>
     </div>
-    {/*<CreateElementModal show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} />*/}
-    {/*<EditElementModal show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />*/}
+    <CreateElementModal style={{"zIndex":'4'}} show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} />
+    <EditElementModal style={{"zIndex":'4'}} show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />
     {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
   </div> : <div>
     Loading...
