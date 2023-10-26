@@ -95,7 +95,7 @@ const EditElementModal = ({ show, handleClose }) => {
                         </div>
                     </form>
                 </div>
-                <div className="button-container">
+                <div className="buttons-container">
                     <Button onClick={handleSaveElement} variant="fullfilled" size="md" text="Save Element"/>
                     <Button onClick={handleDeleteElement} className={"red-button"} variant="outlined" size="md" text="Delete Element"/>
                 </div>

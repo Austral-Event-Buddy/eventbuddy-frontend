@@ -97,11 +97,9 @@ export default function EventPage() {
         {/* TODO: Check if current user is host */}
       </section>
     </div>
-    <CreateElementModal style={{"zIndex":'4'}} show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} />
-    <EditElementModal style={{"zIndex":'4'}} show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />
+    <CreateElementModal show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} eventId={id}/>
+    {/*<EditElementModal style={{"zIndex":'4'}} show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />*/}
     {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
   </div> : <div>
-    Loading...
-
-  </div>
+    Loading...</div>
 }
