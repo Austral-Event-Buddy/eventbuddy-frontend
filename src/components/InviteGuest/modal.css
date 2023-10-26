@@ -21,8 +21,9 @@
     position: relative;
 }
 
-.buttons {
+.modal-box > * > .buttons {
     display: flex;
+    flex-direction: row;
     align-items: flex-start;
     gap: 24px;
     align-self: stretch;

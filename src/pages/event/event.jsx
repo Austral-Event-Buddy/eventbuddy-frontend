@@ -23,14 +23,9 @@ export default function EventPage() {
   const [event, setEvent] = useState(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
-  const [elements, setElements] = useState([])
-
     useEffect(() => {
         getEventById(id).then(e => {
-            getComments(id).then(comments => setEvent({ ...event, comments })).catch(err =>  setEvent(event));
-            getElementsByEvent(id).then(e => {
-                setElements(e)
-            })
+          setEvent(e)
         })
     } , [isModalOpen])
 
@@ -57,19 +52,14 @@ export default function EventPage() {
       <section className="event-body-left">
         <Typography variant="h5">Location</Typography>
         <Map location={event.coordinates} interactive={true} />
-        <div className="elements-container">
-            {elements &&
-                <div>
-                    <div className="title-container">
-                        <Typography variant="body1bold">Elements</Typography>
-                        <p onClick={handleCreateElementModal} className="plusContainer">+</p>
-                    </div>
-                    {elements && elements.map((element) => (
-                        <Element key={element.id} element={element} host={event.isHost}/>
-                    ))}
-                </div>
-            }
+        <div className="event-comments-header">
+            <Typography variant="h5">Elements</Typography>
+            <Button text={'+'} variant="ghost" />
         </div>
+        {event.elements?.length 
+          ? event.elements.map((element) => (<Element key={element.id} element={element} host={event.isHost}/>))
+          : <NoContent message={"There's no elements"} />
+        }
         <div className="event-comments-header">
           <Typography variant="h5">Comments</Typography>
           <Button text={'+'} variant="ghost" />
@@ -84,8 +74,7 @@ export default function EventPage() {
           <Typography variant={'h5'} className="bold">Guests</Typography>
           {event.guests?.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.name || guest.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
         </div>
-        <Button text={'Invite'} onClick={handleOpenModal} />
-        {/* TODO: Check if current user is host */}
+        
       </section>
     </div>
     {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}

@@ -24,9 +24,10 @@ function ModalComponent({ open, onClose, guests, eventId }) {
             .catch(error => console.error(error));
     }
 
-    const sendInvitation = () => {
+    const sendInvitation = (status, host) => {
         const invitationData = {
             userId: user.id,
+            isHost: host,
             eventId,
         };
 
@@ -73,7 +74,8 @@ function ModalComponent({ open, onClose, guests, eventId }) {
                         user && <AvatarCard name={user.name || user.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} />
                     }
                     <div className="buttons">
-                        <Button className="button" text="Invite as a guest" onClick={() => sendInvitation(Status.PENDING)} />
+                        <Button className="button" text="Invite as a guest" onClick={() => sendInvitation(Status.PENDING, false)} />
+                        <Button className="button" text="Invite as a host" variant="outlined" onClick={() => sendInvitation(Status.PENDING, true)} />
                     </div>
                 </Box>
             </div>

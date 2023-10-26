@@ -12,7 +12,6 @@ import AutoComplete from "../common/AutoComplete";
 function ModalComponent({ open, onClose, eventID}) {
     const [suggestedList, setSuggestedList] = useState([]);
     const [userList, setUserList] = useState([]);
-    //const option = ["numa", "marco", "mau"]
     const [selectedName, setSelectedName] = useState('');
 
 
