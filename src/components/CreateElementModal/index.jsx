@@ -82,7 +82,7 @@ const CreateElementModal = ({ show, handleClose, eventId }) => {
                         </div>
                     </form>
                 </div>
-                <div className="button-container">
+                <div className="buttons-container">
                     <Button onClick={handleSubmit} variant="fullfilled" size="md" text="Create Element"/>
                 </div>
             </Box>
