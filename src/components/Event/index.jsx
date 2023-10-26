@@ -39,9 +39,9 @@ export default function Event({ id, name, date, guests, status, location, onClic
                 <Typography variant={"h6"}>{name}</Typography>
                 <Typography variant={"body3"}>{getCountDown(date)}</Typography>
                 <div className='invites-info'>
-                    <div className="invite-picture" >
-                        { [...Array(Math.min(guests, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}
-                    </div>
+                    {/*<div className="invite-picture" >*/}
+                    {/*    { [...Array(Math.min(guests, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}*/}
+                    {/*</div>*/}
                     <Typography variant="body2bold" >{guests.length} attending</Typography>
                 </div>
 

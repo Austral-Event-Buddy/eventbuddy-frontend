@@ -3,7 +3,7 @@ import Button from '../../components/common/Button';
 import Typography from '../../components/common/Typography';
 import './home.css';
 import Event from '../../components/Event';
-import EventCalendar from '../../components/EventCalendar';
+import EventCalendar from '../../components/eventCalendar';
 import { useEffect, useState } from "react";
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
@@ -15,17 +15,21 @@ export default function Home() {
     const [events, setEvents] = useState([]);
     const [query, setQuery] = useState("")
     const [modal, setModal] = useState(false);
+    const [open, setOpen] = useState(true)
 
 
     const getAll = () => {
         getEvents()
             .then(data => setEvents(data))
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
+        setOpen(false);
     }
 
     useEffect(() => {
-        getAll()
-    }, []);
+        if(open){
+            getAll()
+        }
+    }, [open]);
 
     const search = () => {
         searchEvents(query)

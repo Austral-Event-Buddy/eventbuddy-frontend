@@ -25,11 +25,12 @@ export default function EventPage() {
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
   const [elements, setElements] = useState([])
 
-    useEffect(() => {
-        getEventById(id).then(e => {
-            getComments(id).then(comments => setEvent({ ...event, comments })).catch(err =>  setEvent(event));
-            getElementsByEvent(id).then(e => {
-                setElements(e)
+    useEffect(async () => {
+        await getEventById(id).then(e => {
+            setEvent(e)
+            // getComments(id).then(comments => setEvent({ ...event, comments })).catch(err =>  setEvent(event));
+            getElementsByEvent(id).then(elements => {
+                setElements(elements)
             })
         })
     } , [isModalOpen])
@@ -56,7 +57,7 @@ export default function EventPage() {
     <div className="event-body">
       <section className="event-body-left">
         <Typography variant="h5">Location</Typography>
-        <Map location={event.coordinates} interactive={true} />
+        {/*<Map location={event.coordinates} interactive={true} />*/}
         <div className="elements-container">
             {elements &&
                 <div>
@@ -89,6 +90,5 @@ export default function EventPage() {
       </section>
     </div>
     {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
-  </div> :
-    <div>Loading...</div>
+  </div> : <div> Loading... </div>
 }
