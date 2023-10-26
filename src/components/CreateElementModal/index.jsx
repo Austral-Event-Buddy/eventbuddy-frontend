@@ -30,7 +30,7 @@ const closeIconStyle = {
 
 }
 
-const CreateElementModal = ({ show, handleClose }) => {
+const CreateElementModal = ({ show, handleClose, eventId }) => {
 
     const [search, setSearch] = useState("")
 
@@ -38,7 +38,7 @@ const CreateElementModal = ({ show, handleClose }) => {
         name: 0,
         quantity: 0,
         maxUsers: 0,
-        eventId: 8,
+        eventId: eventId,
         date: "2024-10-21T05:58:30.996Z"
     });
 
@@ -51,8 +51,7 @@ const CreateElementModal = ({ show, handleClose }) => {
         setElement({
             name: 0,
             quantity: 0,
-            maxUsers: 0,
-            eventId: 0
+            maxUsers: 0
         })
         handleClose();
     }

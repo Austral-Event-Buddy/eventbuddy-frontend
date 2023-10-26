@@ -35,9 +35,11 @@ const EditElementModal = ({ show, handleClose }) => {
     const [search, setSearch] = useState("")
 
     const [element, setElement] = useState({
-        name: "",
-        quantity: "",
-        assignedLimit: ""
+        name: 0,
+        quantity: 0,
+        maxUsers: 0,
+        eventId: 8,
+        date: "2024-10-21T05:58:30.996Z"
 
     });
 
@@ -48,11 +50,10 @@ const EditElementModal = ({ show, handleClose }) => {
 
     const closeModal = () => {
         setElement({
-            name: "",
-            location: "",
-            description: "",
-            date: "",
-            confirmationDeadline: ""
+            name: 0,
+            quantity: 0,
+            maxUsers: 0,
+            eventId: 0
         })
         handleClose();
     }
@@ -88,9 +89,9 @@ const EditElementModal = ({ show, handleClose }) => {
                                    onChange={(e) => handleChange({ name: e.target.value })} />
                         <div className={"flex-input"}>
                             <TextField label="Quantity" name="quantity"  value={element.quantity} className={"input"}
-                                       onChange={(e) => handleChange({ quantity: e.target.value })}/>
-                            <TextField label="Assigned Limit" name="assignedLimit" value={element.assignedLimit} className={"input"}
-                                       onChange={(e) => handleChange({ assignedLimit: e.target.value })}/>
+                                       onChange={(e) => handleChange({ quantity: parseInt(e.target.value)})}/>
+                            <TextField label="Assigned Limit" name="assignedLimit" value={element.maxUsers} className={"input"}
+                                       onChange={(e) => handleChange({ maxUsers: parseInt(e.target.value)})}/>
                         </div>
                     </form>
                 </div>
