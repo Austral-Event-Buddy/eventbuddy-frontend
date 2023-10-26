@@ -1,0 +1,24 @@
+.inputs-container > *{
+    margin-top: 12px;
+}
+
+.button-container {
+    margin-top: 24px;
+    display: flex;
+    gap: 15px;
+}
+
+
+.input{
+    position: relative;
+    padding-bottom: 10px;
+}
+.flex-input{
+    display: flex;
+    gap: 15px;
+}
+
+.red-button{
+    color: red;
+    border-color: red;
+}
