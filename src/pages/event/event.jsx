@@ -32,9 +32,10 @@ export default function EventPage() {
         await getEventById(id).then(e => {
             setEvent(e)
             // getComments(id).then(comments => setEvent({ ...event, comments })).catch(err =>  setEvent(event));
-            getElementsByEvent(id).then(elements => {
-                setElements(elements)
-            })
+            setElements(e.elements)
+            // getElementsByEvent(id).then(elements => {
+            //     setElements(elements)
+            // })
         })
     } , [isModalOpen])
 
@@ -97,9 +98,11 @@ export default function EventPage() {
         {/* TODO: Check if current user is host */}
       </section>
     </div>
-    <CreateElementModal show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} eventId={id}/>
-    {/*<EditElementModal style={{"zIndex":'4'}} show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />*/}
+    <CreateElementModal style={{"zIndex":'4'}} show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} eventId={event.id}/>
+    <EditElementModal style={{"zIndex":'4'}} show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />
     {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
   </div> : <div>
-    Loading...</div>
+    Loading...
+
+  </div>
 }
