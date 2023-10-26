@@ -3,7 +3,7 @@ import Button from '../../components/common/Button';
 import Typography from '../../components/common/Typography';
 import './home.css';
 import Event from '../../components/Event';
-import EventCalendar from '../../components/eventCalendar';
+import EventCalendar from '../../components/EventCalendar';
 import { useEffect, useState } from "react";
 
 import { getEvents, searchEvents } from '../../api/api';
@@ -20,12 +20,12 @@ export default function Home() {
 
     const getAll = () => {
         getEvents()
-        .then(data => setEvents(data))
-        .catch(err => console.error(err))
+            .then(data => setEvents(data))
+            .catch(err => console.error(err))
     }
 
     useEffect(() => {
-       getAll()
+        getAll()
     }, []);
 
     const search = () => {
@@ -34,8 +34,8 @@ export default function Home() {
             .catch(err => console.error(err))
     }
 
-    function handleDayClick(day){
-        const event = events.find(event=> new Date(event.date).toLocaleDateString() === day.toLocaleDateString()) //find event with same date
+    const handleDayClick = (day) => {
+        const event = events.find(event => new Date(event.date).toLocaleDateString() === day.toLocaleDateString()) //find event with same date
         if (event) navigate(`/event/${event.id}`) //navigate to event page
     }
 
@@ -55,7 +55,7 @@ export default function Home() {
                         onChange={(e) => setQuery(e.target.value)}
                     />
                     <div className="search-button">
-                        <Button text="Search" onClick={search}/>
+                        <Button text="Search" onClick={search} />
                     </div>
                 </div>
             </div>
