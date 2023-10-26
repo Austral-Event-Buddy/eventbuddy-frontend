@@ -21,7 +21,6 @@ function Map({ location , interactive = false}) {
             .setLngLat([location[1], location[0]])
             .addTo(map.current);
     }, [location]);
-
     return <div ref={mapContainer} className="cropped-image" style={{width:'100%'}}/>;
 }
 

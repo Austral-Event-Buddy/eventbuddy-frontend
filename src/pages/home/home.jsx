@@ -3,25 +3,29 @@ import Button from '../../components/common/Button';
 import Typography from '../../components/common/Typography';
 import './home.css';
 import Event from '../../components/Event';
-import EventCalendar from '../../components/eventCalendar';
+import EventCalendar from '../../components/EventCalendar';
 import { useEffect, useState } from "react";
+
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
+import EventModal from "../../components/CreateEventModal";
 
 export default function Home() {
     const navigate = useNavigate()
 
     const [events, setEvents] = useState([]);
     const [query, setQuery] = useState("")
+    const [modal, setModal] = useState(false);
+
 
     const getAll = () => {
         getEvents()
-        .then(data => setEvents(data))
-        .catch(err => console.error(err))
+            .then(data => setEvents(data))
+            .catch(err => console.error(err))
     }
 
     useEffect(() => {
-       getAll()
+        getAll()
     }, []);
 
     const search = () => {
@@ -30,10 +34,12 @@ export default function Home() {
             .catch(err => console.error(err))
     }
 
-    function handleDayClick(day){
-        const event = events.find(event=> new Date(event.date).toLocaleDateString() === day.toLocaleDateString()) //find event with same date
+    const handleDayClick = (day) => {
+        const event = events.find(event => new Date(event.date).toLocaleDateString() === day.toLocaleDateString()) //find event with same date
         if (event) navigate(`/event/${event.id}`) //navigate to event page
     }
+
+    function handleModal(value) { setModal(value) }
 
     return (
         <div className={"right-hand-side"}>
@@ -42,14 +48,14 @@ export default function Home() {
                     <Typography variant="h4" className='bold'>My Events</Typography>
                 </div>
                 <div className={"search"}>
-                    <TextField 
-                        className="search-bar" 
-                        value={query} 
-                        placeholder={"Search by name or description"} 
+                    <TextField
+                        className="search-bar"
+                        value={query}
+                        placeholder={"Search by name or description"}
                         onChange={(e) => setQuery(e.target.value)}
                     />
                     <div className="search-button">
-                        <Button text="Search" onClick={search}/>
+                        <Button text="Search" onClick={search} />
                     </div>
                 </div>
             </div>
@@ -71,6 +77,16 @@ export default function Home() {
                 </div>
                 <EventCalendar mode='multiple' events={events} onClick={handleDayClick}  />
             </div>
+
+            <div className="footer">
+                <div className="button-container">
+                    <Button onClick={(e) => {
+                        e.stopPropagation();
+                        handleModal(true)
+                    }} className="rounded" size="lg" text="+" />
+                </div>
+            </div>
+            <EventModal show={modal} handleClose={() => handleModal(false)} />
         </div>
     )
 }

@@ -10,8 +10,8 @@ export default function Button({
   disabled,
   onClick,
   size = 'lg',
-  className,
-    startIcon,
+  className = '',
+  startIcon,
 }) {
   function getTypographyVariant() {
     switch (size) {

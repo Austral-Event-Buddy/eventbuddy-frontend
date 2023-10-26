@@ -1,4 +1,3 @@
-import React, {useEffect, useRef} from 'react';
 import './styles.css';
 import "mapbox-gl/dist/mapbox-gl.css";
 import Typography from "../common/Typography";
@@ -9,6 +8,7 @@ import Map from "./map";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getCountDown } from '../../utils/date';
 import { answerInvite } from '../../api/api';
+import { Status } from '../../utils/status';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 export default function Event({ id, name, date, guests, status, location, onClick, refresh }) {
@@ -40,29 +40,29 @@ export default function Event({ id, name, date, guests, status, location, onClic
                 <Typography variant={"body3"}>{getCountDown(date)}</Typography>
                 <div className='invites-info'>
                     <div className="invite-picture" >
-                        { [...Array(Math.min(guests.length, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}
+                        { [...Array(Math.min(guests, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}
                     </div>
                     <Typography variant="body2bold" >{guests.length} attending</Typography>
                 </div>
 
             </div>
-            {status === "ATTENDING" && (
+            {status === Status.ATTENDING && (
                 <div className={"confirmed-button"}>
-                    <Button text={"Confirmed"} size={"sm"} disabled />
+                    <Button text={"Confirmed"} size={"sm"} disabled={true} />
                 </div>
             )}
-            {status === "HOST" && (
+            {status === Status.HOST && (
                 <div className={"confirmed-button"}>
                     <Button text={"Host"} size={"sm"} disabled />
                 </div>
             )}
-            {status === "PENDING" && (
+            {status === Status.PENDING && (
                 <div className={"confirmation-buttons"}>
-                    <Button text={"Attending"} size={"sm"} onClick={() => answer("ATTENDING")}/>
-                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"} onClick={() => answer("NOT_ATTENDING")}/>
+                    <Button text={"Attending"} size={"sm"} onClick={() => answer(Status.ATTENDING)}/>
+                    <Button text={"Not Attending"} size={"sm"} variant={"outlined"} className='error' onClick={() => answer(Status.NOT_ATTENDING)}/>
                 </div>
             )}
-            {status === "NOT_ATTENDING" && (
+            {status === Status.NOT_ATTENDING && (
                 <div className={"confirmed-button"}>
                     <Button text={"Not Attending"} size={"sm"} disabled/>
                 </div>
@@ -71,12 +71,10 @@ export default function Event({ id, name, date, guests, status, location, onClic
     );
 }
 
-
 Event.propTypes = {
     name: PropTypes.string,
     //Date is written as: yyyy/mm/dd
     date: PropTypes.instanceOf(Date),
     invitationAmount: PropTypes.number,
-    status: PropTypes.oneOf(["pending", "confirmed", "not attending"])
+    status: PropTypes.oneOf(['ATTENDING', 'PENDING', 'NOT_ATTENDING', 'HOST']),
 }
-

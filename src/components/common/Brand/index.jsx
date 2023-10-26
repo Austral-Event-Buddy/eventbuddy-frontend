@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import logo from '../../../icons/eventBuddy-logo.svg';
 
-export default function Brand({ size = 'md', className }) {
+export default function Brand({ size = 'md', className, onClick }) {
   function getLogoSize() {
     switch (size) {
       case 'lg':
@@ -30,7 +30,7 @@ export default function Brand({ size = 'md', className }) {
   }
 
   return (
-    <div className={`brand-container ${className}`}>
+    <div className={`brand-container ${className}`} onClick={onClick}>
       <img alt="logo" src={logo} className={`logo ${getLogoSize()}`} />
       <Typography variant={getBrandSize()}>EventBuddy</Typography>
     </div>
