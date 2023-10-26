@@ -40,7 +40,7 @@ export default function TextField({
 TextField.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.any,
   onChange: PropTypes.func,
   helperText: PropTypes.string,
   placeholder: PropTypes.string,

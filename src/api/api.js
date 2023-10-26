@@ -79,3 +79,8 @@ export const deleteProfile = async () => {
     const res = await api.delete(`user/delete`);
     return res.data
 }
+
+export const createElement = async (body) => {
+  const res = await api.post(`element/`, body);
+  return res.data;
+}
