@@ -12,6 +12,7 @@ export default function TextField({
   error,
   type = 'text',
   className = '',
+  required = false,
 }) {
   return (
     <div className={`textfield-container ${className}`}>
@@ -25,6 +26,7 @@ export default function TextField({
         value={value}
         onChange={onChange}
         className={error ? 'input-error' : ''}
+        required={required}
       />
       {helperText && (
         <Typography variant={'body3'} className={'helper-text ' + (error ? 'error' : '')}>
@@ -44,4 +46,5 @@ TextField.propTypes = {
   placeholder: PropTypes.string,
   error: PropTypes.bool,
   type: PropTypes.oneOf(['text', 'password', 'number']),
+  required: PropTypes.bool
 };

@@ -5,7 +5,6 @@ import './home.css';
 import Event from '../../components/Event';
 import EventCalendar from '../../components/EventCalendar';
 import { useEffect, useState } from "react";
-
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import EventModal from "../../components/CreateEventModal";
@@ -75,16 +74,13 @@ export default function Home() {
                         />
                     ))}
                 </div>
-                <EventCalendar mode='multiple' events={events} onClick={handleDayClick}  />
+                <EventCalendar mode='multiple' events={events} onClick={handleDayClick} />
             </div>
-
-            <div className="footer">
-                <div className="button-container">
-                    <Button onClick={(e) => {
-                        e.stopPropagation();
-                        handleModal(true)
-                    }} className="rounded" size="lg" text="+" />
-                </div>
+            <div className="button-container">
+                <Button onClick={(e) => {
+                    e.stopPropagation();
+                    handleModal(true)
+                }} className="rounded" size="lg" text="+" />
             </div>
             <EventModal show={modal} handleClose={() => handleModal(false)} />
         </div>

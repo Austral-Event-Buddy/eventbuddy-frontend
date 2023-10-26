@@ -51,12 +51,18 @@ export const searchUsers = async (username) => {
 };
 
 export const getElementsByEvent = async (eventId) => {
-    const res = await api.get(`event/elements/${eventId}`);
+  const res = await api.get(`event/elements/${eventId}`);
+  return res.data;
 }
 
 export const createEvent = async (body) => {
   const res = await api.post('event', body);
-  return res.data
+  return res.data;
+};
+
+export const getComments = async (eventId) => {
+  const res = await api.get(`comment/${eventId}`);
+  return res.data;
 }
 
 export const updateProfileData = async (body) => {

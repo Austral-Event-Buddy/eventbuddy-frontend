@@ -33,9 +33,9 @@ export default function Button({
       onClick={onClick}
 
     >
-        {startIcon && (
-            <Icon>{startIcon}</Icon>
-        )}
+      {startIcon && (
+        <Icon>{startIcon}</Icon>
+      )}
       <Typography variant={getTypographyVariant()}>{text}</Typography>
     </button>
   );

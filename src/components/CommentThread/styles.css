@@ -1,0 +1,13 @@
+.comment-container{
+    border-left: 3px solid var(--grey-300);
+    padding: 4px 16px;
+}
+
+.comment-container > .avatar-container{
+    padding: 0;
+}
+
+.comment-container > .avatar-container:hover {
+    cursor: default;
+    background-color: transparent;
+}

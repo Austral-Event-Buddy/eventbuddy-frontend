@@ -73,7 +73,7 @@ export default function Event({ id, name, date, guests, status, location, onClic
 
 Event.propTypes = {
     name: PropTypes.string,
-    //Date is written as: yyyy/mm/dd
+    guests: PropTypes.number,
     date: PropTypes.instanceOf(Date),
     invitationAmount: PropTypes.number,
     status: PropTypes.oneOf(['ATTENDING', 'PENDING', 'NOT_ATTENDING', 'HOST']),
