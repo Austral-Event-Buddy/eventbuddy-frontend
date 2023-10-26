@@ -1,0 +1,28 @@
+.element-container {
+    flex: 1;
+    border: 1px solid var(--grey-500);
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invitations-pics {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    bottom: 0;
+    left: 18px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.right-container {
+    display: flex;
+    gap: 6px;
+}

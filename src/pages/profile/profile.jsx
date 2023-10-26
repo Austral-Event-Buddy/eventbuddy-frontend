@@ -1,14 +1,51 @@
 import './profile.css';
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Button from '../../components/common/Button';
+import {deleteProfile, getMe, updateProfileData} from "../../api/api";
+import {useNavigate} from "react-router-dom";
+import {Routes} from "../../utils/routes";
 
 
 export default function Profile() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
+    const [profileData, setProfileData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        username: ''
+    });
+    const navigate = useNavigate();
 
+
+    useEffect(() => {
+        getMe()
+            .then((data) => {
+                setProfileData(data);
+            })
+            .catch((error) => {
+                console.error("Error obtaining data from backend:", error);
+            });
+    }, []);
+
+    const handleSubmit = () => {
+        updateProfileData(profileData)
+            .then((response) => {
+                console.log("Profile data updated successfully.");
+            })
+            .catch((error) => {
+                console.error("Error updating profile data:", error);
+            });
+    };
+    const handleDelete = () => {
+        deleteProfile()
+            .then((response) => {
+                navigate(Routes.Login);
+                localStorage.clear();
+                console.log("Profile data deleted successfully.");
+            })
+            .catch((error) => {
+                console.error("Error deleting profile data:", error);
+            });
+    }
     return (
         <div>
             <div className="titulo">
@@ -23,34 +60,42 @@ export default function Profile() {
             <div className="form">
                 <form>
                     <div className="name-form">
-                        <div className='label1'>
-                            <label>Name</label>
-                        </div>
-                        <input height={'10px'} placeholder='Jane Doe' value={name} onChange={(e) => setName(e.target.value)} />
+                        <label>Name</label>
+                        <input
+                            placeholder='Jane Doe'
+                            value={profileData.name}
+                            // onChange={(e) => setProfileData({ ...profileData, name: e.target.value })} NO EXISTE EL VALOR DE NAME.
+                        />
                     </div>
                     <div className="username-form">
-                        <div className='label2'>
                         <label>Username</label>
-                        </div>
-                        <input placeholder='jane.doe' value={username} onChange={(e) => setUsername(e.target.value)} />
+                        <input
+                            placeholder='jane.doe'
+                            value={profileData.username}
+                            onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
+                        />
                     </div>
                     <div className="email-form">
-                        <div className='label3'>
                         <label>Email</label>
-                            </div>
-                        <input placeholder='jane.doe@mail.com' value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input
+                            placeholder='jane.doe@mail.com'
+                            value={profileData.email}
+                            onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
+                        />
                     </div>
                     <div className="password-form">
-                        <div className='label4'>
                         <label>Password</label>
-                        </div>
-                        <input placeholder='Password123!' value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input
+                            placeholder='Password123!'
+                            value={profileData.password}
+                            onChange={(e) => setProfileData({ ...profileData, password: e.target.value })}
+                        />
                     </div>
                         <div className='button1'>
-                            <Button size= {'md'} text='Save'/>
+                            <Button onClick={handleSubmit} size={'md'} text='Save'/>
                         </div>
                         <div className='button2'>
-                            <Button size= {'md'} variant={"outlined"} text = 'Close account' className='red-button'/>
+                            <Button onClick={handleDelete} size= {'md'} variant={"outlined"} text = 'Close account' className='red-button'/>
                         </div>
                 </form>
             </div>

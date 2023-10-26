@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
 
-import { getComments, getEventById } from "../../api/api";
+import {getElementsByEvent, getComments, getEventById} from "../../api/api";
 
 import Typography from "../../components/common/Typography";
 import Map from "../../components/Event/map";
@@ -15,20 +15,24 @@ import './event.css';
 import { getCountDown } from "../../utils/date";
 import CommentThread from "../../components/CommentThread";
 import NoContent from "../../components/NoContent";
+import Element from "../../components/Element";
 
 export default function EventPage() {
   const { id } = useParams();
 
   const [event, setEvent] = useState(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
+  const [elements, setElements] = useState([])
 
-  useEffect(() => {
-    getEventById(id).then(event => {
-      getComments(id).then(comments => setEvent({ ...event, comments })).catch(err =>  setEvent(event));
-    })
-  }, [isModalOpen, id])
-
-
+    useEffect(() => {
+        getEventById(id).then(e => {
+            getComments(id).then(comments => setEvent({ ...event, comments })).catch(err =>  setEvent(event));
+            getElementsByEvent(id).then(e => {
+                setElements(e)
+            })
+        })
+    } , [isModalOpen])
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -37,6 +41,10 @@ export default function EventPage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleCreateElementModal = () => {
+    setIsCreateElementModalOpen(true)
+  }
 
   return event ? <div className='event-main'>
     <header className="event-header">
@@ -49,6 +57,19 @@ export default function EventPage() {
       <section className="event-body-left">
         <Typography variant="h5">Location</Typography>
         <Map location={event.coordinates} interactive={true} />
+        <div className="elements-container">
+            {elements &&
+                <div>
+                    <div className="title-container">
+                        <Typography variant="body1bold">Elements</Typography>
+                        <p onClick={handleCreateElementModal} className="plusContainer">+</p>
+                    </div>
+                    {elements && elements.map((element) => (
+                        <Element key={element.id} element={element} host={event.isHost}/>
+                    ))}
+                </div>
+            }
+        </div>
         <div className="event-comments-header">
           <Typography variant="h5">Comments</Typography>
           <Button text={'+'} variant="ghost" />

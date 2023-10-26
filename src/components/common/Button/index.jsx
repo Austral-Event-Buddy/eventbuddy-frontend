@@ -42,7 +42,7 @@ export default function Button({
 }
 
 Button.propTypes = {
-  variant: PropTypes.oneOf(['fullfilled', 'outlined', 'ghost']),
+  variant: PropTypes.oneOf(['fullfilled', 'outlined', 'ghost', 'outlined-error']),
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   size: PropTypes.oneOf(['sm', 'md', 'lg']),
