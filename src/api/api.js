@@ -50,6 +50,10 @@ export const searchUsers = async (username) => {
   return res.data;
 };
 
+export const getElementsByEvent = async (eventId) => {
+    const res = await api.get(`event/elements/${eventId}`);
+}
+
 export const createEvent = async (body) => {
   const res = await api.post('event', body);
   return res.data
