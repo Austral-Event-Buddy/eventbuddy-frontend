@@ -8,11 +8,15 @@ import { Routes } from '../../utils/routes';
 import SettingsIcon from '@mui/icons-material/Settings';
 import EventIcon from '@mui/icons-material/Event';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import {removeToken} from "../../api/token";
+import {useState} from "react";
 
 
 export default function SideBar() {
   const currentRoute = useRoute();
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false)
 
   const routes = [
     {
@@ -33,6 +37,15 @@ export default function SideBar() {
 
   ];
 
+  const handleLogOut = () => {
+    removeToken();
+    navigate('/login')
+  }
+
+  const handleOpenModal = () => {
+    setOpen(!open);
+  }
+
   return (
     <div className={'container'}>
       <header className='sidebar-header'>
@@ -52,10 +65,14 @@ export default function SideBar() {
           ))}
         </div>
       </header>
-
-      <div className={'account-menu'}>
-        <div className={'profile-picture'}></div>
-        <Typography variant={'body1bold'}>Jane Doe</Typography>
+      <div className="logout-container">
+        {open && <div className='logout-modal'>
+          <Button onClick={handleLogOut} size={'sm'} variant={'outlined-error'} text={'Log out'}/>
+        </div>}
+        <div onClick={handleOpenModal} className={'account-menu'}>
+          <div className={'profile-picture'} />
+          <Typography variant={'body1bold'}>Jane Doe</Typography>
+        </div>
       </div>
     </div>
   );
