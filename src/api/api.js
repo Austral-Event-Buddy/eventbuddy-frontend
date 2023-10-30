@@ -3,11 +3,17 @@ import { getToken, setToken } from './token';
 
 export const api = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
-  headers: {
-    Authorization: `Bearer ${getToken()}`,
-  },
 });
 
+api.interceptors.request.use((config) => {
+  return {
+    ...config,
+    headers: {
+      ...config.headers,
+      Authorization: `Bearer ${getToken()}`,
+    },
+  };
+});
 export const login = async (body, callback) => {
   const res = await api.post('auth/login', body);
   setToken(res.data.access_token);
@@ -53,7 +59,7 @@ export const searchUsers = async (username) => {
 export const getElementsByEvent = async (eventId) => {
   const res = await api.get(`event/elements/${eventId}`);
   return res.data;
-}
+};
 
 export const createEvent = async (body) => {
   const res = await api.post('event', body);
@@ -63,19 +69,19 @@ export const createEvent = async (body) => {
 export const getComments = async (eventId) => {
   const res = await api.get(`comment/${eventId}`);
   return res.data;
-}
+};
 
 export const updateProfileData = async (body) => {
-    const res = await api.put(`user/update`, body);
-    return res.data
-}
+  const res = await api.put(`user/update`, body);
+  return res.data;
+};
 
 export const getMe = async () => {
-    const res = await api.get(`user/me`);
-    return res.data
-}
+  const res = await api.get(`user/me`);
+  return res.data;
+};
 
 export const deleteProfile = async () => {
-    const res = await api.delete(`user/delete`);
-    return res.data
-}
+  const res = await api.delete(`user/delete`);
+  return res.data;
+};
