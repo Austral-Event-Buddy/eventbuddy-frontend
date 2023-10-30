@@ -39,7 +39,7 @@ export default function SideBar() {
 
   const handleLogOut = () => {
     removeToken();
-    navigate('/login')
+    window.location.assign('/login')
   }
 
   const handleOpenModal = () => {
