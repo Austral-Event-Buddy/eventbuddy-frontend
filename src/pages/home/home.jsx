@@ -90,7 +90,6 @@ export default function Home() {
                 }} className="rounded" size="lg" text="+" />
             </div>
             <EventModal show={modal} handleClose={() => handleModal(false)} />
-            <NewCommentModal style={{"zIndex":'4'}} show={true}  />
 
         </div>
     )

@@ -18,6 +18,7 @@ import NoContent from "../../components/NoContent";
 import Element from "../../components/Element";
 import CreateElementModal from "../../components/CreateElementModal";
 import EditElementModal from "../../components/EditElementModal";
+import NewCommentModal from "../../components/NewCommentModal";
 
 export default function EventPage() {
   const { id } = useParams();
@@ -26,6 +27,7 @@ export default function EventPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
   const [isEditElementModalOpen, setIsEditElementModalOpen] = useState(false)
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [elements, setElements] = useState([])
 
     useEffect(async () => {
@@ -51,6 +53,8 @@ export default function EventPage() {
     setIsCreateElementModalOpen(!isCreateElementModalOpen)
 
   }
+
+  function handleCommentModal(value) {setIsCommentModalOpen(value)}
 
   const handleEditElementModal = () => {
     setIsEditElementModalOpen(!isEditElementModalOpen)
@@ -100,6 +104,7 @@ export default function EventPage() {
     </div>
     <CreateElementModal style={{"zIndex":'4'}} show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} eventId={event.id}/>
     <EditElementModal style={{"zIndex":'4'}} show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />
+    <NewCommentModal style={{"zIndex":'4'}} show={isCommentModalOpen} handleClose={() => handleCommentModal(false) } />
     {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
   </div> : <div>
     Loading...
