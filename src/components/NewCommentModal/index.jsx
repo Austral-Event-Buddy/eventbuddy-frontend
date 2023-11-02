@@ -55,7 +55,7 @@ const NewCommentModal = ({ show, handleClose, eventId }) => {
 
     const handleSubmit = () => {
         try {
-            createComment(comment).then(r => closeModal()) //todo: CHANGE
+            createComment(comment).then(r => closeModal())
         } catch (e) {
             alert("Some error occurred. Please try again.");
         }
