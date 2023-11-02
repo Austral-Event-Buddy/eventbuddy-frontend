@@ -95,9 +95,14 @@ export const createElement = async (body) => {
   return res.data
 
 }
+export const createComment = async (body) =>
+{
+  const res = await apiToken.post(`comment`, body);
+  return res.data
 
+}
 
-export const updateElement = async (body) => {
+  export const updateElement = async (body) => {
 
 
 }

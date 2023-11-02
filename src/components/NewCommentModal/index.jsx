@@ -5,7 +5,7 @@ import Button from "../common/Button";
 import Typography from "../common/Typography";
 import './index.css';
 import CloseIcon from '@mui/icons-material/Close';
-import {createElement} from "../../api/api";
+import {createComment} from "../../api/api";
 
 const modalContainerStyle = {
     position: "absolute",
@@ -35,10 +35,9 @@ const NewCommentModal = ({ show, handleClose, eventId }) => {
     const [search, setSearch] = useState("")
 
     const [comment, setComment] = useState({
-        message: "",
+        text: "",
         eventId: eventId,
-        sender: "", //todo
-        date: "2023-10-25T05:58:30.996Z" // I think that it is not asked.
+        //parentId
     });
 
     const handleChange = async (form) => {
@@ -48,7 +47,7 @@ const NewCommentModal = ({ show, handleClose, eventId }) => {
 
     const closeModal = () => {
         setComment({
-            message: "",
+            text: "",
         })
         handleClose();
     }
@@ -56,7 +55,7 @@ const NewCommentModal = ({ show, handleClose, eventId }) => {
 
     const handleSubmit = () => {
         try {
-            createElement(comment).then(r => closeModal()) //todo: CHANGE
+            createComment(comment).then(r => closeModal()) //todo: CHANGE
         } catch (e) {
             alert("Some error occurred. Please try again.");
         }
