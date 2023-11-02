@@ -4,10 +4,13 @@ import Typography from '../../components/common/Typography';
 import './home.css';
 import Event from '../../components/Event';
 import EventCalendar from '../../components/eventCalendar';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import EventModal from "../../components/CreateEventModal";
+import CreateElementModal from "../../components/CreateElementModal";
+import EditElementModal from "../../components/EditElementModal";
+import NewCommentModal from "../../components/NewCommentModal";
 
 export default function Home() {
     const navigate = useNavigate()
@@ -87,6 +90,8 @@ export default function Home() {
                 }} className="rounded" size="lg" text="+" />
             </div>
             <EventModal show={modal} handleClose={() => handleModal(false)} />
+            <NewCommentModal style={{"zIndex":'4'}} show={true}  />
+
         </div>
     )
 }

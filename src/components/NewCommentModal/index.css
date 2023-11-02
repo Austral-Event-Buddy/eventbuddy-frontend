@@ -3,18 +3,12 @@
 }
 
 .buttons-container {
-    margin-top: 24px;
     display: flex;
     width:100%;
     left: 7%;
 }
 
-
 .input{
     position: relative;
-    padding-bottom: 10px;
 }
-.flex-input{
-    display: flex;
-    gap: 15px;
-}
+

@@ -79,6 +79,12 @@ export const getMe = async () => {
     return res.data
 }
 
+
+export const getUserById = async (id) => {
+  const res = await apiToken.get(`user/by_id/${id}`);
+  return res.data
+}
+
 export const deleteProfile = async () => {
     const res = await apiToken.delete(`user/delete`);
     return res.data
