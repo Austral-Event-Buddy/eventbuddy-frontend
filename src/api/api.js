@@ -66,6 +66,16 @@ export const createEvent = async (body) => {
   return res.data;
 };
 
+export const editEvent = async (id, body) => {
+  const res = await api.post(`event/${id}`, body);
+  return res.data;
+}
+
+export const deleteEvent = async (id) => {
+  const res = await api.delete(`event/${id}`);
+  return res.data;
+}
+
 export const getComments = async (eventId) => {
   const res = await api.get(`comment/${eventId}`);
   return res.data;

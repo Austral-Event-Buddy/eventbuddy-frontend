@@ -22,6 +22,7 @@ import { getUser } from "../../utils/user";
 import CreateElementModal from "../../components/CreateElementModal";
 import EditElementModal from "../../components/EditElementModal";
 import CreateCommentModal from "../../components/CreateCommentModal";
+import EditEventModal from "../../components/EditEventModal";
 
 export default function EventPage() {
   const { id } = useParams();
@@ -37,13 +38,14 @@ export default function EventPage() {
     open: false,
     parent: undefined
   })
+  const [isEditEventModalOpen, setIsEditEventModalOpen] = useState(false)
   const [trigger, setTrigger] = useState(false)
   
   useEffect(() => {
       getEventById(id).then(e => {
         setEvent(e)
       })
-  } , [isModalOpen, isCreateElementModalOpen, isEditElementModalOpen, isCreateCommentModalOpen, trigger])
+  } , [isModalOpen, isCreateElementModalOpen, isEditElementModalOpen, isCreateCommentModalOpen, isEditEventModalOpen, trigger])
 
   const handleAssign = async (elementId) => {
     await assignElement({ elementId, date: new Date() })
@@ -62,6 +64,9 @@ export default function EventPage() {
       <div className="event-title">
         <Typography variant="h4" className="bold">{event.name}</Typography>
         <Typography variant="body2">{getCountDown(event.date)}</Typography>
+      </div>
+      <div>
+        { isHost && <Button text={'Edit'} variant="ghost" onClick={() => setIsEditEventModalOpen(true)} /> }
       </div>
     </header>
     <div className="event-body">
@@ -103,6 +108,7 @@ export default function EventPage() {
     <CreateElementModal show={isCreateElementModalOpen} handleClose={() => setIsCreateElementModalOpen(false)} eventId={event.id} />
     <EditElementModal show={isEditElementModalOpen.open} handleClose={() => setIsEditElementModalOpen({ open: false })} eventId={event.id} element={isEditElementModalOpen.element} />
     <CreateCommentModal show={isCreateCommentModalOpen.open} handleClose={() => setIsCreateCommentModalOpen({ open: false }) } eventId={event.id} parent={isCreateCommentModalOpen.parent} />
+    <EditEventModal show={isEditEventModalOpen} handleClose={() => setIsEditEventModalOpen(false)} eventData={event} />
   </div> :
     <div>Loading...</div>
 }

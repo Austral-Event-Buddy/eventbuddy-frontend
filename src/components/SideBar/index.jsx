@@ -55,6 +55,13 @@ export default function SideBar() {
     })
   }, [])
 
+
+  // setInterval(() => {
+  //   getMe().then(data => {
+  //     setName(data.name || data.email)
+  //   })
+  // }, 2000);
+
   return (
     <div className={'container'}>
       <header className='sidebar-header'>
