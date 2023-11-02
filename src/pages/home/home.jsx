@@ -25,7 +25,7 @@ export default function Home() {
 
     useEffect(() => {
         getAll()
-    }, []);
+    }, [modal]);
 
     const search = () => {
         searchEvents(query)
