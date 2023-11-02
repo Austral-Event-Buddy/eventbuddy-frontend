@@ -72,6 +72,8 @@ const EventModal = ({ show, handleClose }) => {
         }
     }
 
+    const canSubmit = event.name && event.coordinates.length && event.description && event.date && event.confirmationDeadline && event.confirmationDeadline < event.date
+
     return (
         <div style={{ display: show ? "block" : "none" }}>
             <Box sx={modalContainerStyle}>
@@ -83,15 +85,16 @@ const EventModal = ({ show, handleClose }) => {
                         onRetrieve={handleRetrieve}>
                         <TextField label="Location" name="coordinates" value={search}
                             onChange={(e) => setSearch(e.target.value)} required
-                            error={!!search && !event.coordinates.length} helperText={!!search && !event.coordinates.length && "invalid location"}/>
+                            error={!!search && !event.coordinates.length} helperText={(!!search && !event.coordinates.length) ?? "invalid location"}/>
                     </AddressAutofill>
                     <TextField label={"Description"} name="description" value={event.description}
                         onChange={(e) => handleChange({ description: e.target.value })} required />
                     <TextField label="Date" name="date" type="date" value={event.date}
                         onChange={(e) => handleChange({ date: e.target.value })} required />
                     <TextField label="Confirmation Deadline" name="confirmationDeadline" type="date" value={event.confirmationDeadline}
+                        error={event.confirmationDeadline > event.date} helperText={event.confirmationDeadline > event.date ?? "date should be before event date"}
                         onChange={(e) => handleChange({ confirmationDeadline: e.target.value })} required />
-                    <Button variant="fullfilled" size="md" text="Create Event" />
+                    <Button variant="fullfilled" size="md" text="Create Event" disabled={!canSubmit}/>
                 </form>
             </Box>
         </div>

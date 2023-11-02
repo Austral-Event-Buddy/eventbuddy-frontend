@@ -90,3 +90,33 @@ export const createElement = async (body) => {
   const res = await api.post(`element/`, body);
   return res.data;
 }
+
+export const editElement = async (body) => {
+  const res = await api.put(`element/`, body);
+  return res.data;
+}
+
+export const assignElement = async (body) => {
+  const res = await api.put(`element/charge/take`, body);
+  return res.data;
+}
+
+export const unassignElement = async (body) => {
+  const res = await api.put(`element/charge/delete`, body);
+  return res.data;
+}
+
+export const deleteElement = async (id) => {
+  const res = await api.delete(`element/${id}`);
+  return res.data;
+}
+
+export const updateElement = async (body) => {
+  const res = await api.put(`element/`, body);
+  return res.data;
+}
+
+export const createComment = async (body) => {
+  const res = await api.post(`comment/`, body);
+  return res.data;
+}

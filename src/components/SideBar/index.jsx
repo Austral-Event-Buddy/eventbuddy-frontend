@@ -39,6 +39,7 @@ export default function SideBar() {
 
   const handleLogOut = () => {
     removeToken();
+    localStorage.removeItem('user');
     window.location.assign('/login')
   }
 

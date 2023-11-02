@@ -8,8 +8,10 @@ function Map({ location , interactive = false}) {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
+    const [coords, setCoords] = React.useState(location);
+
     useEffect(() => {
-        if (map.current) return;
+        if (map.current && coords.toString() === location.toString()) return; // initialize map only once
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v12',

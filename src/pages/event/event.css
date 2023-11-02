@@ -69,6 +69,12 @@
     align-items: center;
 }
 
+.event-comments-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
 .event-comments-header > button {
     width: 40px;
     padding: 8px;
