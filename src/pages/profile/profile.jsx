@@ -4,14 +4,13 @@ import Button from '../../components/common/Button';
 import {deleteProfile, getMe, updateProfileData} from "../../api/api";
 import {useNavigate} from "react-router-dom";
 import {Routes} from "../../utils/routes";
-
+import {removeToken} from "../../api/token";
 
 export default function Profile() {
     const [profileData, setProfileData] = useState({
         name: '',
         email: '',
         password: '',
-        username: ''
     });
     const navigate = useNavigate();
 
@@ -26,20 +25,30 @@ export default function Profile() {
             });
     }, []);
 
-    const handleSubmit = () => {
-        updateProfileData(profileData)
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        const updatedProfileData = {
+            name: profileData.name,
+            email: profileData.email,
+            password: profileData.password,
+        };
+
+        updateProfileData(updatedProfileData)
             .then((response) => {
                 console.log("Profile data updated successfully.");
             })
             .catch((error) => {
                 console.error("Error updating profile data:", error);
             });
+
+        setProfileData({...profileData, password: ''})
     };
     const handleDelete = () => {
         deleteProfile()
             .then((response) => {
                 navigate(Routes.Login);
-                localStorage.clear();
+                removeToken();
                 console.log("Profile data deleted successfully.");
             })
             .catch((error) => {
@@ -64,7 +73,7 @@ export default function Profile() {
                         <input
                             placeholder='Jane Doe'
                             value={profileData.name}
-                            // onChange={(e) => setProfileData({ ...profileData, name: e.target.value })} NO EXISTE EL VALOR DE NAME.
+                            onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                         />
                     </div>
                     <div className="username-form">
