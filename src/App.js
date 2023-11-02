@@ -16,9 +16,19 @@ import EventPage from './pages/event/event';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import Profile from "./pages/profile/profile";
+import { useEffect } from 'react';
+import { getUser, saveUser } from './utils/user';
+import { getMe } from './api/api';
 
 
 function App() {
+
+  useEffect(() => {
+    if (!getUser()) {
+      getMe().then(user => saveUser(user.id))
+    }
+  }, [])
+
   return (
     <Router>
       <RoutesWithNotFound>

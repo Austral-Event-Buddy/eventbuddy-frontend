@@ -60,7 +60,7 @@ export default function Home() {
             </div>
             <div className='main-content'>
                 <div className={"events"}>
-                    {events.map((event, index) => (
+                    {events?.map((event, index) => (
                         <Event
                             id={event.id}
                             key={index}

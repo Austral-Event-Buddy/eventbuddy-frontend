@@ -58,17 +58,15 @@ const EventModal = ({ show, handleClose }) => {
         handleClose();
     }
 
-
     const handleRetrieve = async (res) => {
         const feature = res.features[0];
-        setEvent(prevEvent => ({ ...prevEvent, coordinates: feature.geometry.coordinates }));
+        setEvent(prevEvent => ({ ...prevEvent, coordinates: feature.geometry.coordinates.reverse() }));
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         try {
             createEvent({...event, date: new Date(event.date).toISOString(), confirmationDeadline: new Date(event.confirmationDeadline).toISOString()}).then(r => closeModal())
-
         } catch (e) {
             alert("Some error occurred. Please try again.");
         }
@@ -84,7 +82,8 @@ const EventModal = ({ show, handleClose }) => {
                     <AddressAutofill accessToken={process.env.REACT_APP_MAPBOX_TOKEN}
                         onRetrieve={handleRetrieve}>
                         <TextField label="Location" name="coordinates" value={search}
-                            onChange={(e) => setSearch(e.target.value)} required />
+                            onChange={(e) => setSearch(e.target.value)} required
+                            error={!!search && !event.coordinates.length} helperText={!!search && !event.coordinates.length && "invalid location"}/>
                     </AddressAutofill>
                     <TextField label={"Description"} name="description" value={event.description}
                         onChange={(e) => handleChange({ description: e.target.value })} required />
