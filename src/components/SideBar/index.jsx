@@ -9,7 +9,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import EventIcon from '@mui/icons-material/Event';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import {removeToken} from "../../api/token";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import { getMe } from '../../api/api';
 
 
 export default function SideBar() {
@@ -17,6 +18,7 @@ export default function SideBar() {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false)
+  const [name, setName] = useState("Account")
 
   const routes = [
     {
@@ -47,6 +49,12 @@ export default function SideBar() {
     setOpen(!open);
   }
 
+  useEffect(() => {
+    getMe().then(data => {
+      setName(data.name || data.email)
+    })
+  }, [])
+
   return (
     <div className={'container'}>
       <header className='sidebar-header'>
@@ -72,7 +80,7 @@ export default function SideBar() {
         </div>}
         <div onClick={handleOpenModal} className={'account-menu'}>
           <div className={'profile-picture'} />
-          <Typography variant={'body1bold'}>Jane Doe</Typography>
+          <Typography variant={'body1bold'}>{name}</Typography>
         </div>
       </div>
     </div>
