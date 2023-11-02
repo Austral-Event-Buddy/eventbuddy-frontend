@@ -37,3 +37,19 @@
     background-color: var(--grey-300);
     margin-right: 12px;
 }
+
+.profile-picture {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background-color: var(--grey-300);
+    margin-right: 12px;
+}
+
+.logout-modal {
+    background-color: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--grey-300);
+    margin: 12px 0;
+    padding: 12px;
+}
