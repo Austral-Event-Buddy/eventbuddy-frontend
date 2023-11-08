@@ -130,3 +130,15 @@ export const createComment = async (body) => {
   const res = await api.post(`comment/`, body);
   return res.data;
 }
+export const uploadImage = async (body) => {
+    const res = await api.post(`user/picture/`, body);
+    return res.data;
+}
+export const getImage = async (id) => {
+    const res = await api.get(`user/picture/${id}`);
+    return res.data;
+}
+export const deleteImage = async () => {
+    const res = await api.delete(`user/picture/`);
+    return res.data;
+}
