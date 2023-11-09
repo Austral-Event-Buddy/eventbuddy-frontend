@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
@@ -26,6 +25,7 @@ export default function EventPage() {
 
   const [event, setEvent] = useState(undefined);
   const [guests, setGuests] = useState(undefined);
+  const [name, setName] = useState(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false)
@@ -34,19 +34,22 @@ export default function EventPage() {
     getEventById(id).then(e => {
       setEvent(e)
     })
-      getGuestsByEventId(id).then(e=>{
-        setGuests(e)
-        console.log(e.find((g) => g.userId = getUser()));
-        //console.log(getUser())
-      })
+    getGuestsByEventId(id).then(e=>{
+      setGuests(e)
+      // console.log(e.find((g) => g.userId = getUser()));
+      //console.log(getUser())
+    })
   } , [isModalOpen, isCreateElementModalOpen])
 
   // console.log(isCreateElementModalOpen)
   // console.log(guests?.find(g => g.userId === getUser() && g.isHost))
 
 
-  function getName(userId) {
-    return getUserById(userId).name;
+
+  async function getName(userId) {
+    getUserById(userId).then((e) => {
+      setName(e.name);
+    });
   }
 
   return event ? <div className='event-main'>
@@ -80,7 +83,16 @@ export default function EventPage() {
           <section className="event-body-right">
             <div className="right-header">
               <Typography variant={'h5'} className="bold">Guests</Typography>
-              {guests?.map(guest => <AvatarCard status={guest.confirmationStatus} name={getName(guest.userId)} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
+              {guests?.map(guest => {
+                {getName(guest.id)}
+                <AvatarCard
+                    status={guest.confirmationStatus}
+                    name={name}
+                    url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'}
+                    key={guest.id} />
+
+              })
+              }
             </div>
             { guests?.find(g => g.userId = getUser() && g.isHost=== true) && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
           </section>
