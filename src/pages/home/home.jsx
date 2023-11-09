@@ -15,17 +15,21 @@ export default function Home() {
     const [events, setEvents] = useState([]);
     const [query, setQuery] = useState("")
     const [modal, setModal] = useState(false);
+    const [open, setOpen] = useState(true)
 
 
     const getAll = () => {
         getEvents()
             .then(data => setEvents(data))
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
+        setOpen(false);
     }
 
     useEffect(() => {
-        getAll()
-    }, []);
+        if(open){
+            getAll()
+        }
+    }, [open]);
 
     const search = () => {
         searchEvents(query)

@@ -5,20 +5,20 @@ import Button from "../common/Button";
 import Typography from "../common/Typography";
 import './index.css';
 import CloseIcon from '@mui/icons-material/Close';
-import { createElement } from "../../api/api";
+import {createElement} from "../../api/api";
 
 const modalContainerStyle = {
-    position: "fixed",
+    position: "absolute",// Maybe fixed
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "500px",
+    height: "350px",
     borderRadius: "24px",
     border: "1px solid var(--grey-grey-300, #BFBFBF)",
     backgroundColor: "#ffffff",
     boxShadow: "0px 0px 30px 0px rgba(0, 0, 0, 0.25)",
     padding: "36px",
-    zIndex: 999,
 };
 
 const closeIconStyle = {
@@ -30,27 +30,28 @@ const closeIconStyle = {
 
 }
 
-const ElementModal = ({ show, handleClose, eventId }) => {
+const CreateElementModal = ({ show, handleClose, eventId }) => {
 
-    console.log(show)
+    const [search, setSearch] = useState("")
 
     const [element, setElement] = useState({
         name: "",
-        quantity: 0,
+        quantity: 0, // changed this, preguntarle a coni si anda así
         maxUsers: 0,
-        eventId,
+        eventId: eventId,
+        date: "2023-10-25T05:58:30.996Z"
     });
 
     const handleChange = async (form) => {
-        setElement(prevEvent => ({ ...prevEvent, ...form }));
+        const newEvent = { ...element, ...form }
+        await setElement(newEvent);
     }
 
     const closeModal = () => {
         setElement({
             name: "",
             quantity: 0,
-            maxUsers: 0,
-            eventId,
+            maxUsers: 0
         })
         handleClose();
     }
@@ -81,4 +82,4 @@ const ElementModal = ({ show, handleClose, eventId }) => {
     );
 };
 
-export default ElementModal;
+export default CreateElementModal;

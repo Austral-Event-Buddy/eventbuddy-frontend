@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
 
-import {getEventById} from "../../api/api";
+import {getElementsByEvent, getComments, getEventById} from "../../api/api";
 
 import Typography from "../../components/common/Typography";
 import Map from "../../components/Event/map";
@@ -16,6 +16,9 @@ import { getCountDown } from "../../utils/date";
 import CommentThread from "../../components/CommentThread";
 import NoContent from "../../components/NoContent";
 import Element from "../../components/Element";
+import CreateElementModal from "../../components/CreateElementModal";
+import EditElementModal from "../../components/EditElementModal";
+import NewCommentModal from "../../components/NewCommentModal";
 
 import { getUser } from "../../utils/user";
 import ElementModal from "../../components/CreateElementModal";
@@ -26,14 +29,39 @@ export default function EventPage() {
   const [event, setEvent] = useState(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
-  
-  useEffect(() => {
-      getEventById(id).then(e => {
-        setEvent(e)
-      })
-  } , [isModalOpen, isCreateElementModalOpen])
+  const [isEditElementModalOpen, setIsEditElementModalOpen] = useState(false)
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [elements, setElements] = useState([])
 
-  console.log(isCreateElementModalOpen)
+    useEffect(async () => {
+        await getEventById(id).then(e => {
+            setEvent(e)
+            // getComments(id).then(comments => setEvent({ ...event, comments })).catch(err =>  setEvent(event));
+            setElements(e.elements)
+            // getElementsByEvent(id).then(elements => {
+            //     setElements(elements)
+            // })
+        })
+    } , [isModalOpen])
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCreateElementModal = () => {
+    setIsCreateElementModalOpen(!isCreateElementModalOpen)
+
+  }
+
+  function handleCommentModal(value) {setIsCommentModalOpen(value)}
+
+  const handleEditElementModal = () => {
+    setIsEditElementModalOpen(!isEditElementModalOpen)
+  }
 
   return event ? <div className='event-main'>
     <header className="event-header">
@@ -50,7 +78,7 @@ export default function EventPage() {
             <Typography variant="h5">Elements</Typography>
             {event.guests?.find(g => g.userId == getUser()).isHost && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}
         </div>
-        {event.elements?.length 
+        {event.elements?.length
           ? event.elements.map((element) => (<Element key={element.id} element={element} host={event.isHost}/>))
           : <NoContent message={"There's no elements"} />
         }
@@ -71,8 +99,12 @@ export default function EventPage() {
         { event.guests?.find(g => g.userId == getUser()).isHost && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
       </section>
     </div>
-    <ModalComponent open={isModalOpen} onClose={() => setIsModalOpen(false)} guests={event.guests} eventId={event.id} />
-    <ElementModal show={isCreateElementModalOpen} handleClose={() => setIsCreateElementModalOpen(false)} eventId={event.id} />
-  </div> :
-    <div>Loading...</div>
+    <CreateElementModal style={{"zIndex":'4'}} show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} eventId={event.id}/>
+    <EditElementModal style={{"zIndex":'4'}} show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />
+    <NewCommentModal style={{"zIndex":'4'}} show={isCommentModalOpen} handleClose={() => handleCommentModal(false) } />
+    {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
+  </div> : <div>
+    Loading...
+
+  </div>
 }
