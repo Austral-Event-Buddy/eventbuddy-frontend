@@ -34,6 +34,10 @@
   justify-content: center;
 }
 
+.login-container--left_buttons > * {
+  padding: 8px 0;
+}
+
 .login-container--left_buttons > Button {
   margin-bottom: 4px;
 }
@@ -56,4 +60,12 @@
 
 .login-container--right_img > img {
   object-fit: cover;
+}
+
+.forgot-password {
+  width: 100%;
+  text-align: center;
+  color: var(--primary-500);
+  font-size: 12px;
+  cursor: pointer;
 }

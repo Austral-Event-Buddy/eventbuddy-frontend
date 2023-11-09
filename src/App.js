@@ -19,6 +19,8 @@ import Profile from "./pages/profile/profile";
 import { useEffect } from 'react';
 import { getUser, saveUser } from './utils/user';
 import { getMe } from './api/api';
+import ResetPasswordEmail from "./pages/resetPassword/resetPasswordEmail";
+import ResetPassword from "./pages/resetPassword/resetPassword";
 
 
 function App() {
@@ -48,7 +50,21 @@ function App() {
           path={Routes.Register} 
           element={
             isAuthenticated() ? <Navigate to={Routes.Home} replace /> : <Register />
-          } 
+          }
+        />
+        <Route
+            exact
+            path={Routes.EmailPasswordReset}
+            element={
+              isAuthenticated() ? <Navigate to={Routes.Home} replace /> : <ResetPasswordEmail />
+            }
+        />
+        <Route
+            exact
+            path={Routes.PasswordReset}
+            element={
+              isAuthenticated() ? <Navigate to={Routes.Home} replace /> : <ResetPassword />
+            }
         />
 
         <Route element={<AuthGuard />}>

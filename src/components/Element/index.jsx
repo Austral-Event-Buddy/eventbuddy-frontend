@@ -14,6 +14,8 @@ const iconStyle = {
     background: 'white'
 }
 
+
+
 const Element = ({ element, host }) => {
 
     const [alreadyAssigned, setAlreadyAssigned] = useState(false)
@@ -28,7 +30,7 @@ const Element = ({ element, host }) => {
                 </div>
                 {host && isSatisfied &&
                         <Button size="sm" variant="outlined" text="Edit"/>
-                    }
+                }
                 {host && !isSatisfied && alreadyAssigned &&
                     <div className="buttons-container">
                         <Button size="sm" variant="outlined-error" text="Unassign"/>
