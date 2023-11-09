@@ -36,13 +36,13 @@ export default function EventPage() {
     })
       getGuestsByEventId(id).then(e=>{
         setGuests(e)
-        console.log(e)
-        console.log(getUser())
+        console.log(e.find((g) => g.userId = getUser()));
+        //console.log(getUser())
       })
   } , [isModalOpen, isCreateElementModalOpen])
 
   // console.log(isCreateElementModalOpen)
-  console.log(guests?.find(g => g.userId === getUser() && g.isHost))
+  // console.log(guests?.find(g => g.userId === getUser() && g.isHost))
 
 
   function getName(userId) {
@@ -62,7 +62,7 @@ export default function EventPage() {
             <Map location={event.coordinates} interactive={true} />
             <div className="event-comments-header">
               <Typography variant="h5">Elements</Typography>
-              {guests?.find(g => g.userId === getUser()) && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}
+              {guests?.find(g => g.userId = getUser()) && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}
             </div>
             {event.elements?.length
                 ? event.elements.map((element) => (<Element key={element.id} element={element} host={event.isHost}/>))
@@ -82,7 +82,7 @@ export default function EventPage() {
               <Typography variant={'h5'} className="bold">Guests</Typography>
               {guests?.map(guest => <AvatarCard status={guest.confirmationStatus} name={getName(guest.userId)} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
             </div>
-            { guests?.find(g => g.userId === getUser() && g.isHost=== true) && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
+            { guests?.find(g => g.userId = getUser() && g.isHost=== true) && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
           </section>
         </div>
         <ModalComponent open={isModalOpen} onClose={() => setIsModalOpen(false)} guests={event.guests} eventId={event.id} />
