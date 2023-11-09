@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { getToken, setToken } from './token';
 
-export const apiToken = axios.create({
+export const api = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 });
-
 api.interceptors.request.use((config) => {
   return {
     ...config,
@@ -15,9 +14,7 @@ api.interceptors.request.use((config) => {
   };
 });
 
-export const api = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
-});
+
 
 export const login = async (body, callback) => {
   const res = await api.post('auth/login', body);
@@ -32,84 +29,87 @@ export const register = async (body, callback) => {
 };
 
 export const getEvents = async () => {
-  const res = await apiToken.get('event');
+  const res = await api.get('event');
   return res.data;
 };
-
+export const getGuestsByEventId = async (id) => {
+  const res = await api.get(`event/invites/by_event/${id}`);
+  return res.data;
+};
 export const getEventById = async (id) => {
-  const res = await apiToken.get(`event/${id}`);
+  const res = await api.get(`event/${id}`);
   return res.data;
 };
 
 export const searchEvents = async (search) => {
-  const res = await apiToken.get(`event/search`, { params: { search } });
+  const res = await api.get(`event/search`, { params: { search } });
   return res.data;
 };
 
 export const answerInvite = async (body) => {
-  const res = await apiToken.put(`event/invite/answer`, body);
+  const res = await api.put(`event/invite/answer`, body);
   return res.data;
 };
 
 export const inviteGuest = async (body) => {
-  const res = await apiToken.post('event/invite/send', body);
+  const res = await api.post('event/invite/send', body);
   return res.data;
 };
 
 export const searchUsers = async (username) => {
-  const res = await apiToken.get(`/user/by_username/${username}`);
+  const res = await api.get(`/user/by_username/${username}`);
   return res.data;
 };
 
 export const getElementsByEvent = async (eventId) => {
-  const res = await apiToken.get(`event/elements/${eventId}`);
+  const res = await api.get(`event/elements/${eventId}`);
   return res.data;
 };
 
 export const createEvent = async (body) => {
-  const res = await apiToken.post('event', body);
+  const res = await api.post('event', body);
   return res.data;
 };
 
 export const getComments = async (eventId) => {
-  const res = await apiToken.get(`comment/${eventId}`);
+  const res = await api.get(`comment/${eventId}`);
   return res.data;
 };
 
 export const updateProfileData = async (body) => {
-    const res = await apiToken.put(`user/update`, body);
+    const res = await api.put(`user/update`, body);
     return res.data
 }
 
 export const getMe = async () => {
-    const res = await apiToken.get(`user/me`);
+    const res = await api.get(`user/me`);
     return res.data
 }
 
 
 export const getUserById = async (id) => {
-  const res = await apiToken.get(`user/by_id/${id}`);
+  const res = await api.get(`user/by_id/${id}`);
   return res.data
 }
 
 export const deleteProfile = async () => {
-    const res = await apiToken.delete(`user/delete`);
+    const res = await api.delete(`user/delete`);
     return res.data
 }
 
 export const createElement = async (body) => {
-  const res = await apiToken.post(`element`, body);
+  const res = await api.post(`element`, body);
   return res.data
 
 }
 export const createComment = async (body) =>
 {
-  const res = await apiToken.post(`comment`, body);
+  const res = await api.post(`comment`, body);
   return res.data
 
 }
 
-  export const updateElement = async (body) => {
+export const updateElement = async (body) => {
 
 
 }

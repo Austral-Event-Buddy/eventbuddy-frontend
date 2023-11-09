@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
 
-import {getElementsByEvent, getComments, getEventById} from "../../api/api";
+import {getEventById, getGuestsByEventId, getUserById} from "../../api/api";
 
 import Typography from "../../components/common/Typography";
 import Map from "../../components/Event/map";
@@ -16,95 +16,79 @@ import { getCountDown } from "../../utils/date";
 import CommentThread from "../../components/CommentThread";
 import NoContent from "../../components/NoContent";
 import Element from "../../components/Element";
-import CreateElementModal from "../../components/CreateElementModal";
-import EditElementModal from "../../components/EditElementModal";
-import NewCommentModal from "../../components/NewCommentModal";
 
 import { getUser } from "../../utils/user";
 import ElementModal from "../../components/CreateElementModal";
+import NewCommentModal from "../../components/NewCommentModal";
 
 export default function EventPage() {
   const { id } = useParams();
 
   const [event, setEvent] = useState(undefined);
+  const [guests, setGuests] = useState(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
-  const [isEditElementModalOpen, setIsEditElementModalOpen] = useState(false)
-  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
-  const [elements, setElements] = useState([])
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false)
 
-    useEffect(async () => {
-        await getEventById(id).then(e => {
-            setEvent(e)
-            // getComments(id).then(comments => setEvent({ ...event, comments })).catch(err =>  setEvent(event));
-            setElements(e.elements)
-            // getElementsByEvent(id).then(elements => {
-            //     setElements(elements)
-            // })
-        })
-    } , [isModalOpen])
+  useEffect(() => {
+    getEventById(id).then(e => {
+      setEvent(e)
+    })
+      getGuestsByEventId(id).then(e=>{
+        setGuests(e)
+        console.log(e)
+        console.log(getUser())
+      })
+  } , [isModalOpen, isCreateElementModalOpen])
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+  // console.log(isCreateElementModalOpen)
+  console.log(guests?.find(g => g.userId === getUser() && g.isHost))
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
 
-  const handleCreateElementModal = () => {
-    setIsCreateElementModalOpen(!isCreateElementModalOpen)
-
-  }
-
-  function handleCommentModal(value) {setIsCommentModalOpen(value)}
-
-  const handleEditElementModal = () => {
-    setIsEditElementModalOpen(!isEditElementModalOpen)
+  function getName(userId) {
+    return getUserById(userId).name;
   }
 
   return event ? <div className='event-main'>
-    <header className="event-header">
-      <div className="event-title">
-        <Typography variant="h4" className="bold">{event.name}</Typography>
-        <Typography variant="body2">{getCountDown(event.date)}</Typography>
-      </div>
-    </header>
-    <div className="event-body">
-      <section className="event-body-left">
-        <Typography variant="h5">Location</Typography>
-        <Map location={event.coordinates} interactive={true} />
-        <div className="event-comments-header">
-            <Typography variant="h5">Elements</Typography>
-            {event.guests?.find(g => g.userId == getUser()).isHost && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}
+        <header className="event-header">
+          <div className="event-title">
+            <Typography variant="h4" className="bold">{event.name}</Typography>
+            <Typography variant="body2">{getCountDown(event.date)}</Typography>
+          </div>
+        </header>
+        <div className="event-body">
+          <section className="event-body-left">
+            <Typography variant="h5">Location</Typography>
+            <Map location={event.coordinates} interactive={true} />
+            <div className="event-comments-header">
+              <Typography variant="h5">Elements</Typography>
+              {guests?.find(g => g.userId === getUser()) && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}
+            </div>
+            {event.elements?.length
+                ? event.elements.map((element) => (<Element key={element.id} element={element} host={event.isHost}/>))
+                : <NoContent message={"There's no elements"} />
+            }
+            <div className="event-comments-header">
+              <Typography variant="h5">Comments</Typography>
+              <Button text={'+'} variant="ghost" onClick={() => setIsCommentModalOpen(true)}/>
+            </div>
+            {event.comments?.length
+                ? event.comments?.map(comment => <CommentThread comment={comment} key={comment.id} />)
+                : <NoContent message={"There's no comments"} />
+            }
+          </section>
+          <section className="event-body-right">
+            <div className="right-header">
+              <Typography variant={'h5'} className="bold">Guests</Typography>
+              {guests?.map(guest => <AvatarCard status={guest.confirmationStatus} name={getName(guest.userId)} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
+            </div>
+            { guests?.find(g => g.userId === getUser() && g.isHost=== true) && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
+          </section>
         </div>
-        {event.elements?.length
-          ? event.elements.map((element) => (<Element key={element.id} element={element} host={event.isHost}/>))
-          : <NoContent message={"There's no elements"} />
-        }
-        <div className="event-comments-header">
-          <Typography variant="h5">Comments</Typography>
-          <Button text={'+'} variant="ghost" />
-        </div>
-        {event.comments?.length
-          ? event.comments?.map(comment => <CommentThread comment={comment} key={comment.id} />)
-          : <NoContent message={"There's no comments"} />
-        }
-      </section>
-      <section className="event-body-right">
-        <div className="right-header">
-          <Typography variant={'h5'} className="bold">Guests</Typography>
-          {event.guests?.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.user.name || guest.user.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
-        </div>
-        { event.guests?.find(g => g.userId == getUser()).isHost && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
-      </section>
-    </div>
-    <CreateElementModal style={{"zIndex":'4'}} show={isCreateElementModalOpen} handleClose={() => handleCreateElementModal()} eventId={event.id}/>
-    <EditElementModal style={{"zIndex":'4'}} show={isEditElementModalOpen} handleClose={() => handleEditElementModal()} />
-    <NewCommentModal style={{"zIndex":'4'}} show={isCommentModalOpen} handleClose={() => handleCommentModal(false) } />
-    {isModalOpen && <ModalComponent open={isModalOpen} onClose={handleCloseModal} guests={event.guests} eventId={event.id} />}
-  </div> : <div>
-    Loading...
+        <ModalComponent open={isModalOpen} onClose={() => setIsModalOpen(false)} guests={event.guests} eventId={event.id} />
+        <ElementModal show={isCreateElementModalOpen} handleClose={() => setIsCreateElementModalOpen(false)} eventId={event.id} />
+        <NewCommentModal show={isCommentModalOpen} handleClose={() => setIsCommentModalOpen(false)} eventId={event.id} />
 
-  </div>
+      </div> :
+      <div>Loading...</div>
 }

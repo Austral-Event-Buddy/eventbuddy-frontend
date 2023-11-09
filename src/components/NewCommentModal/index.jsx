@@ -68,8 +68,8 @@ const NewCommentModal = ({ show, handleClose, eventId }) => {
                 <Typography id="modal-title" variant="h5" children="Comment" />
                 <div className='inputs-container'>
                     <form id="modal-form" className={"modal"} >
-                        <TextField multiline={true} rows={4} placeholder={"Type here..."} name="message" value={comment.message} className={"input"}
-                                   onChange={(e) => handleChange({ message: e.target.value })} />
+                        <TextField multiline={true} rows={4} placeholder={"Type here..."} name="message" value={comment.text} className={"input"}
+                                   onChange={(e) => handleChange({ text: e.target.value })} />
                     </form>
                 </div>
                 <div className="buttons-container">
