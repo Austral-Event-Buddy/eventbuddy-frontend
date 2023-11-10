@@ -19,6 +19,7 @@ export default function SideBar() {
 
   const [open, setOpen] = useState(false)
   const [name, setName] = useState("Account")
+    const [image, setImage]= useState("")
 
   const routes = [
     {
@@ -52,6 +53,7 @@ export default function SideBar() {
   useEffect(() => {
     getMe().then(data => {
       setName(data.name || data.email)
+        setImage(data.profilePictureUrl)
     })
   }, [])
 
@@ -61,6 +63,8 @@ export default function SideBar() {
       setName(data.name || data.email)
     })
   }, 2000);
+
+  console.log(image)
 
   return (
     <div className={'container'}>
@@ -86,7 +90,9 @@ export default function SideBar() {
           <Button onClick={handleLogOut} size={'sm'} variant={'outlined-error'} text={'Log out'}/>
         </div>}
         <div onClick={handleOpenModal} className={'account-menu'}>
-          <div className={'profile-picture'} />
+          <div className={'profile-picture'}>
+            <img src={image} className="profile-picture-img" alt="profile-picture"/>
+          </div>
           <Typography variant={'body1bold'}>{name}</Typography>
         </div>
       </div>

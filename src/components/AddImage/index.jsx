@@ -4,13 +4,14 @@ import Box from '@mui/material/Box';
 import Typography from '../common/Typography';
 import Button from '../common/Button';
 import './index.css';
-import {deleteImage, uploadImage} from '../../api/api';
+import {uploadImage} from '../../api/api';
 import LinearProgress from '@mui/material/LinearProgress';
+import axios from "axios";
 
 function AddImage({ open, onClose }) {
     const [image, setImage] = useState(null);
     const [formData, setFormData] = useState(new FormData());
-
+    const  [url, setUrl] = useState(null);
     const handleImageDrop = (e) => {
         e.preventDefault();
         const droppedFile = e.dataTransfer.files[0];
@@ -31,7 +32,6 @@ function AddImage({ open, onClose }) {
     };
     const handleDelete = (e) => {
         e.preventDefault();
-        deleteImage();
         setImage(null);
     };
 
@@ -45,13 +45,25 @@ function AddImage({ open, onClose }) {
         e.preventDefault();
     };
 
+    async function uploadImageS3(url, image) {
+        await axios.put(url, image, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+    }
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (image) {
-            uploadImage(formData)
+            uploadImage()
                 .then((response) => {
-                    console.log(response);
-                    setFormData(new FormData());
+                    setUrl(response.url)
+                    uploadImageS3(response.url, image).then(r => {
+                        setFormData(new FormData())
+                    })
+                    handleOnClose();
                 })
                 .catch((error) => {
                     console.error("Error uploading image:", error);
@@ -96,7 +108,7 @@ function AddImage({ open, onClose }) {
                         <Button
                             className="button"
                             text="Update"
-                            onClick={handleSubmit}
+                            onClick={(e)=> handleSubmit(e)}
                             fullWidth={true}
                         />
                     </div>
