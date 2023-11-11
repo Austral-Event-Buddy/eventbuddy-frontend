@@ -28,16 +28,15 @@ const ResetPassword = () => {
     }
 
     useEffect(() => {
-        const token = extractTokenFromURL('https://example.com/reset-password?token=yourTokenHere');
+        const token = extractTokenFromURL(window.location.href);
         localStorage.setItem("token", token);
-        console.log(localStorage.getItem("token"))
     }, []);
 
 
     const handleSubmit = async () => {
         if (validPassword && validRepeatPassword) {
             try {
-                await resetPassword({ token: localStorage.getItem("token"), password });
+                await resetPassword({ token: localStorage.getItem("token"), newPassword: password });
                 navigate("");
             } catch (error) {
                 toast.error("Something went wrong");
