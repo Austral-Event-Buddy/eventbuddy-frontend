@@ -25,9 +25,21 @@
 }
 
 .invite-picture {
-  display: flex;
-  gap: 4px;
+    margin-left: -23px;
+    margin-right: 40px;
+    display: flex;
+    gap: 4px;
+    border-radius: 50%;
 }
+
+.invite-picture img {
+    margin-right: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid white; /* Agregado para especificar un borde sólido */
+}
+
 
 .confirmation-buttons {
   position: absolute;
