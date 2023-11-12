@@ -3,11 +3,12 @@ import Button from '../../components/common/Button';
 import Typography from '../../components/common/Typography';
 import './home.css';
 import Event from '../../components/Event';
-import EventCalendar from '../../components/eventCalendar';
+import EventCalendar from '../../components/EventCalendar';
 import { useEffect, useState } from "react";
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import EventModal from "../../components/CreateEventModal";
+import Rates from '../../components/Rates';
 
 export default function Home() {
     const navigate = useNavigate()
@@ -74,7 +75,10 @@ export default function Home() {
                         />
                     ))}
                 </div>
+                <div className='info'>
                 <EventCalendar mode='multiple' events={events} onClick={handleDayClick} />
+                <Rates/>
+                </div>
             </div>
             <div className="button-container">
                 <Button onClick={(e) => {

@@ -1,6 +1,7 @@
 .right-hand-side {
   flex: 1 1;
   padding: 48px;
+  overflow: auto;
 }
 
 .title-bar {
@@ -28,6 +29,12 @@
   align-items: center;
   gap: 32px;
   overflow: auto;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .main-content {
