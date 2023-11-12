@@ -64,8 +64,6 @@ export default function SideBar() {
     })
   }, 2000);
 
-  console.log(image)
-
   return (
     <div className={'container'}>
       <header className='sidebar-header'>

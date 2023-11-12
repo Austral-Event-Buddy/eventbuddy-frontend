@@ -11,6 +11,7 @@ export default function Profile() {
         name: '',
         email: '',
         password: '',
+        picture:'',
     });
     const navigate = useNavigate();
 
@@ -32,6 +33,7 @@ export default function Profile() {
             name: profileData.name,
             email: profileData.email,
             password: profileData.password,
+            profilePictureUrl: profileData.picture,
         };
 
         updateProfileData(updatedProfileData)
@@ -57,7 +59,7 @@ export default function Profile() {
                 <h1>Profile</h1>
             </div>
             <div className="image">
-                <AddImageButton/>
+                <AddImageButton image={profileData.picture}/>
             </div>
 
             <div className="form">
