@@ -108,6 +108,12 @@ export const createComment = async (body) =>
   return res.data
 
 }
+export const getRepliesOfComment = async (id) =>
+{
+  const res = await api.get(`comment/replies/${id}`);
+  return res.data
+
+}
 
 export const updateElement = async (body) => {
 

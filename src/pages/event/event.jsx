@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
 
-import {getComments, getElementsByEvent, getEventById, getGuestsByEventId, getUserById} from "../../api/api";
+import {
+  getComments,
+  getElementsByEvent,
+  getEventById,
+  getGuestsByEventId,
+  getRepliesOfComment,
+  getUserById
+} from "../../api/api";
 
 import Typography from "../../components/common/Typography";
 import Map from "../../components/Event/map";
@@ -16,7 +23,6 @@ import CommentThread from "../../components/CommentThread";
 import NoContent from "../../components/NoContent";
 import Element from "../../components/Element";
 
-import { getUser } from "../../utils/user";
 import ElementModal from "../../components/CreateElementModal";
 import NewCommentModal from "../../components/NewCommentModal";
 
@@ -27,6 +33,7 @@ export default function EventPage() {
   const [guests, setGuests] = useState(undefined);
   const [elements, setElements] = useState(undefined);
   const [comments, setComments] = useState(undefined);
+  const [replies, setReplies] = useState(undefined)
   const [names, setNames] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
@@ -45,6 +52,13 @@ export default function EventPage() {
     })
     getElementsByEvent(id).then(e=>{
       setElements(e)
+    })
+    getComments(id).then( async e=>{
+      setComments(e)
+      const replies = await Promise.all(
+          e.map(async (comment) => await getRepliesOfComment(comment.id))
+      )
+      setReplies(replies)
     })
   } , [isModalOpen, isCreateElementModalOpen])
 
