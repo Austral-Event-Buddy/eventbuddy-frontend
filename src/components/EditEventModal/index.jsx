@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import TextField from '../common/TextField'
-import { Box, Modal } from '@mui/material';
+import { Box } from '@mui/material';
 import Button from "../common/Button";
 import Typography from "../common/Typography";
 import './index.css';
-import { AddressAutofill } from '@mapbox/search-js-react';
 import CloseIcon from '@mui/icons-material/Close';
-import { createEvent } from "../../api/api";
+import { editEvent, deleteEvent } from "../../api/api";
 
 const modalContainerStyle = {
     position: "fixed",
@@ -31,16 +31,14 @@ const closeIconStyle = {
 
 }
 
-const EventModal = ({ show, handleClose }) => {
+const EventModal = ({ show, handleClose, eventData }) => {
 
-    const [search, setSearch] = useState("")
+    const navigate = useNavigate();
 
     const [event, setEvent] = useState({
-        name: "",
-        coordinates: [],
-        description: "",
-        date: "",
-        confirmationDeadline: "",
+        ...eventData,
+        date: eventData?.date?.split("T")[0],
+        confirmationDeadline: eventData?.confirmationDeadline?.split("T")[0],
     });
 
     const handleChange = async (form) => {
@@ -50,7 +48,6 @@ const EventModal = ({ show, handleClose }) => {
     const closeModal = () => {
         setEvent({
             name: "",
-            coordinates: [],
             description: "",
             date: "",
             confirmationDeadline: ""
@@ -58,15 +55,35 @@ const EventModal = ({ show, handleClose }) => {
         handleClose();
     }
 
-    const handleRetrieve = async (res) => {
-        const feature = res.features[0];
-        setEvent(prevEvent => ({ ...prevEvent, coordinates: feature.geometry.coordinates.reverse() }));
-    }
+    useEffect(() => {
+        setEvent({
+            ...eventData,
+            date: eventData?.date?.split("T")[0],
+            confirmationDeadline: eventData?.confirmationDeadline?.split("T")[0],
+        })
+    }, [eventData, show])
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        const a = event;
+        delete a.id
+        delete a.creatorId
+        delete a.createdAt
+        delete a.updatedAt
+        delete a.guests
+        delete a.comments
+        delete a.elements
         try {
-            createEvent({...event, date: new Date(event.date).toISOString(), confirmationDeadline: new Date(event.confirmationDeadline).toISOString()}).then(r => closeModal())
+            editEvent(eventData.id, {...event, date: new Date(event.date).toISOString(), confirmationDeadline: new Date(event.confirmationDeadline).toISOString()}).then(r => closeModal())
+        } catch (e) {
+            alert("Some error occurred. Please try again.");
+        }
+    }
+
+    const handleDelete = (e) => {
+        e.preventDefault()
+        try {
+            deleteEvent(eventData.id).then(r => navigate("/"))
         } catch (e) {
             alert("Some error occurred. Please try again.");
         }
@@ -79,14 +96,8 @@ const EventModal = ({ show, handleClose }) => {
             <Box sx={modalContainerStyle}>
                 <CloseIcon fontSize="large" style={closeIconStyle} onClick={closeModal} />
                 <Typography id="modal-title" variant="h5" children="Create an Event" />
-                <form id="modal-form" className="create-event-form" onSubmit={handleSubmit}>
+                <form id="modal-form" className="create-event-form">
                     <TextField label="Name" name="name" value={event.name} onChange={(e) => handleChange({ name: e.target.value })} required />
-                    <AddressAutofill accessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-                        onRetrieve={handleRetrieve}>
-                        <TextField label="Location" name="coordinates" value={search}
-                            onChange={(e) => setSearch(e.target.value)} required
-                            error={!!search && !event.coordinates.length} helperText={(!!search && !event.coordinates.length) ?? "invalid location"}/>
-                    </AddressAutofill>
                     <TextField label={"Description"} name="description" value={event.description}
                         onChange={(e) => handleChange({ description: e.target.value })} required />
                     <TextField label="Date" name="date" type="date" value={event.date}
@@ -94,7 +105,10 @@ const EventModal = ({ show, handleClose }) => {
                     <TextField label="Confirmation Deadline" name="confirmationDeadline" type="date" value={event.confirmationDeadline}
                         error={event.confirmationDeadline > event.date} helperText={event.confirmationDeadline > event.date ?? "date should be before event date"}
                         onChange={(e) => handleChange({ confirmationDeadline: e.target.value })} required />
-                    <Button variant="fullfilled" size="md" text="Create Event" disabled={!canSubmit}/>
+                    <div className="buttons-container">
+                        <Button variant="fullfilled" size="md" text="Edit Event" onClick={handleSubmit} disabled={!canSubmit}/>
+                        <Button variant="outlined-error" size="md" text="Delete Event" onClick={handleDelete}/>
+                    </div>
                 </form>
             </Box>
         </div>

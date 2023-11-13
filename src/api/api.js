@@ -66,6 +66,16 @@ export const createEvent = async (body) => {
   return res.data;
 };
 
+export const editEvent = async (id, body) => {
+  const res = await api.post(`event/${id}`, body);
+  return res.data;
+}
+
+export const deleteEvent = async (id) => {
+  const res = await api.delete(`event/${id}`);
+  return res.data;
+}
+
 export const getComments = async (eventId) => {
   const res = await api.get(`comment/${eventId}`);
   return res.data;
@@ -88,5 +98,35 @@ export const deleteProfile = async () => {
 
 export const createElement = async (body) => {
   const res = await api.post(`element/`, body);
+  return res.data;
+}
+
+export const editElement = async (body) => {
+  const res = await api.put(`element/`, body);
+  return res.data;
+}
+
+export const assignElement = async (body) => {
+  const res = await api.put(`element/charge/take`, body);
+  return res.data;
+}
+
+export const unassignElement = async (body) => {
+  const res = await api.put(`element/charge/delete`, body);
+  return res.data;
+}
+
+export const deleteElement = async (id) => {
+  const res = await api.delete(`element/${id}`);
+  return res.data;
+}
+
+export const updateElement = async (body) => {
+  const res = await api.put(`element/`, body);
+  return res.data;
+}
+
+export const createComment = async (body) => {
+  const res = await api.post(`comment/`, body);
   return res.data;
 }

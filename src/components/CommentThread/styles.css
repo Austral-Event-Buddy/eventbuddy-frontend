@@ -1,6 +1,6 @@
 .comment-container{
     border-left: 3px solid var(--grey-300);
-    padding: 4px 16px;
+    padding: 4px 0px 4px 16px;
 }
 
 .comment-container > .avatar-container{
@@ -10,4 +10,31 @@
 .comment-container > .avatar-container:hover {
     cursor: default;
     background-color: transparent;
+}
+
+.comment {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    border-radius: 8px;
+}
+
+.pad {
+    padding-left: 8px;
+}
+
+.reply {
+    display: none;
+    margin-right: 16px;
+}
+
+.comment:hover {
+    cursor: default;
+    background-color: var(--grey-100);
+}
+
+.comment:hover > .reply {
+    display: block;
 }

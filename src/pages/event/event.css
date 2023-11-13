@@ -18,6 +18,10 @@
     display: grid;
     align-content: end;
     padding: 20px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: end;
 }
 
 .event-title{
@@ -67,6 +71,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.event-comments-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .event-comments-header > button {

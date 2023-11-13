@@ -19,15 +19,30 @@ export default function TextField({
       {label &&
         <Typography variant={'body2'} className='label'>{label}</Typography>
       }
-      <input
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-        className={error ? 'input-error' : ''}
-        required={required}
-      />
+      {
+        type === 'multiline' ? (
+          <textarea
+            placeholder={placeholder}
+            name={name}
+            value={value}
+            onChange={onChange}
+            className={error ? 'input-error' : ''}
+            required={required}
+            rows={3}
+          />
+        ) : (
+          <input
+            type={type}
+            placeholder={placeholder}
+            name={name}
+            value={value}
+            onChange={onChange}
+            className={error ? 'input-error' : ''}
+            required={required}
+          />
+        )
+      }
+     
       {helperText && (
         <Typography variant={'body3'} className={'helper-text ' + (error ? 'error' : '')}>
           {helperText}
@@ -45,6 +60,6 @@ TextField.propTypes = {
   helperText: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.bool,
-  type: PropTypes.oneOf(['text', 'password', 'number']),
+  type: PropTypes.oneOf(['text', 'password', 'number', 'multiline']),
   required: PropTypes.bool
 };

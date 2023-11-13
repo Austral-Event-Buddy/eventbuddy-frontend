@@ -3,7 +3,7 @@ import Button from '../../components/common/Button';
 import Typography from '../../components/common/Typography';
 import './home.css';
 import Event from '../../components/Event';
-import EventCalendar from '../../components/eventCalendar';
+import EventCalendar from '../../components/EventCalendar';
 import { useEffect, useState } from "react";
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +25,7 @@ export default function Home() {
 
     useEffect(() => {
         getAll()
-    }, []);
+    }, [modal]);
 
     const search = () => {
         searchEvents(query)
