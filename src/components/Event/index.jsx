@@ -11,7 +11,7 @@ import { answerInvite } from '../../api/api';
 import { Status } from '../../utils/status';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
-export default function Event({ id, name, date, guests, status, location, onClick, refresh }) {
+export default function Event({ id, name, date, guests, status, isHost, location, onClick, refresh }) {
 
     const answer = (s) => {
         answerInvite({
@@ -30,7 +30,7 @@ export default function Event({ id, name, date, guests, status, location, onClic
         background: 'white'
     }
 
-    const attending = guests.filter(guest=> guest.confirmationStatus == Status.ATTENDING).length
+    const attending = guests.filter(guest=> guest.confirmationStatus === Status.ATTENDING).length
 
     return (
         <div className="events-container">
@@ -53,7 +53,7 @@ export default function Event({ id, name, date, guests, status, location, onClic
                     <Button text={"Confirmed"} size={"sm"} disabled={true} />
                 </div>
             )}
-            {status === Status.HOST && (
+            {isHost && (
                 <div className={"confirmed-button"}>
                     <Button text={"Host"} size={"sm"} disabled />
                 </div>

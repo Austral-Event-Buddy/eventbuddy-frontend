@@ -72,6 +72,7 @@ export default function Home() {
                             guests={event.guests}
                             date={event.date}
                             status={event.confirmationStatus}
+                            isHost={event.isHost}
                             location={event.coordinates}
                             onClick={() => navigate(`/event/${event.id}`)}
                             refresh={getAll}

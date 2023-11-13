@@ -26,9 +26,9 @@ function ModalComponent({ open, onClose, guests, eventId }) {
 
     const sendInvitation = (status, host) => {
         const invitationData = {
+            eventId: eventId,
             userId: user.id,
             isHost: host,
-            eventId,
         };
 
         inviteGuest(invitationData)

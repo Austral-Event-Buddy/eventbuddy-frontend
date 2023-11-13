@@ -3,6 +3,7 @@ import './styles.css';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, {useState} from "react";
 import Button from "../common/Button";
+import {getUser} from "../../utils/user";
 
 const iconStyle = {
     border: '2px solid white',

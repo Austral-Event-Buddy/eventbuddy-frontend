@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom"
 
-import {getEventById, getGuestsByEventId, getUserById} from "../../api/api";
+import {getComments, getElementsByEvent, getEventById, getGuestsByEventId, getUserById} from "../../api/api";
 
 import Typography from "../../components/common/Typography";
 import Map from "../../components/Event/map";
@@ -25,7 +25,9 @@ export default function EventPage() {
 
   const [event, setEvent] = useState(undefined);
   const [guests, setGuests] = useState(undefined);
-  const [name, setName] = useState(undefined);
+  const [elements, setElements] = useState(undefined);
+  const [comments, setComments] = useState(undefined);
+  const [names, setNames] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false)
@@ -34,22 +36,24 @@ export default function EventPage() {
     getEventById(id).then(e => {
       setEvent(e)
     })
-    getGuestsByEventId(id).then(e=>{
+    getGuestsByEventId(id).then(async e=>{
       setGuests(e)
-      // console.log(e.find((g) => g.userId = getUser()));
-      //console.log(getUser())
+      const guestNames = await Promise.all(
+          e.map(async (guest) => await getName(guest.userId))
+      );
+      setNames(guestNames);
+    })
+    getElementsByEvent(id).then(e=>{
+      setElements(e)
     })
   } , [isModalOpen, isCreateElementModalOpen])
-
-  // console.log(isCreateElementModalOpen)
-  // console.log(guests?.find(g => g.userId === getUser() && g.isHost))
 
 
 
   async function getName(userId) {
-    getUserById(userId).then((e) => {
-      setName(e.name);
-    });
+    return getUserById(userId).then((e) =>
+      e.username
+    );
   }
 
   return event ? <div className='event-main'>
@@ -65,36 +69,36 @@ export default function EventPage() {
             <Map location={event.coordinates} interactive={true} />
             <div className="event-comments-header">
               <Typography variant="h5">Elements</Typography>
-              {guests?.find(g => g.userId = getUser()) && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}
+              {/*{guests?.find(g => g.userId = getUser()).isHost && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}*/}
+              {event.isHost && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}
             </div>
-            {event.elements?.length
-                ? event.elements.map((element) => (<Element key={element.id} element={element} host={event.isHost}/>))
+            {elements?.length
+                ? elements.map((element) => (<Element key={element.id} element={element} host={event.isHost}/>))
                 : <NoContent message={"There's no elements"} />
             }
             <div className="event-comments-header">
               <Typography variant="h5">Comments</Typography>
               <Button text={'+'} variant="ghost" onClick={() => setIsCommentModalOpen(true)}/>
             </div>
-            {event.comments?.length
-                ? event.comments?.map(comment => <CommentThread comment={comment} key={comment.id} />)
+            {comments?.length
+                ? comments?.map(comment => <CommentThread comment={comment} key={comment.id} />)
                 : <NoContent message={"There's no comments"} />
             }
           </section>
           <section className="event-body-right">
             <div className="right-header">
               <Typography variant={'h5'} className="bold">Guests</Typography>
-              {guests?.map(guest => {
-                {getName(guest.id)}
-                <AvatarCard
-                    status={guest.confirmationStatus}
-                    name={name}
-                    url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'}
-                    key={guest.id} />
-
-              })
-              }
+              {guests?.map((guest, index) => (
+                  <AvatarCard
+                      status={guest.confirmationStatus}
+                      name={names[index]}
+                      url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'}
+                      key={guest.id}
+                  />
+              ))}
             </div>
-            { guests?.find(g => g.userId = getUser() && g.isHost=== true) && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
+
+            { event.isHost && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
           </section>
         </div>
         <ModalComponent open={isModalOpen} onClose={() => setIsModalOpen(false)} guests={event.guests} eventId={event.id} />
