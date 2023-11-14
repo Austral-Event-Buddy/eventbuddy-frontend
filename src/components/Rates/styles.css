@@ -1,0 +1,37 @@
+.rates-container {
+  padding: 12px;
+  border-radius: 12px;
+  background-color: var(--grey-50);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rates-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-bottom: 8px;
+
+  .btn-container {
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    border: 1px solid var(--grey-300);
+    background-color: var(--white);
+    width: 180px;
+
+    .btn {
+      border-radius: 8px;
+      padding: 10px;
+    }
+  }
+}
+
+.active{
+    box-shadow: -4px 4px 6px -4px rgba(108, 107, 107, 0.23);
+}

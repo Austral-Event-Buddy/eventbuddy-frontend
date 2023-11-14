@@ -7,7 +7,7 @@
 }
 
 .rdp-months {
-  background-color: #f6f6f6;
+  background-color: var(--grey-50);
   border-radius: 12px;
   padding: 12px;
 }
