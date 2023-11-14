@@ -115,7 +115,7 @@ export default function EventPage() {
             { event.isHost && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
           </section>
         </div>
-        <ModalComponent open={isModalOpen} onClose={() => setIsModalOpen(false)} guests={event.guests} eventId={event.id} />
+        <ModalComponent open={isModalOpen} onClose={() => setIsModalOpen(false)} guests={guests} eventId={event.id} />
         <ElementModal show={isCreateElementModalOpen} handleClose={() => setIsCreateElementModalOpen(false)} eventId={event.id} />
         <NewCommentModal show={isCommentModalOpen} handleClose={() => setIsCommentModalOpen(false)} eventId={event.id} />
 
