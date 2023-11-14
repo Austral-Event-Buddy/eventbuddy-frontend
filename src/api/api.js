@@ -155,3 +155,13 @@ export const createReview = async (eventId, rating) => {
   });
   return res.data;
 };
+
+export const sendEmail = async (email) => {
+    const res = await api.post(`auth/send-reset-password-email/${email}`);
+    return res.data;
+}
+
+export const resetPassword = async (body) => {
+    const res = await api.put(`auth/reset-password`, body);
+    return res.data;
+}

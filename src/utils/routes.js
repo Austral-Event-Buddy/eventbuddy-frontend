@@ -5,4 +5,6 @@ export const Routes = {
   Settings: '/settings',
   Event: '/event',
   Profile: '/profile',
+  EmailPasswordReset: '/email-resetPassword',
+  PasswordReset: '/resetPassword',
 };
