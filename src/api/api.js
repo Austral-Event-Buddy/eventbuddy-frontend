@@ -129,7 +129,6 @@ export const updateElement = async (body) => {
 export const createComment = async (body) => {
   const res = await api.post(`comment/`, body);
   return res.data;
-}
 };
 
 export const getPastEvents = async (userId) => {
