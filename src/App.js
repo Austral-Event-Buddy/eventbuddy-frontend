@@ -25,11 +25,11 @@ import ResetPassword from "./pages/resetPassword/resetPassword";
 
 function App() {
 
-  useEffect(() => {
-    if (!getUser()) {
-      getMe().then(user => saveUser(user.id))
-    }
-  }, [])
+  if (!getUser()) {
+    getMe().then(user => {
+      saveUser(user.id)
+    }).catch(err => {})
+  }
 
   return (
     <Router>

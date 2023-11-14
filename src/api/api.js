@@ -66,6 +66,16 @@ export const createEvent = async (body) => {
   return res.data;
 };
 
+export const editEvent = async (id, body) => {
+  const res = await api.post(`event/${id}`, body);
+  return res.data;
+}
+
+export const deleteEvent = async (id) => {
+  const res = await api.delete(`event/${id}`);
+  return res.data;
+}
+
 export const getComments = async (eventId) => {
   const res = await api.get(`comment/${eventId}`);
   return res.data;
@@ -82,14 +92,69 @@ export const getMe = async () => {
 };
 
 export const deleteProfile = async () => {
-    const res = await api.delete(`user/delete`);
-    return res.data
-}
+  const res = await api.delete(`user/delete`);
+  return res.data;
+};
 
 export const createElement = async (body) => {
   const res = await api.post(`element/`, body);
   return res.data;
 }
+
+export const editElement = async (body) => {
+  const res = await api.put(`element/`, body);
+  return res.data;
+}
+
+export const assignElement = async (body) => {
+  const res = await api.put(`element/charge/take`, body);
+  return res.data;
+}
+
+export const unassignElement = async (body) => {
+  const res = await api.put(`element/charge/delete`, body);
+  return res.data;
+}
+
+export const deleteElement = async (id) => {
+  const res = await api.delete(`element/${id}`);
+  return res.data;
+}
+
+export const updateElement = async (body) => {
+  const res = await api.put(`element/`, body);
+  return res.data;
+}
+
+export const createComment = async (body) => {
+  const res = await api.post(`comment/`, body);
+  return res.data;
+};
+
+export const getPastEvents = async (userId) => {
+  const res = await api.post(`event/past`, { date: new Date().toISOString() });
+  const resWithReviews = await Promise.all(
+    res.data.map(async (event) => {
+      const reviews = await getReviews(event.id);
+      return { ...event, rating: reviews?.find((r)=>r.userId==userId)?.rating ?? 0 };
+    }),
+  );
+  return resWithReviews;
+};
+
+export const getReviews = async (eventId) => {
+  const res = await api.get(`review/${eventId}`);
+  return res.data;
+};
+
+export const createReview = async (eventId, rating) => {
+  const res = await api.post(`review`, {
+    eventId,
+    rating,
+    date: new Date().toISOString(),
+  });
+  return res.data;
+};
 
 export const sendEmail = async (email) => {
     const res = await api.post(`auth/send-reset-password-email/${email}`);

@@ -3,6 +3,7 @@ import './styles.css';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, {useState} from "react";
 import Button from "../common/Button";
+import { getUser } from "../../utils/user";
 
 const iconStyle = {
     border: '2px solid white',
@@ -14,45 +15,23 @@ const iconStyle = {
     background: 'white'
 }
 
+const Element = ({ element, host, onAssign, onUnassign, onEdit }) => {
 
-
-const Element = ({ element, host }) => {
-
-    const [alreadyAssigned, setAlreadyAssigned] = useState(false)
-    const isSatisfied = element.maxUsers === element.quanity;
+    const assigned = element.users?.find(u => u.id === getUser());
+    const isSatisfied = element.maxUsers === element.users?.length;
 
     return (
         <div className="element-container">
-            <Typography variant="h6">{element.name}</Typography>
+            <Typography variant="h6">{element.quantity} {element.name}</Typography>
             <div className="right-container">
                 <div className="invitations-pics" >
-                    { [...Array(Math.min(10, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}
+                    { [...Array(Math.min(element.users?.length || 0, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}
                 </div>
-                {host && isSatisfied &&
-                        <Button size="sm" variant="outlined" text="Edit"/>
-                }
-                {host && !isSatisfied && alreadyAssigned &&
-                    <div className="buttons-container">
-                        <Button size="sm" variant="outlined-error" text="Unassign"/>
-                        <Button size="sm" variant="outlined" text="Edit"/>
-                    </div>
-                }
-                {host && !isSatisfied && !alreadyAssigned &&
-                    <div className="buttons-container">
-                        <Button size="sm" text="Assign"/>
-                        <Button size="sm" variant="outlined" text="Edit"/>
-                    </div>
-                }
-                {!host && !isSatisfied && alreadyAssigned &&
-                    <div className="buttons-container">
-                        <Button size="sm" variant="outlined-error" text="Unassign"/>
-                    </div>
-                }
-                {!host && !isSatisfied && !alreadyAssigned &&
-                    <div className="buttons-container">
-                        <Button size="sm" text="Assign"/>
-                    </div>
-                }
+                <div className="buttons-container">
+                    { assigned && <Button size="sm" variant="outlined-error" text="Unassign" onClick={onUnassign}/> }
+                    { !assigned && !isSatisfied && <Button size="sm" text="Assign" onClick={onAssign}/> }
+                    { host && <Button size="sm" variant="outlined" text="Edit" onClick={onEdit}/> }
+                </div>
             </div>
         </div>
     )

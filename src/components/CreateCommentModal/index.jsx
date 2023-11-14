@@ -5,7 +5,8 @@ import Button from "../common/Button";
 import Typography from "../common/Typography";
 import './index.css';
 import CloseIcon from '@mui/icons-material/Close';
-import { createElement } from "../../api/api";
+import { createComment } from "../../api/api";
+import CommentThread from "../CommentThread";
 
 const modalContainerStyle = {
     position: "fixed",
@@ -30,40 +31,23 @@ const closeIconStyle = {
 
 }
 
-const ElementModal = ({ show, handleClose, eventId }) => {
+const CommentModal = ({ show, handleClose, eventId, parent }) => {
 
-    const [element, setElement] = useState({
-        name: "",
-        quantity: undefined,
-        maxUsers: undefined,
-        eventId,
-    });
-
-    const handleChange = async (form) => {
-        setElement(prevEvent => ({ ...prevEvent, ...form }));
-    }
+    const [comment, setComment] = useState(undefined);
 
     const closeModal = () => {
-        setElement({
-            name: "",
-            quantity: 0,
-            maxUsers: 0,
-            eventId,
-        })
+        setComment("")
         handleClose();
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         try {
-            createElement(element).then(r => closeModal())
-
+            createComment({ eventId, text: comment, parentId: parent?.id }).then(r => closeModal())
         } catch (e) {
-            alert("Some error occurred. Please try again.");
+            console.log(e)
         }
     }
-
-    const canSubmit = element.name && element.quantity && element.maxUsers
 
     return (
         <div style={{ display: show ? "block" : "none" }}>
@@ -71,14 +55,13 @@ const ElementModal = ({ show, handleClose, eventId }) => {
                 <CloseIcon fontSize="large" style={closeIconStyle} onClick={closeModal} />
                 <Typography id="modal-title" variant="h5" children="Create an Element" />
                 <form id="modal-form" className="create-event-form" onSubmit={handleSubmit}>
-                    <TextField label="Name" name="name" placeholder="name" value={element.name} onChange={(e) => handleChange({ name: e.target.value })} required />
-                    <TextField label="Quantity" name="description" placeholder="0" type="number" value={element.quantity} onChange={(e) => handleChange({ quantity: Number(e.target.value) })} required />
-                    <TextField label="Assigned Limit" name="description" placeholder="0" type="number" value={element.maxUsers} onChange={(e) => handleChange({ maxUsers: Number(e.target.value) })} required />
-                    <Button variant="fullfilled" size="md" text="Create Element" disabled={!canSubmit}/>
+                    { parent && <CommentThread comment={{...parent, replies: []}} /> }
+                    <TextField label="Comment" name="comment" placeholder="comment" value={comment} onChange={(e) => setComment(e.target.value)} required type="multiline" />
+                    <Button variant="fullfilled" size="md" text="Comment" disabled={!comment}/>
                 </form>
             </Box>
         </div>
     );
 };
 
-export default ElementModal;
+export default CommentModal;
