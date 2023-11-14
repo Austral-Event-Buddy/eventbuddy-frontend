@@ -35,9 +35,6 @@ export default function Profile() {
         };
 
         updateProfileData(updatedProfileData)
-            .then((response) => {
-                console.log("Profile data updated successfully.");
-            })
             .catch((error) => {
                 console.error("Error updating profile data:", error);
             });
@@ -49,7 +46,6 @@ export default function Profile() {
             .then((response) => {
                 navigate(Routes.Login);
                 removeToken();
-                console.log("Profile data deleted successfully.");
             })
             .catch((error) => {
                 console.error("Error deleting profile data:", error);
@@ -82,6 +78,7 @@ export default function Profile() {
                             placeholder='jane.doe'
                             value={profileData.username}
                             onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
+                            disabled
                         />
                     </div>
                     <div className="email-form">
@@ -97,6 +94,7 @@ export default function Profile() {
                         <input
                             placeholder='Password123!'
                             value={profileData.password}
+                            type='password'
                             onChange={(e) => setProfileData({ ...profileData, password: e.target.value })}
                         />
                     </div>

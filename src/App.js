@@ -23,11 +23,11 @@ import { getMe } from './api/api';
 
 function App() {
 
-  useEffect(() => {
-    if (!getUser()) {
-      getMe().then(user => saveUser(user.id))
-    }
-  }, [])
+  if (!getUser()) {
+    getMe().then(user => {
+      saveUser(user.id)
+    }).catch(err => {})
+  }
 
   return (
     <Router>
