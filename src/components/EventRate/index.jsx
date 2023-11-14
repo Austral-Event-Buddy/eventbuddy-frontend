@@ -2,17 +2,19 @@ import { useState } from "react";
 import Typography from "../common/Typography";
 import StarRating from "../StarRating/StarRating";
 import './styles.css';
+import { createReview, updateReview } from "../../api/api";
 
 export default function EventRate({ id, name, baseRating = 0 }) {
-    const [rating, setRating] = useState(baseRating);
+    const [ratingValue, setRatingValue] = useState(baseRating);
 
-    function handleClick() {
-        console.log(id)
+    async function handleClick(rate) {
+        setRatingValue(rate);
+        await createReview(id, rate)
     }
     return (
         <div className="event-rate">
             <Typography variant={'body2bold'}>{name}</Typography>
-            <StarRating rating={rating} setRating={setRating} onClick={handleClick} />
+            <StarRating rating={ratingValue} onClick={handleClick} />
         </div>
     )
 }

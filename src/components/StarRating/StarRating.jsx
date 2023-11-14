@@ -1,7 +1,7 @@
 import { useState } from "react";
 import StarIcon from "../../icons/starIcon/StarIcon";
 
-export default function StarRating({ setRating, rating, onClick }) {
+export default function StarRating({ rating, onClick }) {
     const [hoverRating, setHoverRating] = useState(0);
 
     const getColor = (index) => {
@@ -16,19 +16,21 @@ export default function StarRating({ setRating, rating, onClick }) {
 
     const starRating = Array(5).fill(0).map((_, i) => i + 1);
 
-    return <div>
-        {starRating.map((idx) => (
-            <StarIcon
-                key={idx}
-                width={14}
-                height={13}
-                onClick={() => {
-                    setRating(idx);
-                    onClick()
-                }}
-                style={{ fill: getColor(idx), cursor: "pointer" }}
-                onMouseEnter={() => setHoverRating(idx)}
-                onMouseLeave={() => setHoverRating(0)}
-            />))}
-    </div>;
+    return (
+        <div>
+            {starRating.map((idx) => (
+                <StarIcon
+                    key={idx}
+                    width={14}
+                    height={13}
+                    onClick={() => {
+                        onClick(idx);
+                    }}
+                    style={{ fill: getColor(idx), cursor: "pointer" }}
+                    onMouseEnter={() => setHoverRating(idx)}
+                    onMouseLeave={() => setHoverRating(0)}
+                />
+            ))}
+        </div>
+    );
 };
