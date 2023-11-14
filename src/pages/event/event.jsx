@@ -99,7 +99,7 @@ export default function EventPage() {
       <section className="event-body-right">
         <div className="right-header">
           <Typography variant={'h5'} className="bold">Guests</Typography>
-          {event.guests?.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.user.name || guest.user.username} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} key={guest.id} />)}
+          {event.guests?.map(guest => <AvatarCard status={guest.confirmationStatus} name={guest.user.name || guest.user.username} url={guest.profilePictureUrl} key={guest.id} />)}
         </div>
         { isHost && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
       </section>
