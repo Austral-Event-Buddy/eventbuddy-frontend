@@ -57,7 +57,7 @@ const Element = ({ element, host }) => {
                         <Button size="sm" text="Assign to me" onClick={() => handleAssign()}/>
                     </div>
                 }
-                <EditElementModal show={isEditModalOpen} handleClose={() => setIsEditModalOpen(false)}  element={element}/>
+                <EditElementModal show={isEditModalOpen} handleClose={() => setIsEditModalOpen(false)}  elementToEdit={element}/>
             </div>
         </div>
     )
