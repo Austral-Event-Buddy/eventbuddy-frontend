@@ -4,13 +4,14 @@ import Button from '../../components/common/Button';
 import {deleteProfile, getMe, updateProfileData} from "../../api/api";
 import {useNavigate} from "react-router-dom";
 import {Routes} from "../../utils/routes";
-import {removeToken} from "../../api/token";
+import AddImageButton from "../../components/AddImage/addImagebutton";
 
 export default function Profile() {
     const [profileData, setProfileData] = useState({
         name: '',
         email: '',
         password: '',
+        picture:'',
     });
     const navigate = useNavigate();
 
@@ -32,6 +33,7 @@ export default function Profile() {
             name: profileData.name,
             email: profileData.email,
             password: profileData.password,
+            profilePictureUrl: profileData.picture,
         };
 
         updateProfileData(updatedProfileData)
@@ -44,8 +46,8 @@ export default function Profile() {
     const handleDelete = () => {
         deleteProfile()
             .then((response) => {
+                localStorage.removeItem('user');
                 navigate(Routes.Login);
-                removeToken();
             })
             .catch((error) => {
                 console.error("Error deleting profile data:", error);
@@ -57,9 +59,7 @@ export default function Profile() {
                 <h1>Profile</h1>
             </div>
             <div className="image">
-                <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" fill="none">
-                    <circle cx="96" cy="96" r="96" fill="#D9D9D9"/>
-                </svg>
+                <AddImageButton image={profileData.picture}/>
             </div>
 
             <div className="form">

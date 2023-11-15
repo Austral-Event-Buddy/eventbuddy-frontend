@@ -1,10 +1,10 @@
 .right-hand-side {
   flex: 1 1;
   padding: 48px;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: auto;
 }
 
 .title-bar {

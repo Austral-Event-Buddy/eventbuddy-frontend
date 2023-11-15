@@ -5,7 +5,6 @@ import Button from "../common/Button";
 import PropTypes from "prop-types"
 import mapboxgl from "mapbox-gl";
 import Map from "./map";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getCountDown } from '../../utils/date';
 import { answerInvite } from '../../api/api';
 import { Status } from '../../utils/status';
@@ -42,11 +41,12 @@ export default function Event({ id, name, date, guests, status, location, onClic
                 <Typography variant={"body3"}>{getCountDown(date)}</Typography>
                 <div className='invites-info'>
                     <div className="invite-picture" >
-                        { [...Array(Math.min(attending, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}
+                        {guests.slice(0, 5).map((guest, i) => (
+                            <img key={i} src={guest.profilePictureUrl} alt={`Guest ${i}`} />
+                        ))}
                     </div>
                     <Typography variant="body2bold" >{attending} attending</Typography>
                 </div>
-
             </div>
             {status === Status.ATTENDING && (
                 <div className={"confirmed-button"}>

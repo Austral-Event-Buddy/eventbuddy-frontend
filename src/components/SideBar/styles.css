@@ -46,6 +46,12 @@
     margin-right: 12px;
 }
 
+.profile-picture-img{
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+}
+
 .logout-modal {
     background-color: var(--white);
     border-radius: 12px;
