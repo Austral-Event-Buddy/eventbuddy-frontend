@@ -116,12 +116,18 @@ export const getRepliesOfComment = async (id) =>
 }
 
 export const updateElement = async (body) => {
-
-
+  const res = await api.post(`comment/update`, body);
+  return res.data
 }
+
+// Actually not needed
+// export const updateComment = async (body, commentId) => {
+//   const res = await api.put(`comment/update/${commentId}`, body); // todo en el back
+//   return res.data
+// }
 
 
 export const deleteElement = async (body) => {
-
-
+//TODO en el back
 }
+

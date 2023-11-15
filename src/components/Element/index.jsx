@@ -4,6 +4,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import React, {useState} from "react";
 import Button from "../common/Button";
 import {getUser} from "../../utils/user";
+import EditElementModal from "../EditElementModal";
 
 const iconStyle = {
     border: '2px solid white',
@@ -20,6 +21,10 @@ const Element = ({ element, host }) => {
     const [alreadyAssigned, setAlreadyAssigned] = useState(false)
     const isSatisfied = element.maxUsers === element.quanity;
 
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const handleAssign = () =>{
+
+    }
     return (
         <div className="element-container">
             <Typography variant="h6">{element.name}</Typography>
@@ -33,13 +38,13 @@ const Element = ({ element, host }) => {
                 {host && !isSatisfied && alreadyAssigned &&
                     <div className="buttons-container">
                         <Button size="sm" variant="outlined-error" text="Unassign"/>
-                        <Button size="sm" variant="outlined" text="Edit"/>
+                        <Button size="sm" variant="outlined" text="Edit" onClick={() => setIsEditModalOpen(true)}/>
                     </div>
                 }
                 {host && !isSatisfied && !alreadyAssigned &&
                     <div className="buttons-container">
-                        <Button size="sm" text="Assign"/>
-                        <Button size="sm" variant="outlined" text="Edit"/>
+                        <Button size="sm" text="Assign to me"/>
+                        <Button size="sm" variant="outlined" text="Edit" onClick={() => setIsEditModalOpen(true)}/>
                     </div>
                 }
                 {!host && !isSatisfied && alreadyAssigned &&
@@ -49,9 +54,10 @@ const Element = ({ element, host }) => {
                 }
                 {!host && !isSatisfied && !alreadyAssigned &&
                     <div className="buttons-container">
-                        <Button size="sm" text="Assign"/>
+                        <Button size="sm" text="Assign to me" onClick={() => handleAssign()}/>
                     </div>
                 }
+                <EditElementModal show={isEditModalOpen} handleClose={() => setIsEditModalOpen(false)}  element={element}/>
             </div>
         </div>
     )

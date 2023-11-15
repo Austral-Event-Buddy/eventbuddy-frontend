@@ -59,8 +59,10 @@ export default function EventPage() {
           e.map(async (comment) => await getRepliesOfComment(comment.id))
       )
       setReplies(replies)
-    })
-  } , [isModalOpen, isCreateElementModalOpen])
+    }).catch((error) => {
+      console.error('Error fetching comments:', error);
+    });
+  }, [isModalOpen, isCreateElementModalOpen])
 
 
 
@@ -86,6 +88,7 @@ export default function EventPage() {
               {/*{guests?.find(g => g.userId = getUser()).isHost && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}*/}
               {event.isHost && <Button text={'+'} variant="ghost" onClick={() => setIsCreateElementModalOpen(true)} />}
             </div>
+
             {elements?.length
                 ? elements.map((element) => (<Element key={element.id} element={element} host={event.isHost}/>))
                 : <NoContent message={"There's no elements"} />
@@ -95,7 +98,7 @@ export default function EventPage() {
               <Button text={'+'} variant="ghost" onClick={() => setIsCommentModalOpen(true)}/>
             </div>
             {comments?.length
-                ? comments?.map(comment => <CommentThread comment={comment} key={comment.id} />)
+                ? comments?.map(comment => <CommentThread comment={comment} key={comment.id} replies={replies}/>)
                 : <NoContent message={"There's no comments"} />
             }
           </section>
@@ -112,7 +115,7 @@ export default function EventPage() {
               ))}
             </div>
 
-            { event.isHost && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
+            {event.isHost && <Button text={'Invite'} onClick={() => setIsModalOpen(true)} /> }
           </section>
         </div>
         <ModalComponent open={isModalOpen} onClose={() => setIsModalOpen(false)} guests={event.guests} eventId={event.id} />

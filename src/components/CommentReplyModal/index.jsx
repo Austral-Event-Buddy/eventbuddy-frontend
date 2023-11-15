@@ -5,7 +5,7 @@ import Button from "../common/Button";
 import Typography from "../common/Typography";
 import './index.css';
 import CloseIcon from '@mui/icons-material/Close';
-import {createComment} from "../../api/api";
+import {createComment, getCommentById, getEventById, updateComment} from "../../api/api";
 
 const modalContainerStyle = {
     position: "absolute",
@@ -30,15 +30,26 @@ const closeIconStyle = {
 
 }
 
-const NewCommentModal = ({ show, handleClose, eventId }) => {
+
+// Creo q si sabe el eventId entonces va a aparecer repe, pero no se
+const CommentReplyModal = ({ show, handleClose, parent }) => {
 
     const [search, setSearch] = useState("")
 
+    const [parentComment, setParentComment] = useState(undefined)
     const [comment, setComment] = useState({
         text: "",
-        eventId: eventId,
-        //parentId
+        //eventId: parentComment.eventId, // Esto lo va a volver repe.
+        // commentId: commentId;
+        parentId: parent.id,
+        eventId: parent.id,
     });
+
+    // useEffect(() => {
+    //     getCommentById(parentId).then(e => {
+    //         setParentComment(e)
+    //     })
+    // }, [])
 
     const handleChange = async (form) => {
         const newEvent = { ...comment, ...form }
@@ -54,23 +65,18 @@ const NewCommentModal = ({ show, handleClose, eventId }) => {
 
 
     const handleSubmit = () => {
-        createComment(comment)
-            .then(r => {
-                closeModal();
-                console.log("Comment created");
-            })
-            .catch(error => {
-                console.error("Error creating comment:", error);
-                alert("Some error occurred. Please try again.");
-            });
-    };
-
+        try {
+            createComment(comment).then(r => closeModal())
+        } catch (e) {
+            alert("Some error occurred. Please try again.");
+        }
+    }
 
     return (
         <div style={{display: show ? "block" : "none"}}>
             <Box sx={modalContainerStyle}>
                 <CloseIcon fontSize="large" style={closeIconStyle} onClick={closeModal}/>
-                <Typography id="modal-title" variant="h5" children="Comment" />
+                <Typography id="modal-title" variant="h5" children="Answer" />
                 <div className='inputs-container'>
                     <form id="modal-form" className={"modal"} >
                         <TextField multiline={true} rows={4} placeholder={"Type here..."} name="message" value={comment.text} className={"input"}
@@ -78,11 +84,11 @@ const NewCommentModal = ({ show, handleClose, eventId }) => {
                     </form>
                 </div>
                 <div className="buttons-container">
-                    <Button onClick={handleSubmit} variant="fullfilled" size="md" text="Post Comment"/>
+                    <Button onClick={handleSubmit} variant="fullfilled" size="md" text="Post answer"/>
                 </div>
             </Box>
         </div>
     );
 };
 
-export default NewCommentModal;
+export default CommentReplyModal;

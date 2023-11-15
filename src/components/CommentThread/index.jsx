@@ -2,11 +2,15 @@ import AvatarCard from '../AvatarCard'
 import Button from '../common/Button'
 import Typography from '../common/Typography'
 import './styles.css'
-import { getUserById } from '../../api/api';
-import {useEffect, useState} from "react";
+import {createComment, getUserById} from '../../api/api';
+import React, {useEffect, useState} from "react";
+import NewCommentModal from "../NewCommentModal";
+import CommentReplyModal from "../CommentReplyModal";
 
-export default function CommentThread({ comment, handleReply }) {
+export default function CommentThread({ comment, handleReply, replies }) {
     const [name, setName] = useState("");
+    const [isCommentModalOpen, setIsCommentModalOpen] = useState(false)
+    const filteredReplies = replies.filter(reply => reply.parentId === comment.id);
 
     // useEffect(() => {
     //     async function fetchAuthor() {
@@ -21,6 +25,9 @@ export default function CommentThread({ comment, handleReply }) {
     //     fetchAuthor();
     // }, [comment.author.id]);
 
+    const handleSubmit = () => {
+        console.log(comment)
+    }
 
     return (
         <article className="comment-container">
@@ -30,12 +37,19 @@ export default function CommentThread({ comment, handleReply }) {
                     <Typography className='pad' variant={'body2'}>{comment.text}</Typography>
                 </div>
                 {
+                    // I do not know why it uses handleReply &&...
                     handleReply && <div className='reply'>
-                        <Button text={'Reply'} variant="ghost" size='sm' onClick={() => handleReply(comment)}/>
+                        <Button text={'Reply'} variant="ghost" size='sm' onClick={() => setIsCommentModalOpen(true)}/>
                     </div>
                 }
             </div>
-            {comment.replies?.map(replie => <CommentThread comment={replie} key={replie.id} handleReply={handleReply} />)}
+            {/*maybe should remove filteredReplies && (but i think it won't affect anything)*/}
+            {filteredReplies && (filteredReplies.map(filteredReply => (<CommentThread
+                    comment={filteredReply}
+                    key={filteredReply.id}
+                    handleReply={handleReply}
+                    replies={replies}/>)))}
+            <CommentReplyModal show={isCommentModalOpen} handleClose={setIsCommentModalOpen(false)} parent={comment}/>
         </article>
     )
 

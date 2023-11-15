@@ -30,7 +30,7 @@ const closeIconStyle = {
 
 }
 
-const EditElementModal = ({ show, handleClose }) => {
+const EditElementModal = ({ show, handleClose, element }) => {
 
     const [search, setSearch] = useState("")
 
@@ -38,9 +38,9 @@ const EditElementModal = ({ show, handleClose }) => {
         name: "",
         quantity: "",
         maxUsers: "",
-        eventId: 8, //mocked
-        date: "2024-10-21T05:58:30.996Z"
-
+        eventId: element.eventId,
+        date: new Date().toISOString(),
+        id: element.id,
     });
 
     const handleChange = async (form) => {
@@ -53,7 +53,9 @@ const EditElementModal = ({ show, handleClose }) => {
             name: "",
             quantity: "",
             maxUsers: "",
-            eventId: 0
+            eventId: element.eventId,
+            date: new Date().toISOString(),
+            id: element.id
         })
         handleClose();
     }
