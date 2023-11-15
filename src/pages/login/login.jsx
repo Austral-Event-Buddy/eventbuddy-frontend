@@ -58,6 +58,10 @@ function Login() {
     });
   };
 
+  const handlePasswordChange = () => {
+    navigate(Routes.EmailPasswordReset)
+  }
+
   return (
     <div className="login-container">
       <div className="login-container--left">
@@ -88,6 +92,7 @@ function Login() {
               helperText={state.passwordHelper}
             />
             <div className="login-container--left_buttons">
+              <p onClick={handlePasswordChange} className="forgot-password">Forgot your password?</p>
               <Button
                 disabled={state.disabled}
                 onClick={handleSubmit}

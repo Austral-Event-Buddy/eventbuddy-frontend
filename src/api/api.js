@@ -92,9 +92,9 @@ export const getMe = async () => {
 };
 
 export const deleteProfile = async () => {
-    const res = await api.delete(`user/delete`);
-    return res.data
-}
+  const res = await api.delete(`user/delete`);
+  return res.data;
+};
 
 export const createElement = async (body) => {
   const res = await api.post(`element/`, body);
@@ -129,12 +129,39 @@ export const updateElement = async (body) => {
 export const createComment = async (body) => {
   const res = await api.post(`comment/`, body);
   return res.data;
-}
-export const uploadImage = async () => {
-    const res = await api.put(`user/picture`);
+};
+
+export const getPastEvents = async (userId) => {
+  const res = await api.post(`event/past`, { date: new Date().toISOString() });
+  const resWithReviews = await Promise.all(
+    res.data.map(async (event) => {
+      const reviews = await getReviews(event.id);
+      return { ...event, rating: reviews?.find((r)=>r.userId==userId)?.rating ?? 0 };
+    }),
+  );
+  return resWithReviews;
+};
+
+export const getReviews = async (eventId) => {
+  const res = await api.get(`review/${eventId}`);
+  return res.data;
+};
+
+export const createReview = async (eventId, rating) => {
+  const res = await api.post(`review`, {
+    eventId,
+    rating,
+    date: new Date().toISOString(),
+  });
+  return res.data;
+};
+
+export const sendEmail = async (email) => {
+    const res = await api.post(`auth/send-reset-password-email/${email}`);
     return res.data;
 }
-export const getImage = async (id) => {
-    const res = await api.get(`user/picture/${id}`);
+
+export const resetPassword = async (body) => {
+    const res = await api.put(`auth/reset-password`, body);
     return res.data;
 }

@@ -1,0 +1,10 @@
+.event-rate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--grey-300);
+  background-color: var(--white);
+}

@@ -1,6 +1,7 @@
 .right-hand-side {
   flex: 1 1;
   padding: 48px;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -32,6 +33,12 @@
   gap: 32px;
   overflow: auto;
   position: relative;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .main-content {
