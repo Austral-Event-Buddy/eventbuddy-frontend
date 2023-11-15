@@ -57,7 +57,7 @@ export default function EventPage() {
     setTrigger((prev) => !prev)
   }
 
-  const isHost = event?.guests?.find(g => g.userId == getUser())?.isHost
+  const isHost = event?.guests?.find(g => g.userId === getUser())?.isHost
 
   return event ? <div className='event-main'>
     <header className="event-header">
