@@ -71,8 +71,10 @@ const Element = ({ element, host }) => {
         <div className="element-container">
             <Typography variant="h6">{element.name}</Typography>
             <div className="right-container">
-                <div className="invitations-pics" >
-                    { [...Array(Math.min(10, 5))].map((e, i) => <AccountCircleIcon style={iconStyle} key={i}/>)}
+                <div className="invitations-pics">
+                    {element.users.slice(0, Math.min(10, element.users.length)).map((user, i) => (
+                        <AccountCircleIcon style={iconStyle} key={i} />
+                    ))}
                 </div>
                 {host && isSatisfied &&
                         <Button size="sm" variant="outlined" text="Edit"/>
