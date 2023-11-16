@@ -28,7 +28,7 @@ const Element = ({ element, host }) => {
         if (element.isAssignedToUser) {
             setAlreadyAssigned(true);
         }
-    }, );
+    }, []);
 
     const handleAssign = () => {
         const assign = {
