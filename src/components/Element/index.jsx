@@ -1,10 +1,11 @@
 import Typography from "../common/Typography";
 import './styles.css';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Button from "../common/Button";
 import {getUser} from "../../utils/user";
 import EditElementModal from "../EditElementModal";
+import {assignElement, unassignElement} from "../../api/api";
 
 const iconStyle = {
     border: '2px solid white',
@@ -22,9 +23,50 @@ const Element = ({ element, host }) => {
     const isSatisfied = element.maxUsers === element.quanity;
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const handleAssign = () =>{
 
-    }
+    useEffect(() => {
+        if (element.isAssignedToUser) {
+            setAlreadyAssigned(true);
+        }
+    }, );
+
+    const handleAssign = () => {
+        const assign = {
+            elementId: element.id,
+            date: new Date().toISOString(),
+        };
+        console.log(element);
+        if (!alreadyAssigned) {
+            assignElement(assign)
+                .then(() => {
+                    setAlreadyAssigned(true);
+                })
+                .catch((error) => {
+                    console.log("Error:", error);
+                });
+        }
+    };
+
+
+    const handleUnassign = () => {
+        const assign = {
+            elementId: element.id,
+            date: new Date().toISOString(),
+        };
+        console.log(element);
+        if (alreadyAssigned) {
+            unassignElement(assign)
+                .then(() => {
+                    setAlreadyAssigned(false);
+                })
+                .catch((error) => {
+                    console.log("Error:", error);
+                });
+        }
+    };
+
+
+
     return (
         <div className="element-container">
             <Typography variant="h6">{element.name}</Typography>
@@ -37,19 +79,19 @@ const Element = ({ element, host }) => {
                     }
                 {host && !isSatisfied && alreadyAssigned &&
                     <div className="buttons-container">
-                        <Button size="sm" variant="outlined-error" text="Unassign"/>
+                        <Button size="sm" variant="outlined-error" text="Unassign" onClick={() => handleUnassign()}/>
                         <Button size="sm" variant="outlined" text="Edit" onClick={() => setIsEditModalOpen(true)}/>
                     </div>
                 }
                 {host && !isSatisfied && !alreadyAssigned &&
                     <div className="buttons-container">
-                        <Button size="sm" text="Assign to me"/>
+                        <Button size="sm" text="Assign to me" onClick={() => handleAssign()}/>
                         <Button size="sm" variant="outlined" text="Edit" onClick={() => setIsEditModalOpen(true)}/>
                     </div>
                 }
                 {!host && !isSatisfied && alreadyAssigned &&
                     <div className="buttons-container">
-                        <Button size="sm" variant="outlined-error" text="Unassign"/>
+                        <Button size="sm" variant="outlined-error" text="Unassign" onClick={() => handleUnassign()}/>
                     </div>
                 }
                 {!host && !isSatisfied && !alreadyAssigned &&

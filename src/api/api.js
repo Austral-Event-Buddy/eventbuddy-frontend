@@ -117,15 +117,22 @@ export const getRepliesOfComment = async (id) =>
 {
   const res = await api.get(`comment/replies/${id}`);
   return res.data
-
 }
 
-// vamo a harcodear.
 
+export const assignElement = async (body) =>
+{
+  const res = await api.put(`element/charge/take`, body);
+  return res.data
+}
+
+export const unassignElement = async (body) =>
+{
+  const res = await api.put(`element/charge/delete`, body);
+  return res.data
+}
 
 export const deleteElement = async (id) => {
   const res = await api.delete(`element/${id}`);
   return res.data
 }
-
-// For the 'assign to me' I would need to understand how to call the backend.
