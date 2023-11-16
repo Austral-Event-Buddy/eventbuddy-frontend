@@ -37,7 +37,8 @@ const ResetPassword = () => {
         if (validPassword && validRepeatPassword) {
             try {
                 await resetPassword({ token: localStorage.getItem("token"), newPassword: password });
-                navigate("");
+                toast.success("Password reseted successfully.");
+                navigate("/login");
             } catch (error) {
                 toast.error("Something went wrong");
             } finally {

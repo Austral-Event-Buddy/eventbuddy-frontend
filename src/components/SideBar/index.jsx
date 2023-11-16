@@ -32,12 +32,11 @@ export default function SideBar() {
       path: Routes.Profile,
       icon: <PersonOutlineIcon />
     },
-    {
-      label: 'Settings',
-      path: Routes.Settings,
-      icon: <SettingsIcon />
-    },
-
+    // {
+    //   label: 'Settings',
+    //   path: Routes.Settings,
+    //   icon: <SettingsIcon />
+    // },
   ];
 
   const handleLogOut = () => {
