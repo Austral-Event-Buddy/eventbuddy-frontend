@@ -38,8 +38,7 @@ const EditElementModal = ({ show, handleClose, elementToEdit }) => {
         name: "",
         quantity: "",
         maxUsers: "",
-        eventId: element.eventId,
-        date: new Date().toISOString(),
+        eventId: elementToEdit.eventId,
         id: elementToEdit.id,
     });
 
@@ -53,8 +52,7 @@ const EditElementModal = ({ show, handleClose, elementToEdit }) => {
             name: "",
             quantity: "",
             maxUsers: "",
-            eventId: element.eventId,
-            date: new Date().toISOString(),
+            eventId: elementToEdit.eventId,
             id: elementToEdit.id
         })
         handleClose();
@@ -62,18 +60,24 @@ const EditElementModal = ({ show, handleClose, elementToEdit }) => {
 
 
     const handleSaveElement = () => {
-        try {
-            // todo
-            updateElement(element).then(r => closeModal())
-        } catch (e) {
-            alert("Some error occurred. Please try again.");
+        const { name, quantity, maxUsers } = element;
+
+        // Check if any required field is empty
+        if (name.trim() !== '' && quantity !== '' && maxUsers !== '') {
+            try {
+                updateElement(element).then(r => closeModal());
+            } catch (e) {
+                alert("Some error occurred. Please try again.");
+            }
+        } else {
+            alert("Please fill in all required fields.");
         }
     }
 
     const handleDeleteElement = () => {
         try {
             // todo
-            deleteElement(element).then(r => closeModal())
+            deleteElement(element.id).then(r => closeModal())
         } catch (e) {
             alert("Some error occurred. Please try again.");
         }

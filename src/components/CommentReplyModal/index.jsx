@@ -42,7 +42,7 @@ const CommentReplyModal = ({ show, handleClose, parent }) => {
         //eventId: parentComment.eventId, // Esto lo va a volver repe.
         // commentId: commentId;
         parentId: parent.id,
-        eventId: parent.id,
+        eventId: parent.eventId,
     });
 
     // useEffect(() => {
@@ -59,14 +59,18 @@ const CommentReplyModal = ({ show, handleClose, parent }) => {
     const closeModal = () => {
         setComment({
             text: "",
+            parentId: parent.id,
+            eventId: parent.eventId,
         })
         handleClose();
     }
 
 
     const handleSubmit = () => {
+        console.log("parent: " + parent.text + ", id: " + parent.id);
         try {
             createComment(comment).then(r => closeModal())
+            console.log("Comment created (tic)")
         } catch (e) {
             alert("Some error occurred. Please try again.");
         }

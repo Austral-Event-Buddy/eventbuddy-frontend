@@ -100,8 +100,13 @@ export const deleteProfile = async () => {
 export const createElement = async (body) => {
   const res = await api.post(`element`, body);
   return res.data
-
 }
+
+export const updateElement = async (body) => {
+  const res = await api.put(`element`, body);
+  return res.data
+}
+
 export const createComment = async (body) =>
 {
   const res = await api.post(`comment`, body);
@@ -115,19 +120,12 @@ export const getRepliesOfComment = async (id) =>
 
 }
 
-export const updateElement = async (body) => {
-  const res = await api.post(`comment/update`, body);
+// vamo a harcodear.
+
+
+export const deleteElement = async (id) => {
+  const res = await api.delete(`element/${id}`);
   return res.data
 }
 
-// Actually not needed
-// export const updateComment = async (body, commentId) => {
-//   const res = await api.put(`comment/update/${commentId}`, body); // todo en el back
-//   return res.data
-// }
-
-
-export const deleteElement = async (body) => {
-//TODO en el back
-}
-
+// For the 'assign to me' I would need to understand how to call the backend.

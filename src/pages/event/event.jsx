@@ -33,7 +33,7 @@ export default function EventPage() {
   const [guests, setGuests] = useState(undefined);
   const [elements, setElements] = useState(undefined);
   const [comments, setComments] = useState(undefined);
-  const [replies, setReplies] = useState(undefined)
+  const [replies, setReplies] = useState(undefined); // Array of arrays
   const [names, setNames] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)

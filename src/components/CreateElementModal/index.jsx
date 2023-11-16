@@ -37,9 +37,9 @@ const ElementModal = ({ show, handleClose, eventId }) => {
 
     const [element, setElement] = useState({
         name: "",
-        quantity: 0,
-        maxUsers: 0,
-        date: new Date().toISOString(),
+        quantity: "",
+        maxUsers: "",
+        // date: new Date().toISOString(), date is no longer needed
         eventId,
     });
 
@@ -50,23 +50,44 @@ const ElementModal = ({ show, handleClose, eventId }) => {
     const closeModal = () => {
         setElement({
             name: "",
-            quantity: 0,
-            maxUsers: 0,
-            date: new Date().toISOString(),
+            quantity: "",
+            maxUsers: "",
+            //date: new Date().toISOString(),
             eventId,
         })
         handleClose();
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        try {
-            createElement(element).then(r => closeModal())
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-        } catch (e) {
-            alert("Some error occurred. Please try again.");
+        const { name, quantity, maxUsers } = element;
+
+        // Check if any required field is empty
+        if (name.trim() !== '' && quantity !== '' && maxUsers !== '') {
+            // Check if quantity and maxUsers are positive integers
+            if (Number.isInteger(quantity) && quantity > 0 && Number.isInteger(maxUsers) && maxUsers > 0) {
+                try {
+                    // Create a new object with non-empty and positive values
+                    const nonEmptyPositiveValues = Object.fromEntries(
+                        Object.entries(element).filter(([key, value]) => {
+                            return value !== '' && (key !== 'quantity' || (Number.isInteger(value) && value > 0)) && (key !== 'maxUsers' || (Number.isInteger(value) && value > 0));
+                        })
+                    );
+
+                    await createElement(nonEmptyPositiveValues);
+                    closeModal();
+                } catch (e) {
+                    alert("Some error occurred. Please try again.");
+                }
+            } else {
+                alert("Quantity and Maximum Users should be positive integers.");
+            }
+        } else {
+            alert("Please fill in all required fields.");
         }
     }
+
 
     return (
         <div style={{ display: show ? "block" : "none" }}>
@@ -75,8 +96,8 @@ const ElementModal = ({ show, handleClose, eventId }) => {
                 <Typography id="modal-title" variant="h5" children="Create an Element" />
                 <form id="modal-form" className="create-event-form" onSubmit={handleSubmit}>
                     <TextField label="Name" name="name" placeholder="name" value={element.name} onChange={(e) => handleChange({ name: e.target.value })} required />
-                    <TextField label="Quantity" name="description" type="number" value={element.quantity} onChange={(e) => handleChange({ quantity: Number(e.target.value) })} required />
-                    <TextField label="Assigned Limit" name="description" type="number" value={element.maxUsers} onChange={(e) => handleChange({ maxUsers: Number(e.target.value) })} required />
+                    <TextField label="Quantity" name="description" type="number" placeholder={"amount"} value={element.quantity} onChange={(e) => handleChange({ quantity: Number(e.target.value) })} required />
+                    <TextField label="Assigned Limit" name="assignedLimit" type="number" placeholder={"amount"} value={element.maxUsers} onChange={(e) => handleChange({ maxUsers: Number(e.target.value) })} required />
                     <Button variant="fullfilled" size="md" text="Create Element" />
                 </form>
             </Box>
