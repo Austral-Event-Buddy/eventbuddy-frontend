@@ -9,17 +9,17 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import EventIcon from '@mui/icons-material/Event';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import {removeToken} from "../../api/token";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import { getMe } from '../../api/api';
+import {UserContext} from "../../utils/user";
 
 
 export default function SideBar() {
   const currentRoute = useRoute();
   const navigate = useNavigate();
+  const user = useContext(UserContext);
 
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState("Account")
-    const [image, setImage]= useState("")
 
   const routes = [
     {
@@ -42,27 +42,12 @@ export default function SideBar() {
 
   const handleLogOut = () => {
     removeToken();
-    localStorage.removeItem('user');
     window.location.assign('/login')
   }
 
   const handleOpenModal = () => {
     setOpen(!open);
   }
-
-  useEffect(() => {
-    getMe().then(data => {
-      setName(data.name || data.email)
-        setImage(data.profilePictureUrl)
-    })
-  }, [])
-
-
-  setInterval(() => {
-    getMe().then(data => {
-      setName(data.name || data.email)
-    })
-  }, 2000);
 
   return (
     <div className={'container'}>
@@ -89,9 +74,9 @@ export default function SideBar() {
         </div>}
         <div onClick={handleOpenModal} className={'account-menu'}>
           <div className={'profile-picture'}>
-            <img src={image} className="profile-picture-img" alt="profile-picture"/>
+            <img src={user?.profilePictureUrl} className="profile-picture-img" alt="profile-picture"/>
           </div>
-          <Typography variant={'body1bold'}>{name}</Typography>
+          <Typography variant={'body1bold'}>{user?.name || user?.email}</Typography>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import StarIcon from "../../icons/starIcon/StarIcon";
 
-export default function StarRating({ rating, onClick }) {
+export default function StarRating({ rating, onClick, readonly = false }) {
     const [hoverRating, setHoverRating] = useState(0);
 
     const getColor = (index) => {
@@ -26,8 +26,12 @@ export default function StarRating({ rating, onClick }) {
                     onClick={() => {
                         onClick(idx);
                     }}
-                    style={{ fill: getColor(idx), cursor: "pointer" }}
-                    onMouseEnter={() => setHoverRating(idx)}
+                    style={{ fill: getColor(idx), cursor: readonly ? "default" : "pointer" }}
+                    onMouseEnter={() => {
+                        if (!readonly) {
+                            setHoverRating(idx);
+                        }
+                    }}
                     onMouseLeave={() => setHoverRating(0)}
                 />
             ))}

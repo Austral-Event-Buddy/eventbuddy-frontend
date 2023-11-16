@@ -8,7 +8,7 @@ export default function CommentThread({ comment, handleReply }) {
         <article className="comment-container">
             <div className='comment'>
                 <div>
-                    <AvatarCard name={comment.author?.name} url={'https://xsgames.co/randomusers/assets/avatars/male/31.jpg'} imgSize={24} textVariant={'body3bold'} />
+                    <AvatarCard name={comment.author?.name || comment.author?.email} url={comment.author?.profilePictureUrl} imgSize={24} textVariant={'body3bold'} />
                     <Typography className='pad' variant={'body2'}>{comment.text}</Typography>    
                 </div>
                 {

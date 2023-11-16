@@ -1,3 +1,3 @@
-export const getUser = () => parseInt(localStorage.getItem('user'))
+import { useContext, createContext } from "react"
 
-export const saveUser = (user) => localStorage.setItem('user', user)
+export const UserContext = createContext();

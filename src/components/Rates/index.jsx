@@ -1,25 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import StarRating from "../StarRating/StarRating";
 import Button from "../common/Button";
 import Typography from "../common/Typography";
 import './styles.css';
 import NoContent from "../NoContent";
-import { getEvents, getPastEvents, getReviews } from "../../api/api";
+import { getPastEvents } from "../../api/api";
 import EventRate from "../EventRate";
-import { getUser } from "../../utils/user";
+import { UserContext } from "../../utils/user";
 export default function Rates() {
+    const user = useContext(UserContext);
     const [myEvents, setMyEvents] = useState(false);
     const [events, setEvents] = useState([]);
     const eventsList = !myEvents
-        ? events.filter(event => event.creatorId !== Number(getUser()))
-        : events.filter(event => event.creatorId === Number(getUser()));
+        ? events.filter(event => event.creatorId !== Number(user?.id))
+        : events.filter(event => event.creatorId === Number(user?.id));
 
     useEffect(() => {
-        getPastEvents(getUser()).then(res => {
+        getPastEvents(user?.id).then(res => {
             setEvents(res);
-            console.log(res);
         });
     }, [])
+
+    const onClick = () => {
+        getPastEvents(user?.id).then(res => {
+            setEvents(res);
+        });
+    }
 
     return (
         <div className="rates-container">
@@ -45,7 +51,7 @@ export default function Rates() {
             {
                 !!eventsList.length
                     ? eventsList.map(event => (
-                        <EventRate key={event.id} id={event.id} name={event.name} baseRating={event.rating} />
+                        <EventRate key={event.id} id={event.id} name={event.name} baseRating={event.rating} readonly={myEvents} onClick={onClick}/>
                     ))
                     : myEvents
                         ? <NoContent message={"You don't have any past events"} style={{ height: 50 }} />

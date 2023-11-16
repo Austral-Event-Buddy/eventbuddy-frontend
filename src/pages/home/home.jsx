@@ -4,14 +4,17 @@ import Typography from '../../components/common/Typography';
 import './home.css';
 import Event from '../../components/Event';
 import EventCalendar from '../../components/EventCalendar';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getEvents, searchEvents } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import EventModal from "../../components/CreateEventModal";
 import Rates from '../../components/Rates';
+import { UserContext } from '../../utils/user';
+import { getMe } from '../../api/api';
 
 export default function Home() {
     const navigate = useNavigate()
+    const user = useContext(UserContext);
 
     const [events, setEvents] = useState([]);
     const [query, setQuery] = useState("")
@@ -40,6 +43,14 @@ export default function Home() {
     }
 
     function handleModal(value) { setModal(value) }
+
+    useEffect(() => {
+        if (!user.id) {
+            getMe().then(res => {
+                user?.setUser({...user, ...res});
+            })
+        }
+    }, [])
 
     return (
         <div className={"right-hand-side"}>

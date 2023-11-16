@@ -14,6 +14,15 @@
     gap: 4px;
     bottom: 0;
     left: 18px;
+    margin-right: 12px;
+}
+
+.invitations-pics img {
+    margin-right: -10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid white; /* Agregado para especificar un borde sólido */
 }
 
 .buttons-container {

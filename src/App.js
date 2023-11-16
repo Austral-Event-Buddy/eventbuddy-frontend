@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Navigate, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, useLocation } from 'react-router-dom';
 
 import RoutesWithNotFound from './guards/RoutesWithNotFound';
 import AuthGuard from './guards/AuthGuard';
@@ -16,23 +16,27 @@ import EventPage from './pages/event/event';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import Profile from "./pages/profile/profile";
-import { useEffect } from 'react';
-import { getUser, saveUser } from './utils/user';
+import { UserContext } from './utils/user';
 import { getMe } from './api/api';
 import ResetPasswordEmail from "./pages/resetPassword/resetPasswordEmail";
 import ResetPassword from "./pages/resetPassword/resetPassword";
-
+import { useEffect, useState } from 'react';
 
 function App() {
 
-  if (!getUser()) {
-    getMe().then(user => {
-      saveUser(user.id)
-    }).catch(err => {})
-  }
+   const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    if (!user) {
+      getMe().then(user => {
+        setUser(user);
+      }).catch(err => {})
+    }
+  }, [])
 
   return (
-    <Router>
+   <UserContext.Provider value={{...user, setUser}} >
+     <Router>
       <RoutesWithNotFound>
         {
           // Public routes go here
@@ -92,6 +96,7 @@ function App() {
         </Route>
       </RoutesWithNotFound>
     </Router>
+   </UserContext.Provider>
   );
 }
 

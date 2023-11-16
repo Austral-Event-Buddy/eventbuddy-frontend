@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { useParams } from "react-router-dom"
 
@@ -17,7 +17,7 @@ import CommentThread from "../../components/CommentThread";
 import NoContent from "../../components/NoContent";
 import Element from "../../components/Element";
 
-import { getUser } from "../../utils/user";
+import { UserContext } from "../../utils/user";
 
 import CreateElementModal from "../../components/CreateElementModal";
 import EditElementModal from "../../components/EditElementModal";
@@ -26,7 +26,7 @@ import EditEventModal from "../../components/EditEventModal";
 
 export default function EventPage() {
   const { id } = useParams();
-
+  const user = useContext(UserContext);
   const [event, setEvent] = useState(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreateElementModalOpen, setIsCreateElementModalOpen] = useState(false)
@@ -57,7 +57,7 @@ export default function EventPage() {
     setTrigger((prev) => !prev)
   }
 
-  const isHost = event?.guests?.find(g => g.userId === getUser())?.isHost
+  const isHost = event?.guests?.find(g => g.userId === user?.id)?.isHost
 
   return event ? <div className='event-main'>
     <header className="event-header">

@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '../common/Typography';
 import Button from '../common/Button';
 import './index.css';
-import {uploadImage} from '../../api/api';
+import {getPicture, uploadImage} from '../../api/api';
 import LinearProgress from '@mui/material/LinearProgress';
 import axios from "axios";
+import { UserContext } from '../../utils/user';
 
 function AddImage({ open, onClose }) {
     const [image, setImage] = useState(null);
-    const [formData, setFormData] = useState(new FormData());
-    const  [url, setUrl] = useState(null);
+    const user = useContext(UserContext);
+
     const handleImageDrop = (e) => {
         e.preventDefault();
         const droppedFile = e.dataTransfer.files[0];
 
         if (isJpgFile(droppedFile)) {
-            setFormData((prevFormData) => {
-                const newFormData = new FormData();
-                newFormData.append('image', droppedFile);
-                return newFormData;
-            });
             setImage(droppedFile);
         } else {
             alert('Solo se permiten archivos jpg.');
@@ -46,11 +42,17 @@ function AddImage({ open, onClose }) {
     };
 
     async function uploadImageS3(url, image) {
-        await axios.put(url, image, {
+        axios.put(url, image, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
-        });
+        }).then(() => {
+            getPicture().then(url => {
+                user?.setUser({...user, profilePictureUrl: url.url})
+            })
+        }).catch((error) => {
+            console.log(error);
+        })
     }
 
 
@@ -59,10 +61,7 @@ function AddImage({ open, onClose }) {
         if (image) {
             uploadImage()
                 .then((response) => {
-                    setUrl(response.url)
-                    uploadImageS3(response.url, image).then(r => {
-                        setFormData(new FormData())
-                    })
+                    uploadImageS3(response.url, image)
                     handleOnClose();
                 })
                 .catch((error) => {

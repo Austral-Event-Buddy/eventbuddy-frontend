@@ -1,30 +1,21 @@
 import './profile.css';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Button from '../../components/common/Button';
 import {deleteProfile, getMe, updateProfileData} from "../../api/api";
 import {useNavigate} from "react-router-dom";
 import {Routes} from "../../utils/routes";
 import AddImageButton from "../../components/AddImage/addImagebutton";
+import {UserContext} from "../../utils/user";
 
 export default function Profile() {
-    const [profileData, setProfileData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        picture:'',
-    });
+    const user = useContext(UserContext);
+
+    const [profileData, setProfileData] = useState(undefined);
     const navigate = useNavigate();
 
-
     useEffect(() => {
-        getMe()
-            .then((data) => {
-                setProfileData(data);
-            })
-            .catch((error) => {
-                console.error("Error obtaining data from backend:", error);
-            });
-    }, []);
+        setProfileData(user)
+    }, [user])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -37,12 +28,13 @@ export default function Profile() {
         };
 
         updateProfileData(updatedProfileData)
-            .catch((error) => {
+            .then((response) => {
+                user?.setUser({...user, ...response});
+            }).catch((error) => {
                 console.error("Error updating profile data:", error);
             });
-
-        setProfileData({...profileData, password: ''})
     };
+
     const handleDelete = () => {
         deleteProfile()
             .then((response) => {
@@ -53,13 +45,14 @@ export default function Profile() {
                 console.error("Error deleting profile data:", error);
             });
     }
+
     return (
         <div>
             <div className="titulo">
                 <h1>Profile</h1>
             </div>
             <div className="image">
-                <AddImageButton image={profileData.picture}/>
+                <AddImageButton image={profileData?.profilePictureUrl}/>
             </div>
 
             <div className="form">
@@ -68,7 +61,7 @@ export default function Profile() {
                         <label>Name</label>
                         <input
                             placeholder='Jane Doe'
-                            value={profileData.name}
+                            value={profileData?.name}
                             onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                         />
                     </div>
@@ -76,7 +69,7 @@ export default function Profile() {
                         <label>Username</label>
                         <input
                             placeholder='jane.doe'
-                            value={profileData.username}
+                            value={profileData?.username}
                             onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
                             disabled
                         />
@@ -85,7 +78,7 @@ export default function Profile() {
                         <label>Email</label>
                         <input
                             placeholder='jane.doe@mail.com'
-                            value={profileData.email}
+                            value={profileData?.email}
                             onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                         />
                     </div>
@@ -93,7 +86,7 @@ export default function Profile() {
                         <label>Password</label>
                         <input
                             placeholder='Password123!'
-                            value={profileData.password}
+                            value={profileData?.password}
                             type='password'
                             onChange={(e) => setProfileData({ ...profileData, password: e.target.value })}
                         />

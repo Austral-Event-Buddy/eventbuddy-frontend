@@ -133,13 +133,7 @@ export const createComment = async (body) => {
 
 export const getPastEvents = async (userId) => {
   const res = await api.post(`event/past`, { date: new Date().toISOString() });
-  const resWithReviews = await Promise.all(
-    res.data.map(async (event) => {
-      const reviews = await getReviews(event.id);
-      return { ...event, rating: reviews?.find((r)=>r.userId==userId)?.rating ?? 0 };
-    }),
-  );
-  return resWithReviews;
+  return res.data;
 };
 
 export const getReviews = async (eventId) => {
@@ -165,3 +159,13 @@ export const resetPassword = async (body) => {
     const res = await api.put(`auth/reset-password`, body);
     return res.data;
 }
+
+export const uploadImage = async () => {
+  const res = await api.put(`user/picture`);
+  return res.data;
+};
+
+export const getPicture = async () => {
+  const res = await api.get(`user/picture`);
+  return res.data;
+};
